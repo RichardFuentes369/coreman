@@ -1,0 +1,42 @@
+.custom-language-select {
+  position: relative;
+  display: inline-block;
+  
+  select {
+    appearance: none;
+    background: var(--fondo-font-select); // Fondo translúcido
+    border: 0;
+    padding: 5px 5px 5px 5px; // Espacio extra a la derecha para la flecha
+    color: var(--fondo-font-select);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(10px); // Efecto desenfoque estilo iOS
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #4A90E2;
+      box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+    }
+  }
+
+  // Posicionamos la flecha manualmente para que no dependa del navegador
+  i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; // El clic pasa a través del icono
+    font-size: 0.7rem;
+    color: #4A90E2;
+  }
+}
+
+// Estilo para las opciones cuando el usuario abre el select
+select option {
+  background-color: var(--input-background_color) !important; 
+  color: #333;
+  padding: 10px;
+}

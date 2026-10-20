@@ -1,0 +1,27 @@
+{
+  "ERROR": "Error!",
+  "MSJ_CATEGORY_TITTLE": "Categoria",
+  "MSN_CATEGORY_REMOVIDO_OK": "eliminada exitosamente",
+
+  "MSJ_ERROR_BRAND_EXISTE": "La marca ya existe.",
+  "MSJ_ERROR_EXTEND_EXISTE": "La unidad de medida ya existe.",
+  "MSJ_ERROR_CATEGORY_EXISTE": "La categoria ya existe.",
+  "MSJ_ERROR_CATEGORY_BAR_CODE_EXISTE": "El codigo de barras ya esta asignado a otro producto.",
+  "MSJ_ERROR_PRODUCT_EXISTE": "El producto ya existe.",
+  "MSJ_ERROR_PRODUCT_NOT_EXISTS": "El producto no existe.",
+  
+  
+  "MSJ_MARCA_TITTLE": "Marca",
+  "MSJ_ERROR_MARCA_TIENE_PRODUCTOS_HIJOS": "No se puede eliminar ninguna marca, esta marca contiene productos.",
+
+  "MSJ_MEDIDA_TITTLE": "Medida",
+  "MSJ_ERROR_MEIDA_TIENE_PRODUCTOS_HIJOS": "No se puede eliminar ninguna medida, esta medida contiene productos.",
+
+  "MSJ_TIPO_TITTLE": "Tipo pérdida",
+  "MSJ_ERROR_TIPO_TIENE_PRODUCTOS_HIJOS": "No se puede eliminar ninguna tipo de perdida, este tipo de perdida contiene registros.",
+
+
+  "MSJ_PROVEEDOR_TITTLE": "Proveedor",
+  "MSJ_ERROR_PROVEEDOR_TIENE_PRODUCTOS_HIJOS": "No se puede eliminar el proveedor, este proveedor contiene registros."
+
+}

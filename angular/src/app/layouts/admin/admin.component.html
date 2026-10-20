@@ -1,0 +1,582 @@
+<div id="wrapper" [class.layout-navbar-mode]="tipoNavegacion === 'navbar'">
+  <!-- SIDEBAR LATERAL -->
+  <ul class="navbar-nav bg-background-side-custom sidebar sidebar-dark accordion" [class.toggled]="minimizarSliderbar"
+    [class.navigation-sidebar-hidden]="tipoNavegacion !== 'sidebar'" id="accordionSidebar">
+
+    <!-- LOGO & BRAND AREA -->
+    <a class="nav-link d-flex align-items-center justify-content-center flex-column flex-md-row mb-0 pb-0"
+      routerLinkActive="active" [routerLink]="LAYOUT_PAGE_DASHBOARD">
+      <div class="bg-white rounded-5 shadow-sm" style="position: relative; z-index: 1;">
+        <img src="assets/images/img_logo.png" alt="" width="50">
+      </div>
+
+      <div class="logo-container bg-white d-inline-block mt-md-0 ml-md-n3 mr-md-3 rounded-bottom rounded-top shadow-sm"
+        style="position: relative; z-index: 0;" [class.d-none]="minimizarSliderbar">
+        <span class="text-dark titleApp font-weight-bold pl-2 ml-2 mr-2 mt-1 mb-1 text-center"
+          style="line-height: 0.9; display: block;" [innerHTML]="nameApp">
+        </span>
+      </div>
+    </a>
+
+    <div class="text-center">
+      <span class="badge badge-dark text-white-50 border border-secondary px-1"
+        style="font-size: 0.55rem; font-weight: 400;">
+        v 1.0
+      </span>
+    </div>
+
+    <hr class="sidebar-divider bg-line-separator-customer my-2">
+
+    <!-- MENU INICIAL -->
+    <li class="nav-item" [class.active]="isRouteActive('/admin/mod', true)">
+      <a class="nav-link d-flex align-items-center px-3 py-2" [routerLink]="LAYOUT_ADMIN_PAGE_MENU">
+        <i class="bg_side_icon fa fa-th mr-2" aria-hidden="true"></i>
+        <span class="bg_side_text">{{ 'mod-main.PAGES_MENU' | translate }}</span>
+      </a>
+    </li>
+
+    <hr class="sidebar-divider bg-line-separator-customer my-2">
+
+    <div class="sidebar-heading px-3 py-1 text-uppercase font-weight-bold" style="font-size: 0.68rem; opacity: 0.6;">
+      {{ 'layout-admin.WORD_MODULES' | translate}}
+    </div>
+
+    <!-- MODULO USUARIOS -->
+    @if(tienePermiso('usuarios', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseUsers" aria-expanded="false"
+        aria-controls="collapseUsers" routerLinkActive="active" [routerLink]="LAYOUT_ADMIN_PAGE_USERS">
+        <div class="d-flex align-items-center">
+          <i class="bg_side_icon fa fa-users mr-2" aria-hidden="true"></i>
+          <span class="bg_side_text">{{ 'mod-main.PAGES_USERS' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          @if(tienePermiso('usuarios', 'administradores', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_USER_PAGE_ADMIN">{{
+            'mod-users.BUTTON_ADMIN' | translate }}</a>
+          }
+          @if(tienePermiso('usuarios', 'finales', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_USER_PAGE_FINAL">{{
+            'mod-users.BUTTON_FINAL' | translate }}</a>
+          }
+        </div>
+      </div>
+    </li>
+    }
+
+    <!-- MODULO CATALOGO -->
+    @if(tienePermiso('catalogo', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseCatalog" aria-expanded="false"
+        aria-controls="collapseCatalog" [routerLink]="LAYOUT_ADMIN_PAGE_CATALOG">
+        <div class="d-flex align-items-center">
+          <i class="bg_side_icon fa fa-book mr-2" aria-hidden="true"></i>
+          <span class="bg_side_text">{{ 'mod-main.PAGES_CATALOG' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseCatalog" class="collapse" aria-labelledby="headingCatalog"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          @if(tienePermiso('catalogo', 'proveedores', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_CATEGORY_PAGE_SUPPLIER">{{
+            'mod-catalog.BUTTON_SUPPLIER' | translate}}</a>
+          }
+          @if(tienePermiso('catalogo', 'productos', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_CATEGORY_PAGE_PRODUCT">{{
+            'mod-catalog.BUTTON_PRODUCT' | translate}}</a>
+          }
+          @if(tienePermiso('catalogo', 'marcas', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_CATEGORY_PAGE_BRAND">{{
+            'mod-catalog.BUTTON_BRAND' | translate}}</a>
+          }
+          @if(tienePermiso('catalogo', 'unidad_de_medida', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_CATEGORY_PAGE_EXTENT">{{
+            'mod-catalog.BUTTON_EXTENT' | translate}}</a>
+          }
+        </div>
+      </div>
+    </li>
+    }
+
+    <!-- BODEGA -->
+    @if(tienePermiso('bodega', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseWarehouse"
+        aria-expanded="false" aria-controls="collapseWarehouse" [routerLink]="LAYOUT_ADMIN_PAGE_WAREHOUSE">
+        <div class="d-flex align-items-center">
+          <i class="bg_side_icon fa fa-cubes mr-2" aria-hidden="true"></i>
+          <span class="bg_side_text">{{ 'mod-main.PAGE_WAREHOUSE' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseWarehouse" class="collapse" aria-labelledby="headingWarehouse"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="LAYOUT_ADMIN_PAGE_WAREHOUSE">{{
+            'mod-main.PAGE_WAREHOUSE' | translate}}</a>
+        </div>
+      </div>
+    </li>
+    }
+
+    <!-- MODULO MERMA -->
+    @if(tienePermiso('merma', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseLoss" aria-expanded="false"
+        aria-controls="collapseLoss" [routerLink]="LAYOUT_ADMIN_PAGE_LOSS">
+        <div class="d-flex align-items-center">
+          <span class="fa-stack mr-1" style="width: 1.25em;">
+            <i class="bg_side_icon fas fa-box" aria-hidden="true"></i>
+          </span>
+          <span class="bg_side_text">{{ 'mod-main.PAGES_LOSS' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseLoss" class="collapse" aria-labelledby="headingLoss"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          @if(tienePermiso('merma', 'tipo_merma', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_MERMA_PAGE_TIPOS">{{
+            'mod-merma.BUTTON_TYPE' | translate}}</a>
+          }
+          @if(tienePermiso('merma', 'registro_merma', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_MERMA_PAGE_REGISTRO">{{
+            'mod-merma.BUTTON_RECORD' | translate}}</a>
+          }
+          @if(tienePermiso('merma', 'historico_merma', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_MERMA_PAGE_HISTORICO">{{
+            'mod-merma.BUTTON_HISTORY' | translate}}</a>
+          }
+        </div>
+      </div>
+    </li>
+    }
+
+    <!-- MODULO VENTAS Y DEVOLUCIONES -->
+    @if(tienePermiso('ventas_y_devoluciones', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseSaleReturn"
+        aria-expanded="false" aria-controls="collapseSaleReturn" [routerLink]="LAYOUT_ADMIN_PAGE_SALE_RETURN">
+        <div class="d-flex align-items-center">
+          <i class="bg_side_icon fa fa-book mr-2"></i>
+          <span class="bg_side_text">{{ 'mod-main.PAGE_SALE' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseSaleReturn" class="collapse" aria-labelledby="headingSaleReturn"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          @if(tienePermiso('ventas_y_devoluciones', 'ventas', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_SALERETURN_PAGE_SALE">{{
+            'mod-salereturn.BUTTON_SALE' | translate}}</a>
+          }
+        </div>
+      </div>
+    </li>
+    }
+
+    <!-- MODULO ALERTAS -->
+    @if(tienePermiso('alertas', '', 0)){
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link collapsed d-flex align-items-center justify-content-between px-3 py-2" style="cursor: pointer;"
+        [attr.data-toggle]="minimizarSliderbar ? null : 'collapse'" data-target="#collapseAlert" aria-expanded="false"
+        aria-controls="collapseAlert" [routerLink]="LAYOUT_ADMIN_PAGE_ALERT">
+        <div class="d-flex align-items-center">
+          <i class="bg_side_icon fa fa-bell mr-2" aria-hidden="true"></i>
+          <span class="bg_side_text">{{ 'mod-main.PAGES_ALERTS' | translate }}</span>
+        </div>
+        <!-- <i class="fa fa-chevron-right collapse-arrow ml-auto" style="font-size: 0.7rem; opacity: 0.6;"></i> -->
+      </a>
+
+      <div id="collapseAlert" class="collapse" aria-labelledby="headingAlert"
+        [attr.data-parent]="minimizarSliderbar ? null : '#accordionSidebar'">
+        <div class="bg-white py-2 collapse-inner my-1 rounded shadow-sm">
+          @if(tienePermiso('alertas', 'alerta_caducidad', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_ALERT_PAGE_EXPIRATION">{{
+            'mod-alerts.BUTTON_EXPIRATION' | translate }}</a>
+          }
+          @if(tienePermiso('alertas', 'alerta_stock', 1)){
+          <a class="collapse-item" routerLinkActive="active" [routerLink]="MOD_ALERT_PAGE_STOCK">{{
+            'mod-alerts.BUTTON_STOCK' | translate }}</a>
+          }
+        </div>
+      </div>
+    </li>
+    }
+
+    <hr class="sidebar-divider bg-line-separator-customer d-md-block mt-auto mb-2">
+
+    <!-- BOTON TOGGLE -->
+    <div class="text-center mb-3 px-2">
+      <button
+        class="btn btn-sm btn-block rounded-pill border-0 py-2 d-flex align-items-center justify-content-center text-white"
+        id="sidebarToggle" (click)="mostrarMenuLateral()" style="background: rgba(255, 255, 255, 0.1);">
+        <i class="fa fa-angle-left toggle-icon"></i>
+      </button>
+    </div>
+
+  </ul>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-scroll-area">
+
+      <!-- TOPBAR SUPERIOR HEADER -->
+      <nav
+        class="navbar navbar-expand navbar-light bg-gradient-header-custom topbar sticky-top pl-2 pr-2 h-custom main-header-nav">
+        <div class="d-flex align-items-center justify-content-between w-100"
+          [class.container]="tipoNavegacion === 'navbar'">
+
+          <!-- LADO IZQUIERDO: Botón Sidebar o Brand Logo -->
+          <div class="d-flex align-items-center logo-wrapper">
+            <!-- Botón de Hamburguesa para Sidebar -->
+            <i class="mx-4 icon_menu_bar fa fa-bars my-auto color_icons menu-toggle-btn"
+              [class.is-hidden]="tipoNavegacion !== 'sidebar'" style="cursor: pointer;"
+              (click)="mostrarMenuLateral()"></i>
+
+            <!-- Brand Logo en modo Navbar Superior -->
+            <a class="nav-link d-flex align-items-center justify-content-center flex-md-row p-0 navbar-brand-logo"
+              [class.is-hidden]="tipoNavegacion === 'sidebar'" routerLinkActive="active"
+              [routerLink]="LAYOUT_PAGE_DASHBOARD">
+              <div class="bg-white rounded-5 logo-img-wrapper" style="position: relative; z-index: 1;">
+                <img src="assets/images/img_logo.png" alt="Logo" width="50">
+              </div>
+
+              <div
+                class="logo-container bg-white d-inline-block mt-md-0 ml-md-n3 mr-md-3 ml-sm-n3 ml-n3 rounded-bottom rounded-top"
+                style="position: relative; z-index: 0;">
+                <span class="text-dark titleApp font-weight-bold pl-2 ml-2 mr-2 mt-1 mb-1 text-center"
+                  style="line-height: 0.9; display: block;" [innerHTML]="nameApp">
+                </span>
+              </div>
+            </a>
+          </div>
+
+          <!-- LADO DERECHO: Menú de Opciones y Usuario -->
+          <ul class="navbar-nav ml-auto d-flex align-items-center flex-row mb-0 list-unstyled">
+
+            <!-- SELECTOR DE NAVEGACIÓN (Sidebar vs Navbar) -->
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <div class="btn-group btn-group-sm nav-mode-selector" role="group">
+                <button type="button" class="btn btn-outline-light btn-sm" [class.active]="tipoNavegacion === 'sidebar'"
+                  (click)="cambiarTipoNavegacion('sidebar')" title="Menú Lateral">
+                  <i class="fa fa-columns icon_menu_bar color_icons"></i>
+                </button>
+                <button type="button" class="btn btn-outline-light btn-sm" [class.active]="tipoNavegacion === 'navbar'"
+                  (click)="cambiarTipoNavegacion('navbar')" title="Menú Superior">
+                  <i class="fa fa-bars icon_menu_bar color_icons"></i>
+                </button>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <app-globales-idioma (cambioIdiomaEmitt)="idiomaCambiar($event)"></app-globales-idioma>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <app-globales-colormode></app-globales-colormode>
+            </li>
+
+            @if(tienePermiso('alertas', '', 0)){
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <app-globales-notification></app-globales-notification>
+            </li>
+            }
+
+            <div class="topbar-divider d-none d-sm-block hide-on-mobile"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <app-globales-fullscreem></app-globales-fullscreem>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow my-auto text-center">
+              <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
+                data-display="static" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+                <img class="img-profile rounded-circle" src="../../../assets/images/undraw_profile.svg" alt="Profile">
+                <span class="ml-3 mr-2 d-none d-lg-inline small text_nickname text-left"
+                  style="display: inline-block; vertical-align: middle;">
+                  {{firstName}} <br>
+                  {{lastName}}
+                </span>
+                <i class="ml-2 fa fa-chevron-down color_icons"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item dropdawn_color_text" [routerLink]="LAYOUT_PAGE_PROFILE">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 dropdawn_color_text"></i>
+                  {{ 'layout-admin.DRADROPDOW_MENU_PROFILE' | translate}}
+                </a>
+                <a class="dropdown-item dropdawn_color_text" [routerLink]="LAYOUT_PAGE_SETTINGS">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 dropdawn_color_text"></i>
+                  {{ 'layout-admin.DRADROPDOW_MENU_SETTING' | translate}}
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item dropdawn_color_text" (click)="cerrarSession()" style="cursor: pointer;">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 dropdawn_color_text"></i>
+                  {{ 'layout-admin.DRADROPDOW_MENU_LOGOUT' | translate}}
+                </a>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+
+      <!-- NAVBAR SUPERIOR STICKY -->
+      <nav #navBarAzul class="top-horizontal-navbar bg-background-side-custom sticky-top shadow-sm"
+        [class.navigation-navbar-hidden]="tipoNavegacion !== 'navbar'">
+        <ul class="nav nav-pills align-items-center px-3 justify-content-center my-2 gap-1">
+
+          <!-- MENU PRINCIPAL -->
+          <li class="nav-item" [class.active]="isRouteActive(LAYOUT_ADMIN_PAGE_MENU, true)">
+            <a class="nav-link bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              [routerLink]="LAYOUT_ADMIN_PAGE_MENU"
+              [class.active-dropdown]="isRouteActive(LAYOUT_ADMIN_PAGE_MENU, true)">
+              <i class="fa fa-th" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGES_MENU' | translate }}</span>
+            </a>
+          </li>
+
+          <!-- MODULO USUARIOS -->
+          @if(tienePermiso('usuarios', '', 0)){
+          <li class="nav-item dropdown"
+            [class.active]="isRouteActive(MOD_USER_PAGE_ADMIN, true) || isRouteActive(MOD_USER_PAGE_FINAL, true)">
+            <a class="nav-link dropdown-toggle bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              data-toggle="dropdown" data-display="static" role="button" aria-expanded="false">
+              <i class="fa fa-users" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGES_USERS' | translate }}</span>
+            </a>
+            <div class="dropdown-menu collapse-inner shadow border-0">
+              @if(tienePermiso('usuarios', 'administradores', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_ADMIN" routerLinkActive="active">
+                {{ 'mod-users.BUTTON_ADMIN' | translate }}
+              </a>
+              }
+              @if(tienePermiso('usuarios', 'finales', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_FINAL" routerLinkActive="active">
+                {{ 'mod-users.BUTTON_FINAL' | translate }}
+              </a>
+              }
+            </div>
+          </li>
+          }
+
+          <!-- MODULO CATALOGO -->
+          @if(tienePermiso('catalogo', '', 0)){
+          <li class="nav-item dropdown"
+            [class.active]="isRouteActive(MOD_CATEGORY_PAGE_PRODUCT, true) || isRouteActive(MOD_CATEGORY_PAGE_BRAND, true) || isRouteActive(MOD_CATEGORY_PAGE_EXTENT, true) || isRouteActive(MOD_CATEGORY_PAGE_SUPPLIER, true)">
+            <a class="nav-link dropdown-toggle bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              data-toggle="dropdown" data-display="static" role="button" aria-expanded="false">
+              <i class="fa fa-book" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGES_CATALOG' | translate }}</span>
+            </a>
+            <div class="dropdown-menu collapse-inner shadow border-0">
+              @if(tienePermiso('catalogo', 'proveedores', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_CATEGORY_PAGE_SUPPLIER" routerLinkActive="active">
+                {{ 'mod-catalog.BUTTON_SUPPLIER' | translate }}
+              </a>
+              }
+              @if(tienePermiso('catalogo', 'productos', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_CATEGORY_PAGE_PRODUCT" routerLinkActive="active">
+                {{ 'mod-catalog.BUTTON_PRODUCT' | translate }}
+              </a>
+              }
+              @if(tienePermiso('catalogo', 'marcas', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_CATEGORY_PAGE_BRAND" routerLinkActive="active">
+                {{ 'mod-catalog.BUTTON_BRAND' | translate }}
+              </a>
+              }
+              @if(tienePermiso('catalogo', 'unidad_de_medida', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_CATEGORY_PAGE_EXTENT" routerLinkActive="active">
+                {{ 'mod-catalog.BUTTON_EXTENT' | translate }}
+              </a>
+              }
+            </div>
+          </li>
+          }
+
+          <!-- BODEGA -->
+          @if(tienePermiso('bodega', '', 0)){
+          <li class="nav-item" [class.active]="isRouteActive(LAYOUT_ADMIN_PAGE_WAREHOUSE, true)">
+            <a class="nav-link bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              [routerLink]="LAYOUT_ADMIN_PAGE_WAREHOUSE" routerLinkActive="active">
+              <i class="fa fa-cubes" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGE_WAREHOUSE' | translate }}</span>
+            </a>
+          </li>
+          }
+
+          <!-- MODULO MERMA -->
+          @if(tienePermiso('merma', '', 0)){
+          <li class="nav-item dropdown"
+            [class.active]="isRouteActive(MOD_MERMA_PAGE_REGISTRO, true) || isRouteActive(MOD_MERMA_PAGE_HISTORICO, true) || isRouteActive(MOD_MERMA_PAGE_TIPOS, true)">
+            <a class="nav-link dropdown-toggle bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              data-toggle="dropdown" data-display="static" role="button" aria-expanded="false">
+              <i class="fas fa-box" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGES_LOSS' | translate }}</span>
+            </a>
+            <div class="dropdown-menu collapse-inner shadow border-0">
+              @if(tienePermiso('merma', 'tipo_merma', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_MERMA_PAGE_TIPOS" routerLinkActive="active">
+                {{ 'mod-merma.BUTTON_TYPE' | translate }}
+              </a>
+              }
+              @if(tienePermiso('merma', 'registro_merma', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_MERMA_PAGE_REGISTRO" routerLinkActive="active">
+                {{ 'mod-merma.BUTTON_RECORD' | translate }}
+              </a>
+              }
+              @if(tienePermiso('merma', 'historico_merma', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_MERMA_PAGE_HISTORICO" routerLinkActive="active">
+                {{ 'mod-merma.BUTTON_HISTORY' | translate }}
+              </a>
+              }
+            </div>
+          </li>
+          }
+
+          <!-- MODULO VENTAS Y DEVOLUCIONES -->
+          @if(tienePermiso('ventas_y_devoluciones', '', 0)){
+          <li class="nav-item" [class.active]="isRouteActive(MOD_SALERETURN_PAGE_SALE, true)">
+            <a class="nav-link bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              [routerLink]="MOD_SALERETURN_PAGE_SALE" routerLinkActive="active">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span>{{ 'mod-salereturn.BUTTON_SALE' | translate }}</span>
+            </a>
+          </li>
+          }
+
+          <!-- MODULO ALERTAS -->
+          @if(tienePermiso('alertas', '', 0)){
+          <li class="nav-item dropdown"
+            [class.active]="isRouteActive(MOD_ALERT_PAGE_EXPIRATION, true) || isRouteActive(MOD_ALERT_PAGE_STOCK, true)">
+            <a class="nav-link dropdown-toggle bg_side_text d-flex align-items-center gap-2 px-3 py-2"
+              data-toggle="dropdown" data-display="static" role="button" aria-expanded="false">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+              <span>{{ 'mod-main.PAGES_ALERTS' | translate }}</span>
+            </a>
+            <div class="dropdown-menu collapse-inner shadow border-0">
+              @if(tienePermiso('alertas', 'alerta_caducidad', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_ALERT_PAGE_EXPIRATION" routerLinkActive="active">
+                {{ 'mod-alerts.BUTTON_EXPIRATION' | translate }}
+              </a>
+              }
+              @if(tienePermiso('alertas', 'alerta_stock', 1)){
+              <a class="dropdown-item" [routerLink]="MOD_ALERT_PAGE_STOCK" routerLinkActive="active">
+                {{ 'mod-alerts.BUTTON_STOCK' | translate }}
+              </a>
+              }
+            </div>
+          </li>
+          }
+
+        </ul>
+      </nav>
+
+      <!-- BREADCRUMBS -->
+      <div class="topbar-secondary-sticky custom-breadcrum pl-4 pr-4 d-flex align-items-center border-custom-color"
+        [style.top]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : '4rem'">
+        <div [class.container]="tipoNavegacion === 'navbar'">
+          <span class="d-flex align-items-center my-n2 ml-2 mr-2" style="cursor: pointer;">
+            <app-globales-breadcrumbs></app-globales-breadcrumbs>
+          </span>
+        </div>
+      </div>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div id="content" class="container-fluid"
+        [style.--offset-botoneria]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : 'calc(4rem + ' + navBarHeight + 'px)'">
+        <div class="p-1 mt-3" [class.container]="tipoNavegacion === 'navbar'">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+      <footer class="system-footer border-top border-secondary border-opacity-25 py-1">
+        <div class="container-fluid px-3 px-lg-4">
+          <div class="row align-items-center justify-content-between g-1 text-system-footer">
+
+            <!-- Lado Izquierdo: Logotipo, Marca y Copyright -->
+            <div class="col-12 col-md-auto text-center text-md-start">
+              <div class="d-flex align-items-center justify-content-center justify-content-md-start flex-wrap gap-2">
+                <div
+                  class="text-white rounded-3 shadow-sm d-flex align-items-center justify-content-center flex-shrink-0"
+                  style="width: 26px; height: 26px; ">
+                  <img [src]="urlLogoUts" alt="Logo UTS" class="img-fluid rounded-5 p-1"
+                    style="max-height: 26px; object-fit: contain;">
+                </div>
+                <div class="d-flex align-items-center flex-wrap" style="font-size: 0.8rem;">
+                  <span class="fw-semibold text-light">MermaSmart</span>
+                  <span class="opacity-50 mx-1">&bull;</span>
+                  <span class="opacity-75">&copy; {{CURRENT_YEAR}} Proyecto de Grado - UTS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lado Derecho: Desarrolladores en Pila Vertical Compacta -->
+            <div class="col-12 col-md-auto text-center text-md-end">
+              <div class="d-flex flex-column gap-0 align-items-center align-items-md-end" style="font-size: 0.775rem;">
+
+                <!-- Desarrollador 1: Javier -->
+                <div class="dev-item d-inline-flex align-items-center flex-wrap justify-content-center gap-2 px-2 py-0">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-code me-1 text-primary-subtle" style="font-size: 0.7rem;"></i>
+                    <span class="fw-medium text-light">Javier Baron F.</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 opacity-75">
+                    <a href="mailto:jrbaron@uts.edu.co" class="text-reset text-decoration-none hover-underline"
+                      title="jrbaron@uts.edu.co">
+                      <i class="fas fa-envelope me-1"></i>Email
+                    </a>
+                    <span>&bull;</span>
+                    <a href="tel:+573504284093" class="text-reset text-decoration-none hover-underline"
+                      title="(+57) 350 428 4093">
+                      <i class="fas fa-phone-alt me-1"></i>350 428 4093
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Desarrollador 2: Oscar -->
+                <div class="dev-item d-inline-flex align-items-center flex-wrap justify-content-center gap-2 px-2 py-0">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-code me-1 text-primary-subtle" style="font-size: 0.7rem;"></i>
+                    <span class="fw-medium text-light">Oscar Villamizar B.</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 opacity-75">
+                    <a href="mailto:oeduardovillamizar@uts.edu.co"
+                      class="text-reset text-decoration-none hover-underline" title="oeduardovillamizar@uts.edu.co">
+                      <i class="fas fa-envelope me-1"></i>Email
+                    </a>
+                    <span>&bull;</span>
+                    <a href="tel:+573176264312" class="text-reset text-decoration-none hover-underline"
+                      title="(+57) 317 626 4312">
+                      <i class="fas fa-phone-alt me-1"></i>317 626 4312
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

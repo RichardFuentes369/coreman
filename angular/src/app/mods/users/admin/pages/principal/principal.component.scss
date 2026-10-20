@@ -1,0 +1,124 @@
+:host {
+  &[data-theme='dark'],
+  &:host-context([data-theme='dark']) {
+    --filter: invert(1) brightness(100) !important;
+  }
+
+  // Penetración de estilos para HTML inyectado dinámicamente por DataTables
+  ::ng-deep {
+    /* --- Badges de Estado (Óvalo) --- */
+    .badge-status-active {
+      background-color: #e6f4ea !important;
+      color: #137333 !important;
+      border: 1px solid #ceead6 !important;
+
+      .status-dot {
+        background-color: #1e8e3e !important;
+      }
+    }
+
+    .badge-status-inactive {
+      background-color: #f1f3f4 !important;
+      color: #5f6368 !important;
+      border: 1px solid #dadce0 !important;
+
+      .status-dot {
+        background-color: #80868b !important;
+      }
+    }
+
+    /* Punto indicador dentro del badge */
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    /* Texto del estado */
+    .status-text {
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  }
+}
+
+.filter-wrapper {
+  position: sticky; 
+  float: right;     
+  right: 1.2rem;     
+  top: 15rem;      
+  
+  margin-top: 10rem!important;
+  z-index: 110;  
+  
+  display: flex;
+  flex-direction: column; 
+  gap: 8px;
+  align-items: center;
+  width: 0;    
+  white-space: nowrap; 
+
+  ::ng-deep app-globales-search, 
+  ::ng-deep app-globales-report {
+    display: block;
+    margin-left: -6px;
+  }
+}
+
+.table-container {
+  position: relative;
+  overflow: visible; 
+}
+
+.row-container-collapse {
+  overflow: hidden; 
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); 
+}
+
+.title-custom {
+  color: var(--title_page-text_color) !important;
+  background-color: transparent;
+}
+.subtitle-custom {
+  color: var(--title_page-text_color) !important;
+  background-color: transparent;
+}
+
+.line-title-custom {
+  color: var(--title_page-line_color) !important;
+  background-color: transparent;
+}
+
+.card_icon {
+  background-color: var(--title_page-background_card_color) !important;
+  transition: background-color 0.3s ease; // Muy importante para que sea suave
+}
+
+.img-logo {
+  width: 100%;
+  height: 80px;
+  /* Altura fija para consistencia visual */
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  background-color: var(--card_menu-icon_color); 
+}
+
+.img-logo.small {
+  width: 24px;
+  height: 24px;
+  background-color: var(--title_page-icon_color); 
+}
+
+.colored-icon {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  transition: background-color 0.3s ease;
+}

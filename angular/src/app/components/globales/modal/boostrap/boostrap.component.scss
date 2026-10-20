@@ -1,0 +1,114 @@
+::ng-deep {
+  .modal.fade {
+    background: rgba(0, 0, 0, 0.4);
+    transition: opacity 0.8s ease-in-out;
+    opacity: 0;
+
+    &.show {
+      opacity: 1;
+    }
+
+    .modal-dialog {
+      /* POSICIÓN INICIAL: Comienza completamente arriba, fuera de la pantalla */
+      transform: translateY(-100vh) scale(0.9);
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    /* ESTADO AL ABRIRSE: Cae y se frena suavemente en el centro (0) */
+    &.show .modal-dialog {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    
+    /* ESTADO AL CERRARSE: Sube rápidamente hacia arriba y desaparece */
+    &:not(.show) .modal-dialog {
+      transform: translateY(-100vh) scale(0.9);
+      opacity: 0;
+    }
+  }
+
+  /* EL PADRE SE ENCARGA DE TODO EL REDONDEO */
+  .modal-content {
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    border: none !important;
+    background-color: var(--modal-back_color_background) !important;
+  }
+
+  /* HIJOS RECTOS (SIN BORDER-RADIUS PROPIO) */
+  .modal-header {
+    background: var(--modal-head_background_color) !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+  }
+
+  .modal-footer {
+    color: var(--modal-footer_text_color) !important;
+    background-color: var(--modal-footer_background_color) !important;
+    border-top: none !important;
+    border-radius: 0 !important;
+  }
+
+  .modal-title {
+    color: var(--modal-head_text_color) !important;
+  }
+
+  .modal-body {
+    background-color: var(--modal-back_color_background) !important;
+  }
+
+  fieldset {
+    color: var(--modal-fieldset_line_color);
+  }
+
+  legend {
+    color: var(--modal-legend_text_color);
+  }
+
+  label {
+    color: var(--modal-label_text_color);
+  }
+
+  .modal-header .close {
+    color: white;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .btnCancel {
+    color: var(--modal-button_cancel_text_color);
+    background-color: var(--modal-button_cancel_background_color);
+  }
+
+  .btnSave {
+    color: var(--modal-button_save_text_color);
+    background-color: var(--modal-button_save_background_color);
+  }
+
+  .btnUpdate {
+    color: var(--modal-button_update_text_color);
+    background-color: var(--modal-button_update_background_color);
+  }
+
+  .btnCancel,
+  .btnSave,
+  .btnUpdate {
+    transition: all 0.2s ease-in-out;
+    border: none;
+
+    &:hover {
+      filter: brightness(90%);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    &:active {
+      filter: brightness(80%);
+      transform: translateY(1px);
+    }
+  }
+}

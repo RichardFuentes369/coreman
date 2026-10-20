@@ -1,0 +1,205 @@
+<div class="mb-4 border-0 rounded-0">
+  <div class="mt-2 pt-0" style="position: relative;">
+
+    <div class="col-sm-12 m-auto row p-0 align-items-start">
+
+      <div [ngClass]="isSmallScreen ? 'col-12 mb-4' : 'col-xl-3 sticky-sidebar'">
+        <div class="row mb-4">
+          <div class="col-sm-12">
+            <div class="card-custom shadow mb-3">
+              <!-- EAN13 -->
+              <app-globales-scanner13 (clearData)="clearData($event)" (dataResultScanned)="productScanned($event)"
+                (showFieldBatch)="showFieldBatch($event)"></app-globales-scanner13>
+
+              @if(showToogle){
+              <app-toogle-batch #toogle (tieneLoteChange)="showInputBatch($event)"
+                (noHasBatch)="noHasBatch()"></app-toogle-batch>
+              }
+
+              @if(showRequestBatch){
+              <div class="pl-4 pr-4">
+                <app-reporte-lote #hijoFiltroBatch [idProducto]="idProducto"
+                  (dataResultLote)="loteTyped($event)"></app-reporte-lote>
+                <app-reporte-rangos #hijoFiltroDate (filterDateMV)="recibirFechas($event)"></app-reporte-rangos>
+              </div>
+              <div class="pl-4 pr-4 pb-4" [class.pt-4]="!showRequestBatch">
+                <div class="col-sm-12">
+                  <button type="button" class="btnFilterBatch btn btn-sm btn-primary w-100" [disabled]="isFormValid"
+                    (click)="filtrarLote()">
+                    <i class="fa fa-filter"></i> {{ 'global-search.TITTLE_COMPONENT' | translate }}
+                  </button>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-9 col-12">
+        @if(isLoading) {
+        <div class="card border-0 shadow-sm rounded-4 p-5 text-center mx-auto" style="max-width: 400px;">
+          <div class="d-flex justify-content-center mb-3">
+            <div class="spinner-border text-primary spinner-border-sm" role="status"
+              style="width: 3rem; height: 3rem; border-width: 0.25em;">
+              <span class="visually-hidden">{{ 'mod-dashboard.CHARGED.MSJ_CHARGING' | translate }}</span>
+            </div>
+          </div>
+          <h6 class="fw-semibold text-dark mb-1">{{ 'mod-dashboard.CHARGED.MSJ_CHARGING_INFO' | translate }}</h6>
+          <p class="text-muted small mb-0">{{ 'mod-dashboard.CHARGED.MSJ_CHARGING_PLEASE_ONE_MOMENT' | translate }}.</p>
+        </div>
+        } @else {
+        <!-- @if(showToogle){ -->
+        @if(showDetailProduct){
+        <div class="card-custom shadow pl-4 pr-4 pt-4 pb-4 mb-4 h-auto">
+          <fieldset class="border p-3 rounded mb-3 fieldset_custom_border">
+            <legend class="float-none w-auto p-1 legend_custom">
+              {{ 'mod-dashboard.TITLE_RESULT_SEARCH' | translate }}
+              <button class="btn btn-sm btn-light rounded-circle shadow-sm"
+                (click)="toogleSection('resultadosBusqueda')">
+                <i [class]="mostrarSeccion.resultadosBusqueda ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+              </button>
+            </legend>
+            <div class="row" *ngIf="mostrarSeccion.resultadosBusqueda"
+              [class.animate__fadeIn]="mostrarSeccion.resultadosBusqueda"
+              [class.animate__fadeOut]="!mostrarSeccion.resultadosBusqueda">
+              <app-reporte-warehouse [datosRecibidos]="datosJson"></app-reporte-warehouse>
+            </div>
+          </fieldset>
+        </div>
+        @if(!showRequestBatch){
+        <div class="card-custom shadow pl-4 pr-4 pt-4 pb-4 mb-4 h-auto">
+          <fieldset class="border p-3 rounded mb-3 fieldset_custom_border">
+            <legend class="float-none w-auto p-1 legend_custom">
+              {{ 'mod-dashboard.GRAPHIC_REPORT' | translate }}
+              <button class="btn btn-sm btn-light rounded-circle shadow-sm"
+                (click)="toogleSection('resultadosGraficosBusqueda')">
+                <i [class]="mostrarSeccion.resultadosGraficosBusqueda ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+              </button>
+              <span class="btn btn-sm btn-light rounded-circle shadow-sm mx-2" (click)="alternarColumnas()">
+                <i class="fas" [ngClass]="columnasGraficas === 'col-sm-6' ? 'fa-th' : 'fa-list'"></i>
+              </span>
+            </legend>
+
+            <div class="row" *ngIf="mostrarSeccion.resultadosGraficosBusqueda"
+              [class.animate__fadeIn]="mostrarSeccion.resultadosGraficosBusqueda"
+              [class.animate__fadeOut]="!mostrarSeccion.resultadosGraficosBusqueda">
+
+              <div class="container-fluid p-3">
+                <!-- Fila principal con gutters (g-3 para espacio vertical y horizontal de nivel 3) -->
+                <div class="row g-3 m-0">
+
+                  <!-- Gráfica 1 -->
+                  <div [ngClass]="columnasGraficas">
+                    <div class="border rounded-5 p-3 h-100 shadow-sm ">
+                      <div class="text-center mb-3">
+                        <h3>{{ 'mod-dashboard.TITLE_GRAPHIC_1' | translate }}</h3>
+                      </div>
+                      <app-globales-charts chartType="pie" [chartData]="pieChartData" [chartOptions]="pieChartOptions">
+                      </app-globales-charts>
+                    </div>
+                  </div>
+
+                  <!-- Gráfica 2 -->
+                  <div [ngClass]="columnasGraficas">
+                    <div class="border rounded-5 p-3 h-100 shadow-sm ">
+                      <div class="text-center mb-3">
+                        <h3>{{ 'mod-dashboard.TITLE_GRAPHIC_2' | translate }}</h3>
+                      </div>
+                      <app-globales-charts chartType="bar" [chartData]="barChartData" [chartOptions]="barChartOptions">
+                      </app-globales-charts>
+                    </div>
+                  </div>
+
+                  <!-- Gráfica 3 -->
+                  <div [ngClass]="columnasGraficas">
+                    <div class="border rounded-5 p-3 h-100 shadow-sm ">
+                      <div class="text-center mb-3">
+                        <h3>{{ 'mod-dashboard.TITLE_GRAPHIC_3' | translate }}</h3>
+                      </div>
+                      <app-globales-charts [chartType]="mermasCantidadChartType" [chartData]="mermasCantidadChartData"
+                        [chartOptions]="mermasCantidadChartOptions">
+                      </app-globales-charts>
+                    </div>
+                  </div>
+
+                  <!-- Gráfica 4 -->
+                  <div [ngClass]="columnasGraficas">
+                    <div class="border rounded-5 p-3 h-100 shadow-sm ">
+                      <div class="text-center mb-3">
+                        <h3>{{ 'mod-dashboard.TITLE_GRAPHIC_4' | translate }}</h3>
+                      </div>
+                      <app-globales-charts [chartType]="piePorcentajeChartType" [chartData]="piePorcentajeChartData"
+                        [chartOptions]="piePorcentajeChartOptions">
+                      </app-globales-charts>
+                    </div>
+                  </div>
+
+                  <!-- Gráfica 5 -->
+                  <div [ngClass]="columnasGraficas">
+                    <div class="border rounded-5 p-3 h-100 shadow-sm">
+                      <div class="text-center mb-3">
+                        <h3>{{ 'mod-dashboard.TITLE_GRAPHIC_5' | translate }}</h3>
+                      </div>
+                      <app-globales-charts [chartType]="pieValorPerdidoChartType" [chartData]="pieValorPerdidoChartData"
+                        [chartOptions]="pieValorPerdidoChartOptions">
+                      </app-globales-charts>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+        }
+        }
+        @else{
+        <div class="card-custom shadow p-5 mb-4 text-center h-auto">
+          <div class="empty-state py-4">
+
+            @if(idProducto != '' && loteDigitado == ''){
+            <!-- Icono representativo de búsqueda activa -->
+
+            <div class="empty-state-icon mb-3">
+              <i class="fa-solid fa-magnifying-glass-location text-primary"
+                style="font-size: 3.8rem; opacity: 0.5;"></i>
+            </div>
+
+            <!-- Mensaje principal invitando a actuar -->
+            <h4 class="fw-bold title-custom mb-2">
+              {{ 'mod-dashboard.TITLE_ALERT_QUERY' | translate }}
+            </h4>
+
+            <!-- Descripción orientativa -->
+            <p class="subtitle-custom mx-auto mb-4" style="max-width: 460px; font-size: 0.95rem;">
+              {{ 'mod-dashboard.SPAN_ALERT_QUERY' | translate }}
+            </p>
+            }
+
+            @if(idProducto != '' && loteDigitado != ''){
+            <!-- Icono representativo -->
+            <div class="empty-state-icon mb-3">
+              <i class="fa-solid fa-boxes-packing text-primary" style="font-size: 4rem; opacity: 0.5;"></i>
+            </div>
+
+            <!-- Mensaje principal -->
+            <h4 class="fw-bold title-custom mb-2">
+              {{ 'mod-dashboard.TITLE_ALERT_QUERY_EMPTY' | translate }}
+            </h4>
+
+            <!-- Descripción clara -->
+            <p class="subtitle-custom mx-auto mb-4" style="max-width: 450px;">
+              {{ 'mod-dashboard.SPAN_ALERT_QUERY_EMPTY' | translate }}
+            </p>
+            }
+          </div>
+        </div>
+        }
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

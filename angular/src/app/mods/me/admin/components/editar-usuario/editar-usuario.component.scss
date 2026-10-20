@@ -1,0 +1,52 @@
+.legend_custom{
+  color: var(--modal-legend_text_color) !important;
+}
+.fieldset_custom_border{
+  border-color: var(--modal-fieldset_line_color) !important;
+}
+/*Card estilo*/
+.card-custom {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--grid_table_crud-background_color) !important;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+h5 {
+  font-size: 1.1rem;
+  color: var(--grid_table_crud-text_color);
+  font-weight: 700;
+  margin: 0;
+}
+
+legend {
+  color: var(--modal-legend_text_color);
+}
+
+label {
+  color: var(--modal-label_text_color);
+}
+
+.form-control {
+  background-color: var(--input-background_color) !important; 
+  color: var(--input-text_color) !important;
+  border-color: var(--input-border_color) !important;
+}
+.form-control::placeholder {
+  color: var(--input-text_color_placeholder) !important; 
+  opacity: 1;
+}
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: color-mix(in srgb, var(--input-background_color) 90%, var(--input-text_color)) !important;
+  color: var(--input-text_color) !important;
+  opacity: 1; /* Opcional: elimina la transparencia por defecto que aplica Bootstrap */
+}
+
+.label-color {
+  color: var(--input_custom-label_color) !important;
+}

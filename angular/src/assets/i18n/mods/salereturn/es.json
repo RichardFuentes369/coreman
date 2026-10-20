@@ -1,0 +1,21 @@
+{
+  "MODULE_TITLE": "Ventas",
+
+  "BUTTON_SALE": "Ventas",
+  "BUTTON_RETURN": "Devoluciones",
+
+  "PAGE_TITLE_SALE": "Ventas",
+  "PAGE_SUPPLIER_SUBTITLE": "Registro historico de ventas",
+
+  "PAGE_TITLE_RETURN": "Devoluciones",
+
+  "COLUMN_ID": "Id",
+  "COLUMN_INVOICE": "Factura",
+  "COLUMN_DATE_SALE": "Fecha de venta",
+
+  "SEE_TITLE": "Ver",
+  "SEE_SUBTITLE": "{{nro_invoice}}",
+
+  "WORD_VLR_UNITARIO": "Valor unitario",
+  "WORD_VLR_TOTAL": "Valor total"
+}

@@ -1,0 +1,111 @@
+<div class="card-preview-container col-sm-12 row">
+  <div class="col-sm-4 row">
+    <div class="container row">
+      <div class="col text-center">
+        <label class="fw-bold mb-3 title-custom">Light</label>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Fieldset line color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].fieldset_line_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <!-- <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Legend text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].legend_text_color" (input)="aplicarEstilosVisuales()">
+        </div> -->
+        <!-- <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Label text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].label_text_color" (input)="aplicarEstilosVisuales()">
+        </div> -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Head text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].head_text_color" (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Head background color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].head_background_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Back color background</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].back_color_background"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button cancel background color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_cancel_background_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button cancel text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_cancel_text_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button save background color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_save_background_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button save text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_save_text_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button update background color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_update_background_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Button update text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].button_update_text_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Footer text color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].footer_text_color" (input)="aplicarEstilosVisuales()">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="title-custom">Footer background color</span>
+          <input type="color" [(ngModel)]="_jsonModalData[theme].footer_background_color"
+            (input)="aplicarEstilosVisuales()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm bg_system rounded-5 p-4 d-flex justify-content-center align-items-center">
+    <div class="card w-100 border-0 shadow-sm" style="max-width: 800px; border-radius: 0.5rem; overflow: hidden;">
+
+      <!-- Cabecera -->
+      <div class="card-header text-center bg-primary text-white pt-2 pb-2 position-relative">
+        <h5 class="modal-title m-0" id="staticBackdropLabel">Titulo</h5>
+        <span class="modal-title d-block">Subtitulo</span>
+        <button type="button" class="close position-absolute"
+          style="right: 15px; top: 10px; background: none; border: 0; color: white;" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Cuerpo -->
+      <div class="modal-body">
+        <div class="m-4">
+          <fieldset class="border p-3 rounded fieldset_custom_border">
+            <legend class="float-none w-auto p-1 legend-custom">
+              <i class="fas fa-id-card me-1"></i> {{ 'mod-users.LEGEND_TITLE_USER' | translate }}
+            </legend>
+            <app-crear-dummie></app-crear-dummie>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- Pie de página -->
+      <div class="modal-footer bg-light pt-2 pb-2 d-flex justify-content-end">
+        <button type="button" class="btn btn-sm closeModalButton btnCancel mx-2">Cancel</button>
+        <button type="button" class="btn btn-sm btnSave mx-2">Guardar</button>
+        <button type="button" class="btn btn-sm btnUpdate mx-2">Editar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

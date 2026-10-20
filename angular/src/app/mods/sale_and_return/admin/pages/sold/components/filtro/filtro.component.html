@@ -1,0 +1,49 @@
+<div class="">
+  <div class="col-xl col-sm-12 card pl-0 pr-0 pt-3 pb-4 scroll-card">
+    <input type="text" class="d-none complementoRuta" value="">
+    <div class="col-sm-12 mb-2">
+      <span class="label-color" for="exampleInputEmail1">
+        {{ 'mod-salereturn.COLUMN_INVOICE' | translate}}
+      </span>
+      <input type="email" class="form-control form-select-sm" id="exampleInputEmail1" [(ngModel)]="model.nro_factura"
+        aria-describedby="emailHelp" placeholder="{{ 'mod-warehouse.PLACEHOLDER_LOTE_F' | translate}}">
+    </div>
+    <div class="col-sm-12 mb-2">
+      <span class="label-color" for="exampleInputEmail1">
+        {{ 'mod-salereturn.COLUMN_DATE_SALE' | translate}}
+      </span>
+      <div class="row">
+        <div class="col-sm">
+          <input type="date" class="form-control form-select-sm" [(ngModel)]="model.fecha_venta_minimo">
+        </div>
+        <div class="col-sm">
+          <input type="date" class="form-control form-select-sm" [(ngModel)]="model.fecha_venta_maximo">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <span class="label-color" for="exampleInputEmail1">
+        {{ 'mod-users.LABEL_USER_SORT' | translate}}
+      </span>
+      <div class="row">
+        <div class="col-sm">
+          <select name="" id="" class="form-control form-select-sm custom-select" [(ngModel)]="model.field">
+            <option value="">{{ 'mod-users.SELECT_STATUS_USER_SELECT_OPTION' | translate}}</option>
+            <option value="id">{{ 'mod-salereturn.COLUMN_ID' | translate}}</option>
+            <option value="nro_factura">{{ 'mod-salereturn.COLUMN_INVOICE' | translate}}</option>
+            <option value="fecha_venta">{{ 'mod-salereturn.COLUMN_DATE_SALE' | translate}}</option>
+          </select>
+        </div>
+        <div class="col-sm">
+          <select name="" id="" class="form-control form-select-sm custom-select" [(ngModel)]="model.order">
+            <option value="">{{ 'mod-users.SELECT_STATUS_USER_SELECT_OPTION' | translate}}</option>
+            <option value="asc">{{ 'mod-users.WORD_ASCENDING' | translate}}</option>
+            <option value="desc">{{ 'mod-users.WORD_DESCENDING' | translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="d-none limpiarS" (click)="limpiar()"></button>
+    <button class="d-none filtrar" (click)="filtrar()"></button>
+  </div>
+</div>

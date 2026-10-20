@@ -1,0 +1,25 @@
+.card-preview-container {
+  --grid_table_crud-title_color: "",
+  --grid_table_crud-text_color: "",
+  --grid_table_crud-background_color: "",
+  --grid_table_crud-head_text: "",
+  --grid_table_crud-head_background: "",
+  --grid_table_crud-row_text_color: "",
+  --grid_table_crud-row_text_select: "",
+  --grid_table_crud-row_select: "",
+  --grid_table_crud-button_group_disabled: "",
+  --grid_table_crud-button_cargar_excel: "",
+  --grid_table_crud-button_crear: "",
+  --grid_table_crud-button_ver: "",
+  --grid_table_crud-button_editar: "",
+  --grid_table_crud-button_estado_usuario: "",
+  --grid_table_crud-button_eliminar_individual: "",
+  --grid_table_crud-button_eliminar_multiple: "",
+  --grid_table_crud-button_asignar_permisos: "",
+  --grid_table_crud-button_asignar_productos: "",
+  --grid_table_crud-button_limpiar: "",
+}
+
+.bg_system {
+  background-color: var(--layout-admin-main_background_color)!important;
+}

@@ -1,0 +1,42 @@
+{
+  "UNKNOW_MODULE_TITLE": "Desconocido",
+
+  "PAGE_EXPIRATION_TITLE": "Vencimiento", 
+  "PAGE_EXPIRATION_SUBTITLE": "Aviso: Alerta temprana de vencimiento", 
+  "PAGE_STOCK_TITLE": "Bodega", 
+  "PAGE_STOCK_SUBTITLE": "Aviso: Alerta temprana de limite", 
+
+  "MODULE_TITLE": "Alertas",
+
+  "BUTTON_EXPIRATION": "Vencimiento",
+  "BUTTON_STOCK": "Bodega",
+
+  "LABEL_ALERT_SORT": "Ordenar por",
+  "SELECT_STATUS_ALERT_SELECT_OPTION": "Seleccione",
+  "WORD_ASCENDING": "Ascendente",
+  "WORD_DESCENDING": "Descendente",
+
+  "LABEL_REMAINING_DAYS": "Días restantes",
+
+  "SEE_TITLE": "Información de alerta de vencimiento",
+  "SEE_SUBTITLE": "",
+
+  "LEGEND_TITLE_ALERT": "Datos de la alerta de vencimiento",
+  "LABEL_STATUS_ALERT": "Estado de la alerta",
+
+  "OPTION_VENCIMIENTO": {
+    "ITEM_ON_GREEN_ALERT": "Artículo en alerta verde",
+    "ITEM_ON_YELLOW_ALERT": "Artículo en alerta amarilla",
+    "ITEM_ON_ORANGE_ALERT": "Artículo en alerta naranja",
+    "ITEM_ON_RED_ALERT": "Artículo en alerta roja",
+    "ITEM_EXPIRED": "Artículo vencido",
+    "ITEM_NOT_PERISHABLE": "Artículo no perecedero"
+  },
+
+  "OPTION_STOCK": {
+    "ITEM_ON_GREEN_ALERT": "Aun cuenta con stock disponible",
+    "ITEM_ON_YELLOW_ALERT": "Está al limite de su stock",
+    "ITEM_ON_ORANGE_ALERT": "Pedir ya, bajo el mínimo",
+    "ITEM_ON_RED_ALERT": "Stock agotado"
+  }
+}

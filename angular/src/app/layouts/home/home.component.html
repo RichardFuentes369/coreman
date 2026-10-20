@@ -1,0 +1,193 @@
+<div id="wrapper">
+  <div id="content-wrapper" class="d-flex flex-column u-final">
+    <div class="fixed-top header-transition bg-gradient-header-custom" [class.header-compact]="isScrolled">
+      <nav
+        class="container navbar navbar-expand navbar-light bg-gradient-header-custom my-md-n2 topbar static-top pl-2 pr-2">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white d-flex align-items-center" [routerLink]="LAYOUT_HOME_PAGE_START">
+
+              <div class="bg-white rounded-5" style="position: relative; z-index: 1;">
+                <img src="assets/images/img_logo.png" alt="" width="50">
+              </div>
+
+              <div class="bg-white d-inline-block ml-n3 mr-3 rounded-bottom rounded-top"
+                style="position: relative; z-index: 0;">
+                <span class="text-center font-weight-bold pl-2 bg_side_icon ml-2 mr-2  mt-1 mb-1"
+                  style="line-height: 0.9; display: block;" [innerHTML]="nameApp">
+                </span>
+              </div>
+
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto align-items-center">
+          <div class="topbar-divider d-none d-sm-block hide-on-mobile"></div>
+          <li class="nav-item dropdown no-arrow my-auto text-center">
+            <app-globales-fullscreem></app-globales-fullscreem>
+          </li>
+          <div class="topbar-divider d-none d-sm-block hide-on-mobile"></div>
+          <li class="nav-item mx-2">
+            <app-globales-idioma (cambioIdiomaEmitt)="idiomaCambiar($event)"></app-globales-idioma>
+          </li>
+          <!-- <div class="topbar-divider d-none d-sm-block hide-on-mobile"></div> -->
+          <li class="nav-item mx-2 d-none">
+            <app-globales-colormode></app-globales-colormode>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="navbar navbar-expand-lg navbar-light banner_custom static-top shadow menu p-0">
+        <marquee direction="left" class="container">
+          <div class="container text-white">
+            {{banner}}
+          </div>
+        </marquee>
+      </nav>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-white p-0">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li routerLinkActive="activo">
+                <a class="nav-link text-center" [routerLink]="LAYOUT_HOME_PAGE_START">
+                  {{ 'layout-home.TAB_START' | translate}}
+                </a>
+              </li>
+              <li *ngIf="showRouteIngreso" routerLinkActive="activo">
+                <a class="nav-link text-center" [routerLink]="LAYOUT_HOME_PAGE_LOGIN_ADMIN">
+                  {{ 'layout-home.TAB_LOGIN' | translate}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="content" class="flex-grow-1" style="margin-top: 7rem !important;">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="footer-moderno mt-auto">
+      <div class="container-fluid px-0">
+
+        <!-- Tarjeta Flotante Superior (Panel de Desarrolladores) -->
+        <div class="container">
+          <div class="card card-custom border-0 shadow-lg rounded-4 card-flotante-devs p-4 p-md-4 mx-auto">
+
+            <!-- Encabezado de la Tarjeta -->
+            <div
+              class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-3 border-bottom gap-2">
+              <div class="d-flex align-items-center">
+                <div
+                  class="text-white rounded-3 shadow-sm me-3 d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; background-color: #581c87;">
+                  <img [src]="urlLogoUts" alt="Logo UTS" class="img-fluid rounded-5 p-1"
+                    style="max-height: 40px; object-fit: contain;">
+                </div>
+                <div>
+                  <h5 class="fw-bold subtitle-custom mb-1">Equipo de Desarrollo</h5>
+                  <p class="subtitle-custom small mb-0">Universitaria Tecnol&oacute;gica de Santander (UTS)</p>
+                </div>
+              </div>
+              <div>
+                <span
+                  class="badge bg-opacity-10 px-3 py-2 rounded-pill fw-semibold border border-primary border-opacity-10" style="background-color: #d8e7ce; color: #34531f;">
+                  <i class="fas fa-shield-alt me-1" style="color: #34531f;"></i> {{CURRENT_YEAR}}
+                </span>
+              </div>
+            </div>
+
+            <!-- Fila de Tarjetas de Desarrolladores -->
+            <div class="row g-4">
+
+              <!-- Desarrollador 1 -->
+              <div class="col-lg-6">
+                <div class="dev-card p-3 p-md-4 rounded-4 h-100 card-custom border shadow">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="text-white rounded-circle shadow-sm me-3 flex-shrink-0 d-flex align-items-center justify-content-center"
+                      style="width: 44px; height: 44px; background-color: #34531f;">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="w-100">
+                      <div class="d-flex justify-content-between align-items-center flex-wrap mb-1">
+                        <h6 class="fw-bold mb-0 subtitle-custom">Javier Ricardo Baron Fuentes</h6>
+                        <span class="badge bg-light text-secondary border small">Ing. Sistemas</span>
+                      </div>
+                      <div class="mt-3 pt-2 border-top border-light-subtle small">
+                        <div class="d-flex align-items-center text-secondary mb-1">
+                          <i class="fas fa-envelope me-2" style="color: #34531f;"></i>
+                          <a href="mailto:jrbaron@uts.edu.co"
+                            class="text-decoration-none subtitle-custom">jrbaron@uts.edu.co</a>
+                        </div>
+                        <div class="d-flex align-items-center text-secondary">
+                          <i class="fas fa-phone-alt me-2" style="color: #34531f;"></i>
+                          <span class="subtitle-custom">(+57) 350 428 4093</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Desarrollador 2 -->
+              <div class="col-lg-6">
+                <div class="dev-card p-3 p-md-4 rounded-4 h-100 card-custom border shadow">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="text-white rounded-circle shadow-sm me-3 flex-shrink-0 d-flex align-items-center justify-content-center"
+                      style="width: 44px; height: 44px; background-color: #34531f;">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="w-100">
+                      <div class="d-flex justify-content-between align-items-center flex-wrap mb-1">
+                        <h6 class="fw-bold mb-0 subtitle-custom">Oscar Eduardo Villamizar B.</h6>
+                        <span class="badge bg-light text-secondary border small">Ing. Sistemas</span>
+                      </div>
+                      <div class="mt-3 pt-2 border-top border-light-subtle small">
+                        <div class="d-flex align-items-center text-secondary mb-1">
+                          <i class="fas fa-envelope me-2" style="color: #34531f;"></i>
+                          <a href="mailto:oeduardovillamizar@uts.edu.co"
+                            class="text-decoration-none subtitle-custom">oeduardovillamizar@uts.edu.co</a>
+                        </div>
+                        <div class="d-flex align-items-center text-secondary">
+                          <i class="fas fa-phone-alt me-2" style="color: #34531f;"></i>
+                          <span class="subtitle-custom">(+57) 317 626 4312</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Franja Inferior del Footer (Copyright) -->
+        <div class="footer-bottom-bar py-3 text-center">
+          <div class="container">
+            <div
+              class="d-flex flex-column flex-md-row justify-content-between align-items-center text-white-50 small gap-2">
+              <div>
+                <strong class="text-white">MermaSmart</strong> &copy; {{CURRENT_YEAR}} &bull; Todos los derechos
+                reservados
+              </div>
+              <div>
+                <span>Facultad de Ciencias Naturales e Intenierias - Sistemas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  </div>
+</div>

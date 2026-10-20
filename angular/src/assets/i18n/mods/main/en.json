@@ -1,0 +1,18 @@
+{
+  "TITTLE_MENU": "Menu",
+  "PAGES_MENU": "Menu",
+  "PAGES_DASHBOARD": "Dashboard",
+  "PAGES_PROFILE": "Profile",
+  "PAGES_SETTINGS": "Settings",
+  "PAGES_USERS": "Users",
+  "PAGES_MODULES": "Modules",
+  "PAGES_LOSS": "Shrinkage",
+  "PAGES_ALERTS": "Alerts",
+  "PAGES_CATALOG": "Catalog",
+  "PAGE_STOCK": "Stock",
+  "PAGE_WAREHOUSE": "Warehouse",
+  "PAGE_VAR_SYSTEM": "System Variables",
+  "PAGE_CUSTOM": "Customization",
+  "PAGE_SALE_RETURN": "Sales",
+  "PAGE_SALE": "Sales"
+}

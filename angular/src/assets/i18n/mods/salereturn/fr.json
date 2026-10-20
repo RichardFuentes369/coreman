@@ -1,0 +1,21 @@
+{
+  "MODULE_TITLE": "Ventes",
+  
+  "BUTTON_SALE": "Ventes",
+  "PAGE_SUPPLIER_SUBTITLE": "Historique des ventes",
+
+  "BUTTON_RETURN": "Retours",
+
+  "PAGE_TITLE_SALE": "Ventes",
+  "PAGE_TITLE_RETURN": "Retours",
+
+  "COLUMN_ID": "Id",
+  "COLUMN_INVOICE": "Facture",
+  "COLUMN_DATE_SALE": "Date de vente",
+
+  "SEE_TITLE": "Voir",
+  "SEE_SUBTITLE": "{{nro_invoice}}",
+  
+  "WORD_VLR_UNITARIO": "Prix unitaire",
+  "WORD_VLR_TOTAL": "Prix total"
+}

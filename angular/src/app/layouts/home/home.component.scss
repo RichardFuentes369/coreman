@@ -1,0 +1,172 @@
+:host {
+  .bg-separator-customer {
+    background-color: var(--layout-index-side-separator) !important;
+  }
+
+  .bg-gradient-header-custom {
+    background-color: var(--layout-index-header_color_background) !important;
+    /* Patrón de puntos sutil superpuesto al color de fondo */
+    // background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+    // background-size: 24px 24px; /* Espaciado entre los puntos */
+    // background-position: 0 0;
+  }
+
+  .banner_custom {
+    background-color: #000000;
+  }
+
+  .bg_side_text,
+  .bg_side_icon {
+    color: var(--layout-index-logo_color_icon_text) !important;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: color-mix(in srgb, var(--layout-index-logo_color_icon_text), red 50%) !important;
+    }
+  }
+
+  #content-wrapper {
+    background-color: var(--layout-index-back_color_background) !important;
+  }
+
+  .bg-gradient-footer-custom {
+    background-color: var(--layout-index-footer_color_background) !important;
+  }
+
+  .text-custom-footer {
+    color: var(--layout-index-footer_text_background) !important;
+  }
+
+  .bg-separator-customer {
+    background-color: var(--layout-index-side-separator) !important;
+  }
+
+  .bg-gradient-header-custom {
+    background-color: var(--layout-index-header_color_background) !important;
+  }
+
+  .bg_side_text,
+  .bg_side_icon {
+    color: var(--layout-index-logo_color_icon_text) !important;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: color-mix(in srgb, var(--layout-index-logo_color_icon_text), red 50%) !important;
+    }
+  }
+
+  #content-wrapper {
+    background-color: var(--layout-index-back_color_background) !important;
+  }
+
+  .bg-gradient-footer-custom {
+    background-color: var(--layout-index-footer_color_background) !important;
+  }
+
+  @media (max-width: 991.98px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+  }
+
+  .text-custom-footer {
+    color: var(--layout-index-footer_text_background) !important;
+
+    a {
+      transition: opacity 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.8;
+        text-decoration: underline !important;
+      }
+    }
+  }
+
+  /* Estilos específicos para las tarjetas de los desarrolladores */
+  .dev-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Sutil efecto glassmorphism sobre el fondo del footer */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    // &:hover {
+    //   transform: translateY(-4px);
+    //   background-color: rgba(255, 255, 255, 0.08);
+    // }
+  }
+
+  .dev-avatar {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* Contenedor principal del footer */
+  .footer-moderno {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    position: relative;
+    width: 100%;
+    margin-top: auto;
+    /* Aumentamos el padding superior para absorber el espacio de la tarjeta que sube */
+    // padding-top: 50px; 
+  }
+
+  /* Tarjeta flotante principal */
+  .card-flotante-devs {
+    /* En lugar de usar transform translateY negativo que corta con el fondo de arriba, 
+     usamos un margen superior negativo dentro del flujo del footer oscuro */
+    margin-top: -70px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+    // max-width: 1050px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Tarjetas individuales de cada desarrollador */
+  .dev-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.25s ease-in-out;
+  }
+
+  // .dev-card:hover {
+  //   transform: translateY(-3px);
+  //   background-color: #ffffff;
+  //   border-color: #cbd5e1;
+  //   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  // }
+
+
+  .subtitle-custom {
+    color: var(--modal-label_text_color);
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  /* Franja inferior limpia */
+  .footer-bottom-bar {
+    background-color: var(--layout-index-footer_color_background) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .card-custom {
+    height: 100%;
+    // min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: none;
+    background: var(--modal-back_color_background) !important;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+}

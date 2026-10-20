@@ -1,0 +1,56 @@
+.legend_custom{
+  color: var(--modal-legend_text_color) !important;
+}
+.fieldset_custom_border{
+  border-color: var(--modal-fieldset_line_color) !important;
+}
+.form-control {
+  background-color: var(--input-background_color) !important; 
+  color: var(--input-text_color) !important;
+  border-color: var(--input-border_color) !important;
+}
+.form-control::placeholder {
+  color: var(--input-text_color_placeholder) !important; 
+  opacity: 1;
+}
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: color-mix(in srgb, var(--input-background_color) 90%, var(--input-text_color)) !important;
+  color: var(--input-text_color) !important;
+  opacity: 1; /* Opcional: elimina la transparencia por defecto que aplica Bootstrap */
+}
+
+.label-color {
+  color: var(--input-label_color) !important;
+}
+
+// ESTILO GLOBAL (Fuera del :host)
+// Esto asegura que la lista tenga fondo blanco y se vea
+::ng-deep .ng-dropdown-panel.custom-select {
+  background-color: #ffffff !important;
+  border: 1px solid #dee2e6 !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2) !important;
+  z-index: 9999 !important; // Para que no quede detrás del modal
+  height: auto;
+
+  .ng-dropdown-panel-items {
+    background-color: #fff !important; // Fondo de la lista
+    
+    .ng-option {
+      background-color: #fff !important;
+      
+      &.ng-option-marked {
+        background-color: #f0f0f0 !important;
+      }
+      &.ng-option-selected {
+        background-color: #e8f0fe !important;
+        color: #0d6efd !important;
+      }
+    }
+  }
+}
+
+.select-bloqueado {
+  pointer-events: none; /* Evita cualquier interacción del mouse o táctil */
+  background-color: #f0f0f0; /* Opcional: un color sutil para indicar que está bloqueado */
+}

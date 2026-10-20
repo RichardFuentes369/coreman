@@ -1,0 +1,66 @@
+.legend-custom{
+  color: var(--modal_custom-legend_text_color) !important;
+}
+
+.fieldset_custom_border{
+  border-color: var(--modal_custom-fieldset_line_color) !important;
+}
+
+.card-header {
+  background: var(--modal_custom-head_background_color) !important;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: var(--modal_custom-head_text_color) !important;
+}
+
+.modal-body {
+  background-color: var(--modal_custom-back_color_background) !important;
+}
+
+.modal-footer {
+  color: var(--modal_custom-footer_text_color) !important;
+  background-color: var(--modal_custom-footer_background_color) !important;
+}
+
+
+.btnCancel {
+  color: var(--modal_custom-button_cancel_text_color);
+  background-color: var(--modal_custom-button_cancel_background_color);
+}
+
+.btnSave {
+  color: var(--modal_custom-button_save_text_color);
+  background-color: var(--modal_custom-button_save_background_color);
+}
+
+.btnUpdate {
+  color: var(--modal_custom-button_update_text_color);
+  background-color: var(--modal_custom-button_update_background_color);
+}
+
+.btnCancel,
+.btnSave,
+.btnUpdate {
+  transition: all 0.2s ease-in-out; // Animación suave
+  border: none;
+
+  &:hover {
+    // Oscurece el botón un 10%
+    filter: brightness(90%);
+    // Opcional: añade un pequeño efecto de sombra para mayor profundidad
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  &:active {
+    // Cuando haces clic, se oscurece un poco más
+    filter: brightness(80%);
+    transform: translateY(1px); // Efecto de "presionado"
+  }
+}
+
+.bg_system {
+  background-color: var(--layout-admin-main_background_color) !important;
+}

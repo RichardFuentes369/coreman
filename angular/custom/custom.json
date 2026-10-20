@@ -1,0 +1,256 @@
+{
+  "light": {
+    "layout": {
+      "scroll": {
+        "color": "#A19C9D",
+        "background_color": "transparent"
+      },
+      "breadcrumbs": {
+        "link-disabled": "#D5E7F2",
+        "link-active": "#FFFFFF",
+        "link-hover": "#FFFFFF",
+        "separator": "#D5E7F2",
+        "bg_color_breadcrumb": "#000000"
+      },
+      "index": {
+        "header_color_background": "#0b4a75",
+        "back_color_background": "#EDEDED",
+        "back_color_title": "#000000",
+        "back_color_p": "#878382",
+        "background_color_card_menu": "#FAF5F5",
+        "backg_color_textcard": "#000000",
+        "logo_color_icon_text": "#000000",
+        "logo_color_hover_icon_text": "#0b4a75",
+        "logo_color_hover_amount": 20,
+        "footer_text_background": "#FFFFFF",
+        "footer_color_background": "#0b0f17"
+      },
+      "admin": {
+        "header_color_background": "#0b4a75",
+        "header_color_line": "#E06767",
+        "main_background_color": "#EDEDED",
+        "heder_color_icons": "#C8CCCF",
+        "dropdawn_text_color": "#4F4D4D",
+        "dropdawn_background": "#FFFFFF",
+        "dropdown_hover_background": "#E8E3E3",
+        "side_color_background": "#000000",
+        "side_color_icon_text": "rgba(255, 255, 255, 0.4)",
+        "side_color_hover_icon_text": "#0b4a75",
+        "side_color_hover_amount": 20,
+        "side_line_color_separator": "#FFFFFF",
+        "side_dropdawn_text_color": "#4F4D4D",
+        "side_dropdawn_background": "#FFFFFF",
+        "side_dropdown_hover_background": "#E8E3E3",
+        "page_color_title": "#000000",
+        "footer_color_background": "#0b0f17",
+        "footer_color_text": "#FFFFFF"
+      }
+    },
+    "kpicard": {
+      "icon_color": "#000000",
+      "border_line_color": "#0a18f5",
+      "background_color": "#FFFFFF",
+      "text_color": "#948F8F",
+      "text_number_color": "#000000"
+    },
+    "title_page": {
+      "background_card_color": "#FFFFFF",
+      "icon_color": "#000000",
+      "text_color": "#000000",
+      "line_color": "#000000"
+    },
+    "card_menu": {
+      "text_color": "#000000",
+      "icon_color": "#000000",
+      "hover_card_color": "#CFCACA",
+      "background_card_color": "#FFFFFF"
+    },
+    "grid_table_crud": {
+      "title_color": "#3B3939",
+      "text_color": "#948F8F",
+      "background_color": "#FFFFFF",
+      "head_background": "#0a18f5",
+      "head_text_color": "#FFFFFF",
+      "row_text_color": "#000000",
+      "row_text_select": "#FFFFFF",
+      "row_select": "#B9BDAE",
+      "button_group_disabled": "#BEBFC2",
+      "button_cargar_excel": "#10B981",
+      "button_crear": "#059669",
+      "button_ver": "#0A18F5",
+      "button_editar": "#3B82F6",
+      "button_estado_usuario": "#F59E0B",
+      "button_eliminar_individual": "#EF4444",
+      "button_eliminar_multiple": "#B91C1C",
+      "button_asignar_permisos": "#E8E417",
+      "button_asignar_productos": "#6D28D9",
+      "button_limpiar": "#6B7280"
+    },
+    "input": {
+      "label_color": "#000000",
+      "text_color_placeholder": "#B6C2B4",
+      "background_color": "#FFFFFF",
+      "text_color": "#000000",
+      "border_color": "#0a18f5"
+    },
+    "modal": {
+      "fieldset_line_color": "#8998A3",
+      "legend_text_color": "#0b4a75",
+      "label_text_color": "#000000",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#0b4a75",
+      "back_color_background": "#FFFFFF",
+      "body_text_color": "#948F8F",
+      "body_background_color": "#FFFFFF",
+      "button_cancel_background_color": "#8A8484",
+      "button_cancel_text_color": "#FFFFFF",
+      "button_save_background_color": "#059669",
+      "button_save_text_color": "#FFFFFF",
+      "button_update_background_color": "#3B82F6",
+      "button_update_text_color": "#FFFFFF",
+      "footer_text_color": "#948F8F",
+      "footer_background_color": "#EDEDED"
+    },
+    "search": {
+      "button_background_color": "#0A18F5",
+      "body_color_text": "#000000",
+      "back_color_background": "#EDEDED",
+      "icon_background_color": "#FFFFFF",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#0A18F5"
+    },
+    "report": {
+      "button_background_color": "#469443",
+      "back_color_background": "#EDEDED",
+      "icon_background_color": "#FFFFFF",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#0A18F5"
+    }
+  },
+  "dark": {
+    "layout": {
+      "scroll": {
+        "color": "#D4CFD0",
+        "background_color": "transparent"
+      },
+      "breadcrumbs": {
+        "link-disabled": "#B6F2C0",
+        "link-active": "#FFFFFF",
+        "link-hover": "#EDE4E4",
+        "separator": "#B6F2C0",
+        "bg_color_breadcrumb": "#000000"
+      },
+      "index": {
+        "header_color_background": "#000000",
+        "back_color_background": "#0A0A0A",
+        "backg_color_textcard": "#000000",
+        "back_color_title": "#FFFFFF",
+        "back_color_p": "#FFFFFF",
+        "logo_color_icon_text": "#000000",
+        "logo_color_hover_icon_text": "#0b4a75",
+        "logo_color_hover_amount": 20,
+        "background_color_card_menu": "#EDEDED",
+        "footer_text_background": "#FFFFFF",
+        "footer_color_background": "#0F0F0F"
+      },
+      "admin": {
+        "header_color_background": "#069E21",
+        "header_color_line": "#FFFFFF",
+        "main_background_color": "#0A0A0A",
+        "heder_color_icons": "#DEDEDE",
+        "dropdawn_text_color": "#FFFFFF",
+        "dropdawn_background": "#000000",
+        "dropdown_hover_background": "#8A8686",
+        "side_color_background": "#000000",
+        "side_color_icon_text": "rgba(255, 255, 255, 0.4)",
+        "side_color_hover_icon_text": "#0b4a75",
+        "side_color_hover_amount": 20,
+        "side_line_color_separator": "#FFFFFF",
+        "side_dropdawn_text_color": "#FFFFFF",
+        "side_dropdawn_background": "#302F2F",
+        "side_dropdown_hover_background": "#8A8686",
+        "page_color_title": "#FFFFFF",
+        "footer_color_background": "#0F0F0F",
+        "footer_color_text": "#FFFFFF"
+      }
+    },
+    "kpicard": {
+      "icon_color": "#FFFFFF",
+      "border_line_color": "#157D00",
+      "background_color": "#2B2A2A",
+      "text_color": "#FFFFFF",
+      "text_number_color": "#FFFFFF"
+    },
+    "title_page": {
+      "background_card_color": "#2b2a2a",
+      "icon_color": "#FFFFFF",
+      "text_color": "#FFFFFF",
+      "line_color": "#FFFFFF"
+    },
+    "card_menu": {
+      "text_color": "#FFFFFF",
+      "icon_color": "#FFFFFF",
+      "hover_card_color": "#716f6f",
+      "background_card_color": "#474747"
+    },
+    "grid_table_crud": {
+      "title_color": "#FFFFFF",
+      "text_color": "#FFFFFF",
+      "background_color": "#2B2A2A",
+      "head_background": "#111827",
+      "head_text_color": "#FFFFFF",
+      "row_text_color": "#FFFFFF",
+      "row_text_select": "#FFFFFF",
+      "row_select": "#1e3a8a",
+      "button_group_disabled": "#BEBFC2",
+      "button_cargar_excel": "#065F46",
+      "button_crear": "#047857",
+      "button_ver": "#4338CA",
+      "button_editar": "#2563EB",
+      "button_estado_usuario": "#D97706",
+      "button_eliminar_individual": "#DC2626",
+      "button_eliminar_multiple": "#991B1B",
+      "button_asignar_permisos": "#CA8A04",
+      "button_asignar_productos": "#7C3AED",
+      "button_limpiar": "#4B5563"
+    },
+    "input": {
+      "label_color": "#FFFFFF",
+      "text_color_placeholder": "#9E9E95",
+      "background_color": "#000000",
+      "text_color": "#ffffff",
+      "border_color": "#4cd523"
+    },
+    "modal": {
+      "fieldset_line_color": "#0b4a75",
+      "legend_text_color": "#FFFFFF",
+      "label_text_color": "#FFFFFF",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#242323",
+      "back_color_background": "#2B2A2A",
+      "button_cancel_background_color": "#8A8484",
+      "button_cancel_text_color": "#FFFFFF",
+      "button_save_background_color": "#047857",
+      "button_save_text_color": "#FFFFFF",
+      "button_update_background_color": "#2563EB",
+      "button_update_text_color": "#FFFFFF",
+      "footer_text_color": "#948F8F",
+      "footer_background_color": "#242323"
+    },
+    "search": {
+      "button_background_color": "#0A18F5",
+      "body_color_text": "#FFFFFF",
+      "back_color_background": "#1F1E1E",
+      "icon_background_color": "#FFFFFF",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#111827"
+    },
+    "report": {
+      "button_background_color": "#469443",
+      "back_color_background": "#948F8F",
+      "icon_background_color": "#FFFFFF",
+      "head_text_color": "#FFFFFF",
+      "head_background_color": "#111827"
+    }
+  }
+}

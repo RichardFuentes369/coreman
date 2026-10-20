@@ -1,0 +1,18 @@
+{
+  "TITTLE_MENU": "Menú",
+  "PAGES_MENU": "Menú",
+  "PAGES_DASHBOARD": "Panel",
+  "PAGES_PROFILE": "Perfil",
+  "PAGES_SETTINGS": "Ajustes",
+  "PAGES_USERS": "Usuarios",
+  "PAGES_MODULES": "Modulos",
+  "PAGES_LOSS": "Merma",
+  "PAGES_ALERTS": "Alertas",
+  "PAGES_CATALOG": "Catalogo",
+  "PAGE_STOCK": "Existencia",
+  "PAGE_WAREHOUSE": "Bodega",
+  "PAGE_VAR_SYSTEM": "Variables del sistema",
+  "PAGE_CUSTOM": "Personalización",
+  "PAGE_SALE_RETURN": "Ventas",
+  "PAGE_SALE": "Ventas"
+}

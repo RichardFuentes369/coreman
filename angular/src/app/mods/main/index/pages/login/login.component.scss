@@ -1,0 +1,166 @@
+:host {
+  display: block;
+  background-color: #ffffff;
+
+  .landing-container {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #ffffff;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+
+    background-image: radial-gradient(rgba(228, 29, 29, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    /* Espaciado entre los puntos */
+    background-position: 0 0;
+  }
+
+  /* Sección superior azul institucional */
+  .hero-blue-section {
+    background-color: var(--layout-index-header_color_background, #0d47a1);
+    position: relative;
+    width: 100%;
+    padding-bottom: 50px;
+
+    /* Patrón de puntos sutil superpuesto al color de fondo */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    /* Espaciado entre los puntos */
+    background-position: 0 0;
+
+    /* Ajuste de textos dentro de la sección azul para que sean blancos */
+    h1,
+    h2,
+    h3,
+    p,
+    span {
+      color: #ffffff !important;
+    }
+  }
+
+  /* Onda SVG inferior conectada perfectamente */
+  .wave-container {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 60px;
+    }
+  }
+
+  /* Fondo blanco continuo que elimina los cortes grises */
+  .content-white-section {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
+    margin-top: -45px;
+    /* Sube la sección para fusionarse con la onda */
+    background-image: radial-gradient(rgba(228, 29, 29, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    /* Espaciado entre los puntos */
+    background-position: 0 0;
+  }
+}
+
+/* Tu estructura de tarjetas respetada y optimizada */
+.login-split-container {
+  display: flex;
+  min-height: calc(75vh - 80px);
+  width: 100%;
+  // max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--modal-back_color_background, #ffffff);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  /* Lado izquierdo con identidad */
+  .login-brand-side {
+    flex: 1;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    text-align: center;
+
+    .brand-content {
+      max-width: 450px;
+
+      img {
+        max-width: 140px;
+        height: auto;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+      }
+
+      p {
+        color: #94a3b8;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .brand-features {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        font-size: 0.9rem;
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #cbd5e1;
+
+          i {
+            color: #38bdf8;
+          }
+        }
+      }
+    }
+  }
+
+  /* Lado derecho que hospeda el formulario */
+  .login-form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: transparent;
+  }
+}
+
+/* Responsive para pantallas medianas y pequeñas */
+@media (max-width: 992px) {
+  .login-split-container {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 100%;
+
+    .login-brand-side {
+      display: none;
+    }
+
+    .login-form-side {
+      width: 100%;
+      padding: 20px;
+      background-color: var(--modal-back_color_background, #ffffff);
+    }
+  }
+}

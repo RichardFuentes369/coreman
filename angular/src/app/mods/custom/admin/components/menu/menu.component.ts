@@ -1,0 +1,92 @@
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-custom-menu',
+  standalone: true,
+  imports: [TranslateModule, FormsModule],
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.scss',
+})
+export class MenuCustomComponent implements OnInit, OnDestroy {
+
+  @Input() theme: string = '';
+
+  private themeListener!: (event: any) => void;
+
+  _jsonMenutData: any = {};
+
+  @Output() jsonMenuChanges = new EventEmitter<any>();
+
+  constructor(private renderer: Renderer2, private elRef: ElementRef) { }
+
+  imgUsers = 'assets/images/img_users.png';
+  imgCatalog = 'assets/images/img_catalog.png';
+
+  ngOnInit() {
+    this.aplicarEstilosVisuales();
+
+    this.themeListener = (event: CustomEvent) => {
+      if (event.detail) {
+        this.theme = event.detail;
+        this.aplicarEstilosVisuales();
+      }
+    };
+
+    window.addEventListener('themeChanged', this.themeListener as EventListener);
+  }
+
+  ngOnDestroy() {
+    if (this.themeListener) {
+      window.removeEventListener('themeChanged', this.themeListener as EventListener);
+    }
+  }
+
+  @Input()
+  set json_menu(value: any) {
+    if (value) {
+      this._jsonMenutData = {
+        light: {
+          text_color: value.light?.text_color || '#000000',
+          icon_color: value.light?.icon_color || '#000000',
+          background_card_color: value.light?.background_card_color || '#ffffff',
+          hover_card_color: value.light?.hover_card_color || '#cfcaca',
+        },
+        dark: {
+          text_color: value.dark?.text_color || '#ffffff',
+          icon_color: value.dark?.icon_color || '#ffffff',
+          background_card_color: value.dark?.background_card_color || '#474747',
+          hover_card_color: value.dark?.hover_card_color || '#716f6f',
+        }
+      };
+
+      this.aplicarEstilosVisuales();
+    }
+  }
+
+  get json_menu(): any {
+    return this._jsonMenutData;
+  }
+
+  aplicarEstilosVisuales() {
+    const temaActual = this._jsonMenutData[this.theme];
+
+    if (temaActual) {
+      const container = this.elRef.nativeElement.querySelector('.card-preview-container');
+
+      if (container) {
+        const estilosCss = `
+          --card_menu_custom-text_color: ${temaActual.text_color || ''};
+          --card_menu_custom-icon_color: ${temaActual.icon_color || ''};
+          --card_menu_custom-background_card_color: ${temaActual.background_card_color || ''};
+          --card_menu_custom-hover_card_color: ${temaActual.hover_card_color || ''};
+        `;
+        this.renderer.setProperty(container, 'style', estilosCss);
+      }
+    }
+
+    // Notificar al padre
+    this.jsonMenuChanges.emit(this._jsonMenutData);
+  }
+}

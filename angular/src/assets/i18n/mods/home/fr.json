@@ -1,0 +1,30 @@
+{
+  "MESSAGE_TITLE_PAGE_LOGIN": "Contrôle Intelligent des Stocks",
+  "MESSAGE_PAGE_LOGIN": "Optimisez la traçabilité, réduisez les pertes et gardez le contrôle total de vos produits en temps réel.",
+  "WORD_SECURITY": "Sécurité maximale",
+  "WORD_REPORT": "Rapports en direct",
+  "SECTION_APP": {
+    "TARGET": "Module de Contrôle Officiel",
+    "TITLE": "Système de Gestion des Pertes",
+    "SUBTITLE": "Une solution complète pour la traçabilité, le contrôle et la réduction des pertes dans votre inventaire. Optimisez chaque processus avec des données en temps réel."
+  },
+  "SECTION_MODULES": {
+    "TARGET": "Panneau de Configuration Principal",
+    "TITLE": "Explorez nos modules",
+    "SUBTITLE": "Sélectionnez ou visualisez les outils disponibles pour la gestion globale de votre système."
+  },
+  "SECTION_CONTACTS": {
+    "TARGET": "Contactez-nous",
+    "SUBTITLE": ""
+  },
+  "SECTION_DOWNLOADERS": {
+    "TARGET": "PDF téléchargeables",
+    "TITLE": "Documentation technique",
+    "SUBTITLE": "Accédez et téléchargez les manuels d'utilisation et les guides de configuration rapide au format PDF.",
+    "PDF_LINK": "Télécharger le PDF",
+    "MANUAL_GUIA": "Guide de configuration",
+    "MANUAL_WEB": "Manuel d'utilisation (WEB)",
+    "MANUAL_CLOUDFLARE": "Configuration du tunnel Cloudflare",
+    "MANUAL_MOBILE": "Manuel d'utilisation (MOBILE)"
+  }
+}

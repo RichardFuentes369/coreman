@@ -1,0 +1,21 @@
+{
+  "MODULE_TITLE": "Verkauf",
+
+  "BUTTON_SALE": "Verkauf",
+  "PAGE_SUPPLIER_SUBTITLE": "Verkaufshistorie",
+
+  "BUTTON_RETURN": "Rücksendungen",
+
+  "PAGE_TITLE_SALE": "Verkauf",
+  "PAGE_TITLE_RETURN": "Rücksendungen",
+
+  "COLUMN_ID": "Id",
+  "COLUMN_INVOICE": "Rechnung",
+  "COLUMN_DATE_SALE": "Verkaufsdatum",
+
+  "SEE_TITLE": "Anzeigen",
+  "SEE_SUBTITLE": "{{nro_invoice}}",
+  
+  "WORD_VLR_UNITARIO": "Einzelpreis",
+  "WORD_VLR_TOTAL": "Gesamtpreis"
+}
