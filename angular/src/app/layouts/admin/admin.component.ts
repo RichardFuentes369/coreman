@@ -163,6 +163,13 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     this.menu = response.data;
   }
 
+  get cleanedAppName(): string {
+    if (!this.nameApp) return '';
+    return this.nameApp
+      .replace(/<[^>]*>/g, '') // Elimina <br>
+      .replace(/\s+/g, '');
+  }
+
   async ejecutarInitReal() {
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
     const response = await this.principalService.getDataUser(userData.data.id);

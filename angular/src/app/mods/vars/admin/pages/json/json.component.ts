@@ -92,7 +92,7 @@ export class JsonComponent implements OnInit, OnDestroy {
 
   // inicio datos envio card information
   img_statistics = "assets/images/img_estadistica.png"
-  titlePage = this.translate.instant('mod-catalog.TABLE_TITLE')
+  titlePage = this.translate.instant('mod-vars.TABLE_TITLE')
   titleTotalJson = this.translate.instant('mod-vars.JSON.CARD_TOTAL_JSON_TITLE')
   count_total_json = '0'
   // fin datos envio card information
@@ -117,7 +117,7 @@ export class JsonComponent implements OnInit, OnDestroy {
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const permiso_modulo = await this.permisosService.permisoPage(0, 'variables_sistema', userData.data.id)
-    const permiso_submodulo = await this.permisosService.permisoPage(95, 'system_json', userData.data.id)
+    const permiso_submodulo = await this.permisosService.permisoPage(24, 'system_json', userData.data.id)
 
     if (permiso_modulo.data === "" || permiso_submodulo.data === "") {
       this.router.navigate([_PAGE_WITHOUT_PERMISSION_ADMIN]);
@@ -168,7 +168,7 @@ export class JsonComponent implements OnInit, OnDestroy {
 
   // metodos Componente
   cambiarTextos() {
-    this.titlePage = this.translate.instant('mod-catalog.TABLE_TITLE')
+    this.titlePage = this.translate.instant('mod-vars.TABLE_TITLE')
     this.titleTotalJson = this.translate.instant('mod-vars.JSON.CARD_TOTAL_JSON_TITLE')
   }
 

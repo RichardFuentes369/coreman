@@ -122,7 +122,7 @@ export class VarComponent implements OnInit, OnDestroy {
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const permiso_modulo = await this.permisosService.permisoPage(0, 'variables_sistema', userData.data.id)
-    const permiso_submodulo = await this.permisosService.permisoPage(95, 'system_var', userData.data.id)
+    const permiso_submodulo = await this.permisosService.permisoPage(24, 'system_var', userData.data.id)
 
     if (permiso_modulo.data === "" || permiso_submodulo.data === "") {
       this.router.navigate([_PAGE_WITHOUT_PERMISSION_ADMIN]);
@@ -178,7 +178,7 @@ export class VarComponent implements OnInit, OnDestroy {
 
   // metodos Componente
   cambiarTextos() {
-    this.titlePage = this.translate.instant('mod-catalog.TABLE_TITLE')
+    this.titlePage = this.translate.instant('mod-vars.TABLE_TITLE')
     this.titleTotalVar = this.translate.instant('mod-vars.VARS.CARD_TOTAL_VAR_TITLE')
   }
 

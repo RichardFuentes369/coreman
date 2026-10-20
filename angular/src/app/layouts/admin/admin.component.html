@@ -249,67 +249,61 @@
         </div>
       </div>
 
-      <footer class="system-footer border-top border-secondary border-opacity-25 py-1">
+      <footer class="system-footer border-top border-secondary border-opacity-25 py-2">
         <div class="container-fluid px-3 px-lg-4">
-          <div class="row align-items-center justify-content-between g-1 text-system-footer">
+          <div class="row align-items-center justify-content-between g-2 text-system-footer">
 
             <!-- Lado Izquierdo: Logotipo, Marca y Copyright -->
-            <div class="col-12 col-md-auto text-center text-md-start">
+            <div class="col-12 col-md-4 text-center text-md-start">
               <div class="d-flex align-items-center justify-content-center justify-content-md-start flex-wrap gap-2">
-                <div
-                  class="text-white rounded-3 shadow-sm d-flex align-items-center justify-content-center flex-shrink-0"
-                  style="width: 26px; height: 26px; ">
-                  <img [src]="urlLogoUts" alt="Logo UTS" class="img-fluid rounded-5 p-1"
-                    style="max-height: 26px; object-fit: contain;">
-                </div>
+                <!-- <div
+            class="text-white rounded-3 shadow-sm d-flex align-items-center justify-content-center flex-shrink-0"
+            style="width: 26px; height: 26px; ">
+            <img [src]="urlLogoUts" alt="Logo UTS" class="img-fluid rounded-5 p-1"
+              style="max-height: 26px; object-fit: contain;">
+          </div> -->
                 <div class="d-flex align-items-center flex-wrap" style="font-size: 0.8rem;">
-                  <span class="fw-semibold text-light">MermaSmart</span>
+                  <span class="fw-semibold text-light">{{ cleanedAppName }}</span>
                   <span class="opacity-50 mx-1">&bull;</span>
-                  <span class="opacity-75">&copy; {{CURRENT_YEAR}} Proyecto de Grado - UTS</span>
+                  <span class="opacity-75">&copy; {{CURRENT_YEAR}}</span>
                 </div>
               </div>
             </div>
 
-            <!-- Lado Derecho: Desarrolladores en Pila Vertical Compacta -->
-            <div class="col-12 col-md-auto text-center text-md-end">
-              <div class="d-flex flex-column gap-0 align-items-center align-items-md-end" style="font-size: 0.775rem;">
+            <!-- Lado Derecho: Desarrollador -->
+            <div class="col-12 col-md-4 text-center text-md-end">
+              <div class="d-flex flex-column align-items-center align-items-md-end" style="font-size: 0.775rem;">
+                <!-- Redes Sociales en línea con color al hacer hover -->
+                <div class="d-flex flex-row align-items-center gap-2">
+                  <!-- WhatsApp (Hover verde) -->
+                  <a href="https://wa.me/573504284093" target="_blank" rel="noopener noreferrer"
+                    class="d-inline-flex align-items-center justify-content-center text-secondary opacity-75 text-success-hover transition-colors p-1 nav-link"
+                    style="--hover-color: #25d366;" title="Escribir por WhatsApp">
+                    <i class="fab fa-whatsapp" style="font-size: 0.95rem;" onmouseover="this.style.color='#25d366'"
+                      onmouseout="this.style.color=''"></i>
+                  </a>
 
-                <!-- Desarrollador 1: Javier -->
-                <div class="dev-item d-inline-flex align-items-center flex-wrap justify-content-center gap-2 px-2 py-0">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-code me-1 text-primary-subtle" style="font-size: 0.7rem;"></i>
-                    <span class="fw-medium text-light">Javier Baron F.</span>
-                  </div>
-                  <div class="d-flex align-items-center gap-2 opacity-75">
-                    <a href="mailto:jrbaron@uts.edu.co" class="text-reset text-decoration-none hover-underline"
-                      title="jrbaron@uts.edu.co">
-                      <i class="fas fa-envelope me-1"></i>Email
-                    </a>
-                    <span>&bull;</span>
-                    <a href="tel:+573504284093" class="text-reset text-decoration-none hover-underline"
-                      title="(+57) 350 428 4093">
-                      <i class="fas fa-phone-alt me-1"></i>350 428 4093
-                    </a>
-                  </div>
+                  <!-- Instagram (Hover rosa/rojo de Instagram) -->
+                  <a href="https://www.instagram.com/bjr_96/" target="_blank" rel="noopener noreferrer"
+                    class="d-inline-flex align-items-center justify-content-center text-secondary opacity-75 transition-colors p-1 nav-link"
+                    title="Síguenos en Instagram">
+                    <i class="fab fa-instagram" style="font-size: 0.95rem;" onmouseover="this.style.color='#e1306c'"
+                      onmouseout="this.style.color=''"></i>
+                  </a>
+
+                  <!-- Correo (Hover amarillo/naranja) -->
+                  <a href="mailto:javierbaron6@gmail.com"
+                    class="d-inline-flex align-items-center justify-content-center text-secondary opacity-75 transition-colors p-1 nav-link"
+                    title="Enviar un correo">
+                    <i class="fas fa-envelope" style="font-size: 0.95rem;" onmouseover="this.style.color='#ffc107'"
+                      onmouseout="this.style.color=''"></i>
+                  </a>
                 </div>
-
-                <!-- Desarrollador 2: Oscar -->
-                <div class="dev-item d-inline-flex align-items-center flex-wrap justify-content-center gap-2 px-2 py-0">
-                  <div class="d-flex align-items-center">
-                    <i class="fas fa-code me-1 text-primary-subtle" style="font-size: 0.7rem;"></i>
-                    <span class="fw-medium text-light">Oscar Villamizar B.</span>
-                  </div>
-                  <div class="d-flex align-items-center gap-2 opacity-75">
-                    <a href="mailto:oeduardovillamizar@uts.edu.co"
-                      class="text-reset text-decoration-none hover-underline" title="oeduardovillamizar@uts.edu.co">
-                      <i class="fas fa-envelope me-1"></i>Email
-                    </a>
-                    <span>&bull;</span>
-                    <a href="tel:+573176264312" class="text-reset text-decoration-none hover-underline"
-                      title="(+57) 317 626 4312">
-                      <i class="fas fa-phone-alt me-1"></i>317 626 4312
-                    </a>
-                  </div>
+                <!-- Desarrollado por -->
+                <div class="d-flex align-items-center mt-1">
+                  <i class="fas fa-code me-1 text-primary" style="font-size: 0.7rem;"></i>
+                  <span class="text-secondary">Desarrollado por <span class="fw-semibold text-light">Javier
+                      Baron</span></span>
                 </div>
 
               </div>

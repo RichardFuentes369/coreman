@@ -88,6 +88,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  get cleanedAppName(): string {
+    if (!this.nameApp) return '';
+    return this.nameApp
+      .replace(/<[^>]*>/g, '') // Elimina <br>
+      .replace(/\s+/g, '');
+  }
+
   private verificarRuta(url: string) {
     this.showRouteIngreso = !url.includes('ingreso/admin');
   }

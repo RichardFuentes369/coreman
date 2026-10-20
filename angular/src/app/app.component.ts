@@ -19,9 +19,6 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
 
-  isExtensionInstalled = false;
-  extensionId = 'gplpaadkokahmenbfpbeoglelcmdfbbe';
-
   title = 'angular';
 
   constructor(
@@ -37,7 +34,6 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.checkExtension();
     const response = await this.varsService.obtenerJson('custom_system') as any
     if (response?.valor) {
       localStorage.setItem('custom_system', response.valor);
@@ -50,40 +46,6 @@ export class AppComponent implements OnInit {
         window.scrollTo(0, 0);
       }
     });
-  }
-
-  checkExtension() {
-    const win = window as any;
-    const isChromium = win.chrome;
-
-    // 1. Si NO es Chromium (ej. Firefox), ocultamos la advertencia por completo
-    if (!isChromium) {
-      this.ngZone.run(() => {
-        this.isExtensionInstalled = true; // Esto evita que se muestre el mensaje en Firefox
-      });
-      return;
-    }
-
-    // 2. Si SÍ es Chromium (Chrome, Edge, Brave...), SÍ validamos la extensión
-    if (win.chrome.runtime && win.chrome.runtime.sendMessage) {
-      win.chrome.runtime.sendMessage(
-        this.extensionId,
-        { action: 'ping' },
-        (response: any) => {
-          this.ngZone.run(() => {
-            if (!win.chrome.runtime.lastError && response) {
-              this.isExtensionInstalled = true;  // Está instalada (sin advertencia en Chrome)
-            } else {
-              this.isExtensionInstalled = false; // NO está instalada -> ¡MUESTRA la advertencia en Chrome!
-            }
-          });
-        }
-      );
-    } else {
-      this.ngZone.run(() => {
-        this.isExtensionInstalled = false; // Si hay dudas en Chromium, muestra la advertencia
-      });
-    }
   }
 
 }
