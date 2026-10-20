@@ -7,23 +7,6 @@ export { UserModule } from './user/final/user/user.module';
 export { ModulosModule } from './modules/modulos.module'
 export { AsignacionModule } from './user/admin/permission/asignacion/asignacion.module';
 
-export { ExtentModule } from './catalogo/extent/extent.module';
-export { ProductModule } from './catalogo/product/product.module';
-export { SupplierModule } from './catalogo/supplier/supplier.module';
-export { BrandModule } from './catalogo/brand/brand.module';
-
-export { WarehouseModule } from './bodega/warehouse/warehouse.module';
-export { TiposModule } from './merma/tipos/tipos.module';
-export { MermasModule } from './merma/mermas/mermas.module';
-
-export { SotckModule } from './alerta/admin/sotck/sotck.module';
-export { ExpirationModule } from './alerta/admin/expiration/expiration.module'
-
 export { JsonModule } from './vars/admin/json/json.module';
 export { VarModule } from './vars/admin/var/var.module';
-
-export { SalesModule } from './bodega/sales/sales.module';
-
-export { MermaModule } from './auditoria/merma/merma.module';
-export { BodegaModule } from './auditoria/bodega/bodega.module';
 

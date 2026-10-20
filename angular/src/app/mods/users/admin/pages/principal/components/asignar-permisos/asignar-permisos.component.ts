@@ -31,7 +31,7 @@ export class AsignarPermisosComponent implements OnInit{
     private principalService :PrincipalService,
   ) { }
 
-  ModuloModulos = 17
+  ModuloModulos = 18
   ModuloBodega = 64
 
   title: any = {}

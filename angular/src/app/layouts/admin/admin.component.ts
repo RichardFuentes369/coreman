@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
 import { BreadcrumbsComponent } from '@component/globales/breadcrumb/breadcrumb.component';
 import { IdiomaComponent } from '@component/globales/idioma/idioma.component';
 import { ColormodeComponent } from '@component/globales/colormode/colormode.component';
-import { NotificationComponent } from '@component/globales/notification/notification.component';
+// import { NotificationComponent } from '@component/globales/notification/notification.component';
 import { FullscreenComponent } from '@component/globales/fullscreem/fullscreen.component';
 
 import { STORAGE_KEY_ADMIN_AUTH, STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
@@ -16,24 +16,11 @@ import { NAME_PAGE, LAYOUT_ADMIN_PAGE_LOGOUT, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_S
 import {
   ADMIN_PAGE_MENU_PERSMISSION_USERS,
   ADMIN_PAGE_MENU_PERSMISSION_MODULES,
-  ADMIN_PAGE_MENU_PERSMISSION_CATALOG,
-  ADMIN_PAGE_MENU_PERSMISSION_LOSS,
-  ADMIN_PAGE_MENU_PERSMISSION_WAREHOUSE,
   LAYOUT_ADMIN_PAGE_USERS,
   LAYOUT_ADMIN_PAGE_MODULES,
-  LAYOUT_ADMIN_PAGE_CATALOG,
-  LAYOUT_ADMIN_PAGE_LOSS,
-  LAYOUT_ADMIN_PAGE_WAREHOUSE,
   LAYOUT_ADMIN_PAGE_MENU,
-  ADMIN_PAGE_MENU_PERSMISSION_ALERTS,
-  LAYOUT_ADMIN_PAGE_ALERT,
-  LAYOUT_ADMIN_PAGE_SALE_RETURN,
 } from '@mod/main/const/main.const';
 import { MOD_USER_PAGE_ADMIN, MOD_USER_PAGE_FINAL } from '@mod/users/const/users.const';
-import { MOD_CATEGORY_PAGE_BRAND, MOD_CATEGORY_PAGE_EXTENT, MOD_CATEGORY_PAGE_PRODUCT, MOD_CATEGORY_PAGE_SUPPLIER } from '@mod/catalog/const/catalog.const';
-import { MOD_MERMA_PAGE_HISTORICO, MOD_MERMA_PAGE_REGISTRO, MOD_MERMA_PAGE_TIPOS } from '@mod/merma/const/loss.conts';
-import { MOD_ALERT_PAGE_EXPIRATION, MOD_ALERT_PAGE_STOCK } from '@mod/alerts/const/alerts.const';
-import { MOD_SALERETURN_PAGE_SALE } from '@mod/sale_and_return/const/sale_and_return.const';
 
 import { AuthService } from '@guard/service/auth.service';
 import { PrincipalService } from '@mod/users/admin/pages/principal/service/principal.service';
@@ -49,7 +36,7 @@ import { VarsService } from '@service/globales/vars/vars.service';
     BreadcrumbsComponent,
     ColormodeComponent,
     FullscreenComponent,
-    NotificationComponent,
+    // NotificationComponent,
     IdiomaComponent,
     CommonModule,
     TranslateModule,
@@ -71,33 +58,11 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   public MOD_USER_PAGE_ADMIN = MOD_USER_PAGE_ADMIN;
   public MOD_USER_PAGE_FINAL = MOD_USER_PAGE_FINAL;
 
-  public ADMIN_PAGE_MENU_PERSMISSION_CATALOG = ADMIN_PAGE_MENU_PERSMISSION_CATALOG;
-  public MOD_CATEGORY_PAGE_PRODUCT = MOD_CATEGORY_PAGE_PRODUCT;
-  public MOD_CATEGORY_PAGE_SUPPLIER = MOD_CATEGORY_PAGE_SUPPLIER;
-  public MOD_CATEGORY_PAGE_BRAND = MOD_CATEGORY_PAGE_BRAND;
-  public MOD_CATEGORY_PAGE_EXTENT = MOD_CATEGORY_PAGE_EXTENT;
-
-  public ADMIN_PAGE_MENU_PERSMISSION_LOSS = ADMIN_PAGE_MENU_PERSMISSION_LOSS;
-  public MOD_MERMA_PAGE_TIPOS = MOD_MERMA_PAGE_TIPOS;
-  public MOD_MERMA_PAGE_REGISTRO = MOD_MERMA_PAGE_REGISTRO;
-  public MOD_MERMA_PAGE_HISTORICO = MOD_MERMA_PAGE_HISTORICO;
-
-  public ADMIN_PAGE_MENU_PERSMISSION_ALERTS = ADMIN_PAGE_MENU_PERSMISSION_ALERTS;
-  public MOD_ALERT_PAGE_EXPIRATION = MOD_ALERT_PAGE_EXPIRATION;
-  public MOD_ALERT_PAGE_STOCK = MOD_ALERT_PAGE_STOCK;
-
-  public MOD_SALERETURN_PAGE_SALE = MOD_SALERETURN_PAGE_SALE;
 
   public ADMIN_PAGE_MENU_PERSMISSION_MODULES = ADMIN_PAGE_MENU_PERSMISSION_MODULES;
-  public ADMIN_PAGE_MENU_PERSMISSION_WAREHOUSE = ADMIN_PAGE_MENU_PERSMISSION_WAREHOUSE;
   public LAYOUT_ADMIN_PAGE_MENU = LAYOUT_ADMIN_PAGE_MENU;
   public LAYOUT_ADMIN_PAGE_USERS = LAYOUT_ADMIN_PAGE_USERS;
   public LAYOUT_ADMIN_PAGE_MODULES = LAYOUT_ADMIN_PAGE_MODULES;
-  public LAYOUT_ADMIN_PAGE_WAREHOUSE = LAYOUT_ADMIN_PAGE_WAREHOUSE;
-  public LAYOUT_ADMIN_PAGE_LOSS = LAYOUT_ADMIN_PAGE_LOSS;
-  public LAYOUT_ADMIN_PAGE_CATALOG = LAYOUT_ADMIN_PAGE_CATALOG;
-  public LAYOUT_ADMIN_PAGE_ALERT = LAYOUT_ADMIN_PAGE_ALERT;
-  public LAYOUT_ADMIN_PAGE_SALE_RETURN = LAYOUT_ADMIN_PAGE_SALE_RETURN;
 
   public tipoNavegacion: 'sidebar' | 'navbar' = 'sidebar';
   public navBarHeight: number = 0;

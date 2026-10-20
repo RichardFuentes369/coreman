@@ -12,30 +12,6 @@ export type I18nTranslations = {
         "MSN_INVALID": string;
         "PASSWORD_INVALID": string;
     };
-    "batch": {
-        "ERROR": string;
-        "MSJ_BATCH_TITTLE": string;
-        "MSN_BATCH_REMOVIDO_OK": string;
-    };
-    "categoria": {
-        "ERROR": string;
-        "MSJ_CATEGORY_TITTLE": string;
-        "MSN_CATEGORY_REMOVIDO_OK": string;
-        "MSJ_ERROR_BRAND_EXISTE": string;
-        "MSJ_ERROR_EXTEND_EXISTE": string;
-        "MSJ_ERROR_CATEGORY_EXISTE": string;
-        "MSJ_ERROR_CATEGORY_BAR_CODE_EXISTE": string;
-        "MSJ_ERROR_PRODUCT_EXISTE": string;
-        "MSJ_ERROR_PRODUCT_NOT_EXISTS": string;
-        "MSJ_MARCA_TITTLE": string;
-        "MSJ_ERROR_MARCA_TIENE_PRODUCTOS_HIJOS": string;
-        "MSJ_MEDIDA_TITTLE": string;
-        "MSJ_ERROR_MEIDA_TIENE_PRODUCTOS_HIJOS": string;
-        "MSJ_TIPO_TITTLE": string;
-        "MSJ_ERROR_TIPO_TIENE_PRODUCTOS_HIJOS": string;
-        "MSJ_PROVEEDOR_TITTLE": string;
-        "MSJ_ERROR_PROVEEDOR_TIENE_PRODUCTOS_HIJOS": string;
-    };
     "modulo": {
         "ERROR": string;
         "MSJ_PERMISO_TITTLE": string;
@@ -55,9 +31,6 @@ export type I18nTranslations = {
         "MSJ_PERMISO_ASIGNADO_MESSAGE": string;
         "MSJ_PERMISO_REMOVIDO_MESSAGE": string;
         "MSJ_ERROR_PERMISO_NO_EXISTENTE": string;
-    };
-    "proveedor": {
-        "MSJ_ERROR_NIT_EXISTE": string;
     };
     "user": {
         "ERROR": string;

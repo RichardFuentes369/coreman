@@ -5,11 +5,9 @@ import { filter } from 'rxjs/operators';
 
 // Importa tus constantes según sea necesario
 import { BREADCRUMB_PATH_MENU } from '@const/app.const';
-import { BREADCRUMB_PATH_ADMIN_BRAND } from '@mod/catalog/const/catalog.const';
-import { BREADCRUMB_PATH_CATALOG, BREADCRUMB_PATH_MERMA, BREADCRUMB_PATH_MODULES, BREADCRUMB_PATH_USERS } from '@mod/main/const/main.const';
+import { BREADCRUMB_PATH_MODULES, BREADCRUMB_PATH_USERS } from '@mod/main/const/main.const';
 import { BREADCRUMB_PATH_SUBMODULES } from '@mod/modules/const/modules.const';
 import { BREADCRUMB_PATH_ADMIN_USERS, BREADCRUMB_PATH_ASSIGN_ADMIN_USERS, BREADCRUMB_PATH_FINAL_USERS } from '@mod/users/const/users.const';
-import { BREADCRUMB_PATH_ADMIN_ANHOS, BREADCRUMB_PATH_ADMIN_HISTORY, PATH_ADMIN_HISTORY } from '@mod/merma/const/loss.conts';
 
 export interface Breadcrumb {
   label: string;
@@ -51,22 +49,13 @@ export class BreadcrumbService {
           label === BREADCRUMB_PATH_USERS || 
           label === BREADCRUMB_PATH_ADMIN_USERS || 
           label === BREADCRUMB_PATH_FINAL_USERS ||
-          label === BREADCRUMB_PATH_CATALOG ||
-          label === BREADCRUMB_PATH_MODULES || 
-          label === BREADCRUMB_PATH_ADMIN_BRAND 
+          label === BREADCRUMB_PATH_MODULES 
         ) {
           params = {};
         }
 
         if (label === BREADCRUMB_PATH_SUBMODULES) {
           delete params['id_submodule'];
-        }
-        if (label === BREADCRUMB_PATH_MERMA || label === BREADCRUMB_PATH_ADMIN_HISTORY) {
-          delete params['month'];
-          delete params['anho'];
-        }
-        if (label === BREADCRUMB_PATH_ADMIN_ANHOS) {
-          delete params['month'];
         }
 
         breadcrumbs.push({ 

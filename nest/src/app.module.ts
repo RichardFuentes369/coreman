@@ -16,24 +16,11 @@ import {
   AdminUserModule,
   UserModule,
   AuthuserModule,
-  AsignacionModule,
   ModulosModule,
-  ProductModule,
-  SupplierModule,
-  TiposModule,
-  MermasModule,
-  WarehouseModule,
-  SalesModule,
-  BrandModule,
-  ExtentModule,
-  SotckModule,
-  ExpirationModule,
+  AsignacionModule,
   VarModule,
-  JsonModule,
-  MermaModule,
-  BodegaModule
+  JsonModule
 } from './mod/index'
-import { AppGateway } from './app.gateway';
 
 @Module({
   imports: [
@@ -59,25 +46,12 @@ import { AppGateway } from './app.gateway';
     AuthuserModule,
     ModulosModule,
     AsignacionModule,
-    ProductModule,
-    SupplierModule,
-    WarehouseModule,
-    SalesModule,
-    TiposModule,
-    MermasModule,
-    BrandModule,
-    ExtentModule,
-    SotckModule,
-    ExpirationModule,
     VarModule,
-    JsonModule,
-    MermaModule,
-    BodegaModule
+    JsonModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    AppGateway,
   ],
 })
 export class AppModule {
