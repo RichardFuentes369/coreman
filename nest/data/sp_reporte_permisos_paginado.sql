@@ -14,9 +14,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-USE `BAN_00341`;
+USE `coreman`;
 
--- Dumping structure for procedure BAN_00341.sp_reporte_permisos_paginado
+-- Dumping structure for procedure coreman.sp_reporte_permisos_paginado
 DROP PROCEDURE IF EXISTS `sp_reporte_permisos_paginado`;
 DELIMITER //
 CREATE PROCEDURE `sp_reporte_permisos_paginado`(
