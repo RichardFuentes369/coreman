@@ -159,8 +159,8 @@
 
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow my-auto text-center">
-              <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
-                data-display="static" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+              <a class="nav-link" id="userDropdown" role="button" data-toggle="dropdown" data-display="static"
+                aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
                 <img class="img-profile rounded-circle" src="../../../assets/images/undraw_profile.svg" alt="Profile">
                 <span class="ml-3 mr-2 d-none d-lg-inline small text_nickname text-left"
                   style="display: inline-block; vertical-align: middle;">
@@ -191,66 +191,84 @@
       </nav>
 
       <!-- NAVBAR SUPERIOR STICKY -->
-      <nav #navBarAzul class="top-horizontal-navbar bg-background-side-custom sticky-top shadow-sm"
+      <nav #navBarAzul
+        class="navbar navbar-expand navbar-dark bg-background-side-custom p-0 top-horizontal-navbar sticky-top shadow-sm px-3"
         [class.navigation-navbar-hidden]="tipoNavegacion !== 'navbar'">
-        <ul class="nav nav-pills align-items-center px-3 justify-content-center my-2 gap-1">
 
-          <!-- MENU PRINCIPAL -->
-          <li class="nav-item" [class.active]="isRouteActive(LAYOUT_ADMIN_PAGE_MENU, true)">
-            <a class="nav-link bg_side_text d-flex align-items-center gap-2 px-3 py-2"
-              [routerLink]="LAYOUT_ADMIN_PAGE_MENU"
-              [class.active-dropdown]="isRouteActive(LAYOUT_ADMIN_PAGE_MENU, true)">
-              <i class="fa fa-th" aria-hidden="true"></i>
-              <span>{{ 'mod-main.PAGES_MENU' | translate }}</span>
-            </a>
-          </li>
+        <!-- Contenedor adaptativo -->
+        <div class="w-100 mb-1 mt-1" [class.container]="tipoNavegacion === 'navbar'">
+          <ul class="navbar-nav align-items-center gap-1">
 
-          <!-- MODULO USUARIOS -->
-          @if(tienePermiso('usuarios', '', 0)){
-          <li class="nav-item dropdown"
-            [class.active]="isRouteActive(MOD_USER_PAGE_ADMIN, true) || isRouteActive(MOD_USER_PAGE_FINAL, true)">
-            <a class="nav-link dropdown-toggle bg_side_text d-flex align-items-center gap-2 px-3 py-2"
-              data-toggle="dropdown" data-display="static" role="button" aria-expanded="false">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              <span>{{ 'mod-main.PAGES_USERS' | translate }}</span>
-            </a>
-            <div class="dropdown-menu collapse-inner shadow border-0">
-              @if(tienePermiso('usuarios', 'administradores', 1)){
-              <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_ADMIN" routerLinkActive="active">
-                {{ 'mod-users.BUTTON_ADMIN' | translate }}
+            <!-- MENU PRINCIPAL -->
+            <li class="nav-item">
+              <a class="nav-link bg_side_text d-flex align-items-center gap-2 px-3"
+                [routerLink]="LAYOUT_ADMIN_PAGE_MENU"
+                [class.active-custom]="isRouteActive(LAYOUT_ADMIN_PAGE_MENU, true)"
+                style="border-radius: 0 !important; height: 100%;">
+                <i class="bg_side_icon fa fa-th" aria-hidden="true"></i>
+                <span class="bg_side_text">{{ 'mod-main.PAGES_MENU' | translate }}</span>
               </a>
-              }
-              @if(tienePermiso('usuarios', 'finales', 1)){
-              <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_FINAL" routerLinkActive="active">
-                {{ 'mod-users.BUTTON_FINAL' | translate }}
+            </li>
+
+            <!-- MODULO USUARIOS -->
+            @if(tienePermiso('usuarios', '', 0)){
+            <li class="nav-item dropdown"
+              [class.active-custom]="isRouteActive(MOD_USER_PAGE_ADMIN, false) || isRouteActive(MOD_USER_PAGE_FINAL, false)">
+
+              <a class="nav-link bg_side_text d-flex align-items-center justify-content-between px-3"
+                data-toggle="dropdown" data-display="static" role="button" aria-expanded="false"
+                style="border-radius: 0 !important; height: 100%;">
+
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bg_side_icon fa fa-users" aria-hidden="true"></i>
+                  <span class="bg_side_text">{{ 'mod-main.PAGES_USERS' | translate }}</span>
+                </div>
+
+                <!-- Flechita indicadora que rota al abrir -->
+                <i class="fa fa-chevron-down dropdown-arrow ml-2"
+                  style="font-size: 0.75rem; transition: transform 0.25s ease;"></i>
               </a>
-              }
-            </div>
-          </li>
-          }
-        </ul>
+
+              <div class="dropdown-menu collapse-inner shadow border-0">
+                @if(tienePermiso('usuarios', 'administradores', 1)){
+                <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_ADMIN" routerLinkActive="active">
+                  {{ 'mod-users.BUTTON_ADMIN' | translate }}
+                </a>
+                }
+                @if(tienePermiso('usuarios', 'finales', 1)){
+                <a class="dropdown-item" [routerLink]="MOD_USER_PAGE_FINAL" routerLinkActive="active">
+                  {{ 'mod-users.BUTTON_FINAL' | translate }}
+                </a>
+                }
+              </div>
+            </li>
+            }
+
+          </ul>
+        </div>
       </nav>
 
       <!-- BREADCRUMBS -->
-      <div class="topbar-secondary-sticky custom-breadcrum pl-4 pr-4 d-flex align-items-center border-custom-color"
-        [style.top]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : '4rem'">
-        <div [class.container]="tipoNavegacion === 'navbar'">
-          <span class="d-flex align-items-center my-n2 ml-2 mr-2" style="cursor: pointer;">
+      <div class="topbar-secondary-sticky custom-breadcrum pr-4 d-flex align-items-center border-custom-color"
+        [style.top]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : '4rem'"
+        [class.pl-4]="tipoNavegacion === 'sidebar'">
+        <div class="" [class.container]="tipoNavegacion === 'navbar'">
+          <span class="d-flex align-items-center my-n2 mr-2" style="cursor: pointer;">
             <app-globales-breadcrumbs></app-globales-breadcrumbs>
           </span>
         </div>
       </div>
 
       <!-- CONTENIDO PRINCIPAL -->
-      <div id="content" class="container-fluid"
+      <div id="content" class="container-fluid" [class.container]="tipoNavegacion === 'navbar'"
         [style.--offset-botoneria]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : 'calc(4rem + ' + navBarHeight + 'px)'">
-        <div class="p-1 mt-3" [class.container]="tipoNavegacion === 'navbar'">
+        <div class="p-1 mt-3">
           <router-outlet></router-outlet>
         </div>
       </div>
 
       <footer class="system-footer border-top border-secondary border-opacity-25 py-2">
-        <div class="container-fluid px-3 px-lg-4">
+        <div class="container-fluid px-3 px-lg-4" [class.container]="tipoNavegacion === 'navbar'">
           <div class="row align-items-center justify-content-between g-2 text-system-footer">
 
             <!-- Lado Izquierdo: Logotipo, Marca y Copyright -->
