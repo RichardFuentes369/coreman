@@ -210,6 +210,24 @@
     &:last-child {
       border-top-right-radius: 12px;
     }
+
+    .dt-scroll-head, 
+  .dt-scroll-body {
+    width: 100% !important;
+    
+    table {
+      width: 100% !important;
+    }
+  }
+
+  /* Asegura que los títulos internos de DataTables fluyan correctamente */
+  .dt-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal !important;
+  }
   }
 
   tbody {

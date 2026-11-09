@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environment/environment';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -98,6 +98,22 @@ export class TablecrudComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.datatableElement && this.datatableElement.dtInstance) {
       this.datatableElement.dtInstance.then((dtInstance: any) => {
         dtInstance.page.len(nuevoLimite).draw();
+      });
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.actualizarAnchosTabla();
+  }
+
+  actualizarAnchosTabla() {
+    if (this.datatableElement && this.datatableElement.dtInstance) {
+      this.datatableElement.dtInstance.then((dtInstance: any) => {
+        setTimeout(() => {
+          dtInstance.columns.adjust();
+          dtInstance.responsive.recalc(); // Si usas la extensión responsive de DataTables
+        }, 50);
       });
     }
   }
@@ -424,7 +440,7 @@ export class TablecrudComponent implements OnInit, OnDestroy, AfterViewInit {
   uploadItem() { if (this.idsSeleccionados.length === 0) this.cargarItem.emit(); }
   newItem() { if (this.idsSeleccionados.length === 0) this.crearNuevoItem.emit(); }
   seeItem() { if (this.idsSeleccionados.length === 1) this.verItem.emit(this.idsSeleccionados[0]); }
-  seeItemLazy() { 
+  seeItemLazy() {
     this.datatableElement.dtInstance.then((dtInstance: any) => {
       const filaCompleta = dtInstance.rows().data().toArray().find(
         (item: any) => (item.id || item.IDENTIFICADOR) === this.idsSeleccionados[0]
