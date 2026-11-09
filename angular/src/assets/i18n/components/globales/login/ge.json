@@ -1,4 +1,6 @@
 {
+  "WORD_ADMIN": "Amtsperson",
+  "WORD_USER": "Standard",
   "TITLE_WELCOME": "Willkommen",
   "PLACEHOLDER_EMAIL": "E-Mail",
   "PLACEHOLDER_PASSWORD": "Passwort",

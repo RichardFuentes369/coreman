@@ -2,7 +2,26 @@
   <div class="card-glow-effect"></div>
   <div class="login-card-body">
 
-    <!-- Encabezado con bienvenida ejecutiva -->
+    <!-- CONTENEDOR DE PESTAÑAS AJUSTADO Y CENTRADO -->
+    <div class="d-flex justify-content-center mb-4">
+      <div class="d-inline-flex p-1 bg-light border border-light-subtle shadow-sm"
+        style="background-color: #f1f3f5 !important; border-radius: 50rem; width: 280px;">
+
+        <button type="button" class="btn btn-sm flex-fill rounded-pill py-2 font-weight-bold border-0"
+          [ngClass]="isLoginAdmin ? 'bg-white shadow-sm text-dark' : 'text-muted bg-transparent'"
+          style="transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);" (click)="isLoginAdmin = true">
+          {{ 'global-login.WORD_ADMIN' | translate}}
+        </button>
+
+        <button type="button" class="btn btn-sm flex-fill rounded-pill py-2 font-weight-bold border-0"
+          [ngClass]="!isLoginAdmin ? 'bg-white shadow-sm text-dark' : 'text-muted bg-transparent'"
+          style="transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);" (click)="isLoginAdmin = false">
+          {{ 'global-login.WORD_USER' | translate}}
+        </button>
+
+      </div>
+    </div>
+
     <div class="text-center mb-4">
       <h1 class="h4 text-gray-900 title-custom font-weight-bold">
         {{ 'global-login.TITLE_WELCOME' | translate}} {{ this.isLoginAdmin ? 'Admin' : '' }}
@@ -50,6 +69,11 @@
       <button type="button" class="btn btn-primary btn-user btn-block submit-btn" (click)="ingresar()">
         {{ 'global-login.TEXT_LOGIN' | translate}}
       </button>
+      @if (this.isLoginAdmin === false) {
+      <button type="button" class="btn btn-primary btn-user btn-block submit-btn" (click)="ingresar()">
+        {{ 'global-login.TEXT_CREATE_ACCOUNT' | translate}}
+      </button>
+      }
       }
     </form>
 

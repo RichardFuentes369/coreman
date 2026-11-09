@@ -20,19 +20,11 @@ export const HomeLayoutRoutes: Routes = [
     ]
   },
   {
-    path: 'ingreso/final',
+    path: 'ingreso',
     title: 'Ingreso',
     component: MainLoginComponent,
     canActivate: [
       indexGuard
     ]
-  },
-  {
-    path: 'ingreso/admin',
-    title: 'Ingreso Administrador',
-    component: MainLoginComponent,
-    canActivate: [
-      indexGuard
-    ]
-  },
+  }
 ];

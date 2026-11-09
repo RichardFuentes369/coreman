@@ -11,7 +11,7 @@ import { ColormodeComponent } from '@component/globales/colormode/colormode.comp
 import { FullscreenComponent } from '@component/globales/fullscreem/fullscreen.component';
 
 import { STORAGE_KEY_ADMIN_AUTH, STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
-import { NAME_PAGE, LAYOUT_ADMIN_PAGE_LOGOUT, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_SETTINGS, LAYOUT_PAGE_DASHBOARD, LAYOUT_ADMIN_PAGE_MOD } from '@layout/const/layouts.const';
+import { NAME_PAGE, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_SETTINGS, LAYOUT_PAGE_DASHBOARD, LAYOUT_ADMIN_PAGE_MOD, LAYOUT_PAGE_LOGOUT } from '@layout/const/layouts.const';
 
 import {
   ADMIN_PAGE_MENU_PERSMISSION_USERS,
@@ -233,7 +233,7 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   cerrarSession() {
     localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
     localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
-    this.router.navigate([LAYOUT_ADMIN_PAGE_LOGOUT]);
+    this.router.navigate([LAYOUT_PAGE_LOGOUT]);
   }
 
   closeSidebarOnMobile(): void {

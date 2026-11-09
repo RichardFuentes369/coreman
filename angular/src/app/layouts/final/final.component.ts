@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { IdiomaComponent } from '@component/globales/idioma/idioma.component';
 
 import { STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
-import { LAYOUT_FINAL_PAGE_LOGOUT, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_SETTINGS, NAME_PAGE } from '@layout/const/layouts.const';
+import { LAYOUT_PAGE_LOGOUT, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_SETTINGS, NAME_PAGE } from '@layout/const/layouts.const';
 import { CommonModule } from '@angular/common';
 import { ColormodeComponent } from '@component/globales/colormode/colormode.component';
 
@@ -42,7 +42,7 @@ export class FinalComponent {
   cerrarSession(){
     localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN)
     localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL)
-    this.router.navigate([LAYOUT_FINAL_PAGE_LOGOUT]);
+    this.router.navigate([LAYOUT_PAGE_LOGOUT]);
   }
 
 }

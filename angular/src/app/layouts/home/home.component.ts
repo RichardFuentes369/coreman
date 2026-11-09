@@ -5,7 +5,7 @@ import { IdiomaComponent } from '@component/globales/idioma/idioma.component';
 import { Router, NavigationEnd, Event, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { NAME_PAGE, LAYOUT_HOME_PAGE_START, LAYOUT_HOME_PAGE_LOGIN_FINAL, LAYOUT_HOME_PAGE_LOGIN_ADMIN } from '@layout/const/layouts.const';
+import { NAME_PAGE, LAYOUT_HOME_PAGE_START, LAYOUT_HOME_PAGE_LOGIN } from '@layout/const/layouts.const';
 import { ColormodeComponent } from '@component/globales/colormode/colormode.component';
 import { VarsService } from '@service/globales/vars/vars.service';
 import { FullscreenComponent } from '@component/globales/fullscreem/fullscreen.component';
@@ -29,8 +29,7 @@ export class HomeComponent implements OnInit {
   public CURRENT_YEAR = new Date().getFullYear();
   public NAME_PAGE = NAME_PAGE;
   public LAYOUT_HOME_PAGE_START = LAYOUT_HOME_PAGE_START;
-  public LAYOUT_HOME_PAGE_LOGIN_ADMIN = LAYOUT_HOME_PAGE_LOGIN_ADMIN;
-  public LAYOUT_HOME_PAGE_LOGIN_FINAL = LAYOUT_HOME_PAGE_LOGIN_FINAL;
+  public LAYOUT_HOME_PAGE_LOGIN = LAYOUT_HOME_PAGE_LOGIN;
 
   @ViewChild(ColormodeComponent) colorModeComponent!: ColormodeComponent;
 

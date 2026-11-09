@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   isPending = false;
-  isLoginAdmin = true
+  isLoginAdmin = false
   urlPeticion = ''
   typefield = 'password'
 
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   async ingresar(){
     this.isPending = true;
-    let rol = this.urlPeticion.split('/').find(e => e == 'admin') ? 0 : 1
+    let rol = this.isLoginAdmin == true ? 0 : 1
     let data = {
       'email': this.model.email,
       'pass': this.model.password,

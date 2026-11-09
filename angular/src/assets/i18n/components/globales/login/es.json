@@ -1,4 +1,6 @@
 {
+  "WORD_ADMIN": "Funcionario",
+  "WORD_USER": "Estándar",
   "TITLE_WELCOME": "Bienvenido",
   "PLACEHOLDER_EMAIL": "Correo",
   "PLACEHOLDER_PASSWORD": "Contraseña",

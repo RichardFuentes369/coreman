@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router'
 import { _PAGE_BACK_HOME, STORAGE_KEY_TOKEN, STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL, WORD_KEY_AUTHORIZATION_GLOBAL, WORD_KEY_BEARER_GLOBAL } from '@const/app.const';
 import { environment } from '@environment/environment';
-import { LAYOUT_ADMIN_PAGE_LOGOUT, LAYOUT_FINAL_PAGE_LOGOUT } from '@layout/const/layouts.const';
+import { LAYOUT_PAGE_LOGOUT } from '@layout/const/layouts.const';
 import { TranslateService } from '@ngx-translate/core';
 import axios from 'axios';
 
@@ -65,10 +65,10 @@ export class AuthService {
     const removeToken = () => {
         if (adminToken) {
           localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
-          this.router.navigate([LAYOUT_ADMIN_PAGE_LOGOUT]);
+          this.router.navigate([LAYOUT_PAGE_LOGOUT]);
         } else if (finalToken) {
           localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
-          this.router.navigate([LAYOUT_FINAL_PAGE_LOGOUT]);
+          this.router.navigate([LAYOUT_PAGE_LOGOUT]);
         } else {
           localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
           localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
