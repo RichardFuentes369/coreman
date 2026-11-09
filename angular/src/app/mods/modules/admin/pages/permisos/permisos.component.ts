@@ -47,6 +47,9 @@ export class PermisosComponent implements OnInit {
 
   moduloReal = ''
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
 
   async ngOnInit() {
     if (!this.route.snapshot.queryParams?.['id_module']) {

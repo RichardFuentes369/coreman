@@ -64,7 +64,7 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   public LAYOUT_ADMIN_PAGE_USERS = LAYOUT_ADMIN_PAGE_USERS;
   public LAYOUT_ADMIN_PAGE_MODULES = LAYOUT_ADMIN_PAGE_MODULES;
 
-  public tipoNavegacion: 'sidebar' | 'navbar' = 'sidebar';
+  public tipoNavegacion: 'sidebar' | 'navbar' = localStorage.getItem('positionMenu') === 'navbar' ? 'navbar' : 'sidebar';
   public navBarHeight: number = 0;
   private _navBarAzulElement?: ElementRef;
 
@@ -184,6 +184,8 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.tipoNavegacion === tipo) {
       return;
     }
+
+    localStorage.setItem('positionMenu', tipo);
 
     this.tipoNavegacion = tipo;
 

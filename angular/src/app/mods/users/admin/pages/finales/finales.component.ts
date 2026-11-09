@@ -165,6 +165,10 @@ export class FinalesComponent implements OnInit {
     }
   }
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
+
   // metodos Init, Destroy
   async ngOnInit() {
     await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);

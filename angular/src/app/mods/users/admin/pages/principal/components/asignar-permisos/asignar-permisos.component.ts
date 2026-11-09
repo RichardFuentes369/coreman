@@ -39,6 +39,10 @@ export class AsignarPermisosComponent implements OnInit{
 
   mostratTodo: boolean = false
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
+
   async ngOnInit() {
     await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);

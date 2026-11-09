@@ -1,5 +1,5 @@
 <div class="mb-4 border-0 rounded-0">
-  <div class="d-flex justify-content-between align-items-center px-3 pb-2">
+  <div class="d-flex justify-content-between align-items-center pb-2" [class]="posicionMenu === 'navbar' ? 'p-0' : 'px-3'">
     <h4 class="m-0 fw-bold title-custom" [innerHTML]="'mod-users.ASSIGMENT_ADMIN_TITLE' | translate:title"></h4>
     <span class="custom-tooltip tooltip-left mt-1 mb-1" 
       [attr.data-title]="mostrarCards === true ? ('global-card.WORD_SHOW' | translate) : ('global-card.WORD_HIDE' | translate)" 
@@ -9,8 +9,8 @@
       </button>
     </span>
   </div>
-  <hr class="mt-0 ml-3 mr-3 line-title-custom">
-  <div class="p-3 pt-0" style="position: relative;">
+  <hr class="mt-0 line-title-custom" [class]="posicionMenu === 'navbar' ? 'p-0' : 'ml-3 mr-3'">
+  <div class="pt-0" style="position: relative;" [class]="posicionMenu === 'navbar' ? 'p-0' : 'p-3'">
     <div class="rounded-0">
       <div class="pt-2 pb-2">
         @for (modulos of permisos; track modulos.mpm_permiso) {

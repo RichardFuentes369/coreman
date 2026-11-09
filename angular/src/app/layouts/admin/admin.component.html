@@ -260,7 +260,7 @@
       </div>
 
       <!-- CONTENIDO PRINCIPAL -->
-      <div id="content" class="container-fluid" [class.container]="tipoNavegacion === 'navbar'"
+      <div id="content" class="container-fluid p-0" [class.container]="tipoNavegacion === 'navbar'"
         [style.--offset-botoneria]="tipoNavegacion === 'navbar' ? 'calc(4rem + ' + navBarHeight + 'px)' : 'calc(4rem + ' + navBarHeight + 'px)'">
         <div class="p-1 mt-3">
           <router-outlet></router-outlet>

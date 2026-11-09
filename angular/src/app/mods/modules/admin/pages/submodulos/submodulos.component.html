@@ -1,5 +1,5 @@
 <div class="mb-4 border-0 rounded-0">
-  <div class="d-flex justify-content-between align-items-center px-3 pb-2">
+  <div class="d-flex align-items-center gap-2" [class]="posicionMenu === 'navbar' ? 'p-0' : 'pl-3 pr-3'">
     <h4 class="fw-bold text-bold title-custom d-flex align-items-center gap-2 mb-0">
       <div class="card_icon rounded-5 p-2 shadow-lg">
         <div class="img-logo small colored-icon" [style.mask-image]="'url(' + imgModules + ')'"
@@ -8,25 +8,11 @@
       <span>{{ 'mod-modules.SUBMODULE_TITLE' | translate }}</span>
     </h4>
   </div>
-  <hr class="mt-0 ml-3 mr-3 line-title-custom">
+  <hr class="mt-2 line-title-custom" [class]="posicionMenu === 'navbar' ? '' : 'ml-3 mr-3'">
 
-  <div class="mt-2 p-3 pt-0" style="position: relative;">
+  <div class="mt-2 pt-0" style="position: relative;" [class]="posicionMenu === 'navbar' ? '' : 'ml-3 mr-3'">
     @if (cargarTabla) {
     <div class="table-container">
-      <!-- <app-globales-tablecrud
-        [title]="titlePage"
-        [campoFiltro] = showcampoFiltro
-        [endPoint] = endPoint
-        [columnas] = columnas
-        [habilitarSeleccion]="habilitarSeleccion"
-        [permisosAcciones] = permisos
-    
-        (verItem) = "verData($event)"
-        (crearNuevoItem) = "crearData($event)"
-        (editarItem) = "editarData($event)"
-        (eliminarItem) = "eliminarData($event)"
-        >
-      </app-globales-tablecrud> -->
       <app-globales-gridcrud [campoFiltro]="showcampoFiltro" [endPoint]="endPoint"
         [habilitarSeleccion]="habilitarSeleccion" [permisosAcciones]="permisos" [title]="titlePage"
         [mostrarTotal]="mostrarTotal" (verItem)="verData($event)" (crearNuevoItem)="crearData($event)"

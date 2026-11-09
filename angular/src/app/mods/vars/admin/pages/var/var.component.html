@@ -1,5 +1,5 @@
 <div class="mb-4 border-0 rounded-0">
-  <div class="d-flex align-items-center gap-2 pl-3 pr-3">
+  <div class="d-flex align-items-center gap-2" [class]="posicionMenu === 'navbar' ? 'p-0' : 'pl-3 pr-3'">
     <!-- Ícono representativo -->
     <div class="card_icon rounded-5 p-2 shadow-lg flex-shrink-0">
       <div class="img-logo small colored-icon" [style.mask-image]="'url(' + imgVar + ')'"
@@ -25,11 +25,11 @@
       </button>
     </span>
   </div>
-  <hr class="mt-0 ml-3 mr-3 line-title-custom">
+  <hr class="mt-0 line-title-custom" [class]="posicionMenu === 'navbar' ? '' : 'ml-3 mr-3'">
 
   <!-- Inició contadores -->
-  <div class="card-body p-3 pb-0 pt-0" [class.animate__fadeIn]="mostrarCards"
-    [class.animate__fadeOut]="!mostrarCards || !cargarIdioma">
+  <div class="card-body " [class.animate__fadeIn]="mostrarCards"
+    [class.animate__fadeOut]="!mostrarCards || !cargarIdioma" [class]="posicionMenu === 'navbar' ? 'p-0' : 'p-3 pb-0 pt-0'">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 mb-3 align-items-stretch">
       @for (card of [
       {img: img_statistics, title: titleTotalVar, count: count_total_var},
@@ -44,7 +44,7 @@
   <!-- Fin contadores -->
 
   <!-- Inició tabla registros -->
-  <div class="mt-2 p-3 pt-0" style="position: relative;">
+  <div class="mt-2 pb-3 pt-0" style="position: relative;" [class]="posicionMenu === 'navbar' ? 'p-0' : 'p-3'">
     <div class="filter-wrapper">
       <app-globales-search [icon]="iconFilter" [componente]="componenteFilter" (filtroItem)="filtroData()">
       </app-globales-search>

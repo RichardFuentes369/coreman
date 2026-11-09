@@ -39,6 +39,10 @@ export class IndexComponent implements OnInit{
   imgAdmin = 'assets/images/img_admin.png'
   imgFinal = 'assets/images/img_actived.png'
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
+
   async ngOnInit() {
     await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH)

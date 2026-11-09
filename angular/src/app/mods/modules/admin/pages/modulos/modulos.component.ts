@@ -43,6 +43,10 @@ export class ModulosComponent implements OnInit {
 
   imgModules = 'assets/images/img_modules.png'
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
+
   async ngOnInit() {
     await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);

@@ -43,6 +43,10 @@ export class SubmodulosComponent implements OnInit {
   permisos: any[] = []
   imgModules = 'assets/images/img_modules.png'
   moduloPadre: any = 0
+  
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
 
   async ngOnInit() {
     if (!this.route.snapshot.queryParams?.['id_module']) {

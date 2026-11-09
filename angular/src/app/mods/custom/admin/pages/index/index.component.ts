@@ -58,6 +58,10 @@ export class IndexComponent implements OnInit {
   custom_json_title_page: any = {};
   custom_json_modal: any = {};
 
+  get posicionMenu(): string | null {
+    return localStorage.getItem('positionMenu');
+  }
+
   async ngOnInit() {
     this.currentTheme = await localStorage.getItem('theme') || 'light';
     const response1 = await this.varsService.obtenerJson('custom_system') as any;
