@@ -90,7 +90,7 @@ INSERT INTO `mod_permisos_modulo_asignacion` (`id`, `nombre`, `permiso`, `descri
 
 -- Dumping data for table coreman.mod_usuarios_admin: ~0 rows (approximately)
 INSERT INTO `mod_usuarios_admin` (`id`, `firstName`, `lastName`, `email`, `password`, `isActive`) VALUES
-	(1, 'Javier Ricardo', 'Baron Fuentes', 'jrbaron@uts.edu.co', 'Qwerty9601.', 1);
+	(1, 'Javier Ricardo', 'Baron Fuentes', 'admin1@correo.com', 'Qwerty9601.', 1);
 
 -- Dumping data for table coreman.mod_usuarios_user: ~0 rows (approximately)
 

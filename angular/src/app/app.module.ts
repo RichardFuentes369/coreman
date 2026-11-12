@@ -42,7 +42,6 @@ export function createTranslateLoader(http: HttpClient) {
       { baseTranslateUrl, moduleName: 'components/globales/tablecrud', namespace: 'global-tablecrud' },
       { baseTranslateUrl, moduleName: 'components/globales/dropzone', namespace: 'global-dropzone' },
       { baseTranslateUrl, moduleName: 'components/globales/permission', namespace: 'global-permission' },
-      { baseTranslateUrl, moduleName: 'components/globales/colormode', namespace: 'global-colormode' },
       { baseTranslateUrl, moduleName: 'components/globales/breadcrumb', namespace: 'global-breadcrumb' },
       { baseTranslateUrl, moduleName: 'components/globales/gridcrud', namespace: 'global-gridcrud' },
       { baseTranslateUrl, moduleName: 'components/globales/scanner', namespace: 'global-scanner' },
@@ -61,14 +60,8 @@ export function createTranslateLoader(http: HttpClient) {
       { baseTranslateUrl, moduleName: 'mods/me', namespace: 'mod-me'},
       { baseTranslateUrl, moduleName: 'mods/users', namespace: 'mod-users'},
       { baseTranslateUrl, moduleName: 'mods/modules', namespace: 'mod-modules'},
-      { baseTranslateUrl, moduleName: 'mods/catalog', namespace: 'mod-catalog'},
-      { baseTranslateUrl, moduleName: 'mods/merma', namespace: 'mod-merma'},
-      { baseTranslateUrl, moduleName: 'mods/stock', namespace: 'mod-stock'},
-      { baseTranslateUrl, moduleName: 'mods/warehouse', namespace: 'mod-warehouse'},
-      { baseTranslateUrl, moduleName: 'mods/alerts', namespace: 'mod-alerts'},
       { baseTranslateUrl, moduleName: 'mods/vars', namespace: 'mod-vars'},
       { baseTranslateUrl, moduleName: 'mods/custom', namespace: 'mod-custom'},
-      { baseTranslateUrl, moduleName: 'mods/salereturn', namespace: 'mod-salereturn'},
       // fin modulos
     ]
   };
