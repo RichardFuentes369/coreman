@@ -84,4 +84,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  async nuevoRegistro(){
+    
+  }
+
+  async cambioPassword(){
+    
+  }
 }

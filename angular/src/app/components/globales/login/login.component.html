@@ -70,10 +70,13 @@
         {{ 'global-login.TEXT_LOGIN' | translate}}
       </button>
       @if (this.isLoginAdmin === false) {
-      <button type="button" class="btn btn-primary btn-user btn-block submit-btn" (click)="ingresar()">
+      <button type="button" class="btn btn-primary btn-user btn-block submit-btn" (click)="nuevoRegistro()">
         {{ 'global-login.TEXT_CREATE_ACCOUNT' | translate}}
       </button>
       }
+      <button type="button" class="btn btn-primary btn-user btn-block submit-btn" (click)="cambioPassword()">
+        {{ 'global-login.TEXT_FORGOT_PASSWORD' | translate}}
+      </button>
       }
     </form>
 
