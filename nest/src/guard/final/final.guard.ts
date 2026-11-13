@@ -6,16 +6,20 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '@guard/secret_key';
+import { TokenBlacklistService } from '@global/services/token-blacklist.service';
 import { Request } from 'express';
 
 @Injectable()
 export class FinalGuard implements CanActivate {
-  constructor(private jwtService: JwtService) { }
+  constructor(private jwtService: JwtService, private blacklist: TokenBlacklistService) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
+      throw new UnauthorizedException();
+    }
+    if (this.blacklist.isRevoked(token)) {
       throw new UnauthorizedException();
     }
     try {

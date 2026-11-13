@@ -5,6 +5,12 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import * as ExcelJS from 'exceljs';
 import { stringify } from 'csv-stringify/sync';
 
+import * as bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+import { execFileSync } from 'child_process';
+
 import { In, Like, Repository } from 'typeorm';
 import { Admin } from './entities/admin.entity';
 import { FilterUserDto } from '@module/user/dto/filter-user.dto';
@@ -123,6 +129,53 @@ export class AdminService {
     });
   }
 
+  async updatePasswordHash(id: number, hashed: string) {
+    return this.adminRepository.update({ id }, { password: hashed });
+  }
+
+  getMaxAttempts(): number {
+    return parseInt(process.env.ADMIN_MAX_LOGIN_ATTEMPTS || '3', 10);
+  }
+
+  getLockoutMinutes(): number {
+    return parseInt(process.env.ADMIN_LOCKOUT_MINUTES || '10', 10);
+  }
+
+  async getLockStatus(email: string): Promise<{ locked: boolean; until: Date | null; attempts: number }> {
+    const user = await this.adminRepository.findOne({ where: { email } });
+    if (!user) return { locked: false, until: null, attempts: 0 };
+    const now = new Date();
+    if (user.lockedUntil && new Date(user.lockedUntil) > now) {
+      return { locked: true, until: new Date(user.lockedUntil), attempts: user.failedLoginAttempts };
+    }
+    // si el bloqueo expiró, resetear
+    if (user.lockedUntil && new Date(user.lockedUntil) <= now) {
+      await this.adminRepository.update({ id: user.id }, { failedLoginAttempts: 0, lockedUntil: null });
+    }
+    return { locked: false, until: null, attempts: user.failedLoginAttempts };
+  }
+
+  async recordFailedAttempt(email: string): Promise<{ locked: boolean; until: Date | null }> {
+    const user = await this.adminRepository.findOne({ where: { email } });
+    if (!user) return { locked: false, until: null };
+    const max = this.getMaxAttempts();
+    const attempts = (user.failedLoginAttempts || 0) + 1;
+    if (attempts >= max) {
+      const until = new Date(Date.now() + this.getLockoutMinutes() * 60 * 1000);
+      await this.adminRepository.update({ id: user.id }, { failedLoginAttempts: attempts, lockedUntil: until });
+      return { locked: true, until };
+    }
+    await this.adminRepository.update({ id: user.id }, { failedLoginAttempts: attempts, lockedUntil: null });
+    return { locked: false, until: null };
+  }
+
+  async resetLoginAttempts(email: string) {
+    const user = await this.adminRepository.findOne({ where: { email } });
+    if (!user) return;
+    await this.adminRepository.update({ id: user.id }, { failedLoginAttempts: 0, lockedUntil: null });
+  }
+
+
   // requieren permisos de usuario
   async create(
     lang: string,
@@ -135,9 +188,12 @@ export class AdminService {
 
       if(encontrarCorreo) throw new NotFoundException(
         this.i18n.t('user.MSJ_ERROR_USER_EXIST', { lang, args: { correo: createAdminDto.email } })
-      )      
-  
-      this.adminRepository.save(createAdminDto);
+      )
+
+      const hashedPassword = await bcrypt.hash(createAdminDto.password, 10);
+      const toSave = { ...createAdminDto, password: hashedPassword };
+
+      await this.adminRepository.save(toSave);
       return {
         'title': this.i18n.t('user.MSJ_USUARIO_TITTLE', { lang }),
         'message': this.i18n.t('user.MSJ_USUARIO_CREADO_EXITOSAMENTE_TITTLE', { lang }),
@@ -146,9 +202,9 @@ export class AdminService {
 
     } catch (error) {
       return {
-        'title': error.response.error,
-        'text': error.response.error,
-        'message': error.response.message,
+        'title': error?.response?.error,
+        'text': error?.response?.error,
+        'message': error?.response?.message || error?.message,
         'status': 404,
       }
     }
@@ -178,6 +234,9 @@ export class AdminService {
       }
     }
 
+    if (updateAdminDto.password) {
+      (updateAdminDto as any).password = await bcrypt.hash(updateAdminDto.password, 10);
+    }
     return this.adminRepository.save({
       ...property, // existing fields
       ...updateAdminDto // updated fields

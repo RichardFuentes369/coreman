@@ -14,7 +14,7 @@ export const mysqlProviders = [
         entities: [
           __dirname + '/../../**/*.entity{.ts,.js}',
         ],
-        synchronize: true,
+        synchronize: process.env.NODE_ENV !== 'production',
         logging: false, 
       });
 

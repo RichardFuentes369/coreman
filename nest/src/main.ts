@@ -30,7 +30,7 @@ async function bootstrap() {
   // fin documentación //
 
   app.enableCors({
-    origin: '*',
+    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     credentials: true,
   });

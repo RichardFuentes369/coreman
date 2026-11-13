@@ -3,6 +3,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import * as ExcelJS from 'exceljs';
+import * as bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+import { execFileSync } from 'child_process';
 
 import { In, Like, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -119,6 +124,11 @@ export class UserService {
     });
   }
 
+  async updatePasswordHash(id: number, hashed: string) {
+    return this.userRepository.update({ id }, { password: hashed });
+  }
+
+
   // requieren permisos de usuario
   async create(
   createUserDto: CreateUserDto,
@@ -131,7 +141,8 @@ export class UserService {
       if(encontrarCorreo) throw new NotFoundException(`
         Este correo ${createUserDto.email}, ya esta registrado en nuestra base de datos
       `)
-      await this.userRepository.save(createUserDto);
+      const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+      await this.userRepository.save({ ...createUserDto, password: hashedPassword });
 
       return {
         'title': this.i18n.t('user.MSJ_USUARIO_TITTLE', { lang }),
@@ -172,6 +183,9 @@ export class UserService {
       }
     }
     
+    if (updateUserDto.password) {
+      (updateUserDto as any).password = await bcrypt.hash(updateUserDto.password, 10);
+    }
     return this.userRepository.save({
       ...property, // existing fields
       ...updateUserDto // updated fields

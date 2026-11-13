@@ -16,7 +16,7 @@ import { GetUser } from 'src/decorator/getIdUser.decorator';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
  
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get('obtener-usuarios-administradores')
   findAll(
     @Query('lang') lang:string,
@@ -104,6 +104,7 @@ export class AdminController {
   }
 
   // contadores
+  @UseGuards(AdminGuard)
   @Get('obtener-contadores-usuarios-administradores')
   async contadores(
     @Query('lang') lang:string,
@@ -112,6 +113,7 @@ export class AdminController {
   }
 
   // reportes
+  @UseGuards(AdminGuard)
   @Get('excel')
   async downloadExcel(
     @Query('lang') lang:string,
@@ -125,6 +127,7 @@ export class AdminController {
     res.send(buffer);
   }
 
+  @UseGuards(AdminGuard)
   @Get('csv')
   async downloadCsv(
     @Query('lang') lang:string,

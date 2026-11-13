@@ -22,6 +22,12 @@ export class Admin {
   @Column({ default: true })
   isActive: boolean;
 
+  @Column({ default: 0 })
+  failedLoginAttempts: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lockedUntil: Date | null;
+
   @OneToMany(() => Asignacion, (asignacion) => asignacion.user)
   asignaciones: Asignacion[];
 }

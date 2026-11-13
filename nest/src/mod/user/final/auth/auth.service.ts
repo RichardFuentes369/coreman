@@ -3,6 +3,15 @@ import { Injectable, NotFoundException, UnauthorizedException, BadRequestExcepti
 import { UserService } from '@module/user/final/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 
+import * as bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+import { execFileSync } from 'child_process';
+
+import { jwtConstants } from '@guard/secret_key';
+import { TokenBlacklistService } from '@global/services/token-blacklist.service';
+
 import { I18nService } from 'nestjs-i18n';
 
 import { CreateAuthuserDto } from './dto/create-auth.dto';
@@ -13,7 +22,8 @@ export class AuthuserService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-    private i18n: I18nService
+    private i18n: I18nService,
+    private blacklist: TokenBlacklistService
   ) {}
   
   async signIn(
@@ -27,13 +37,24 @@ export class AuthuserService {
     if(user.isActive == false){
       throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_IS_DESACTIVED', { lang }) });
     }
-    if (user.password !== createUserDto.pass) {
+    let passwordMatch = false;
+    if (user.password && user.password.startsWith('$2')) {
+      passwordMatch = await bcrypt.compare(createUserDto.pass, user.password);
+    } else {
+      passwordMatch = user.password === createUserDto.pass;
+      if (passwordMatch) {
+        const hashed = await bcrypt.hash(createUserDto.pass, 10);
+        await this.userService.updatePasswordHash(user.id, hashed);
+      }
+    }
+    if (!passwordMatch) {
       throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.PASSWORD_INVALID', { lang }) });
     }
 
     const payload = { id: user.id, email: user.email };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync({ ...payload, type: 'access' }),
+      refresh_token: await this.jwtService.signAsync({ ...payload, type: 'refresh' }, { expiresIn: '7d' }),
     };
 
   }
@@ -42,16 +63,86 @@ export class AuthuserService {
     lang: string,
     tokenDto: TokenDto
   ): Promise<any> {
-    const tokenUsuario = await this.jwtService.decode(tokenDto.token)
-    if(!tokenUsuario){
-        this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_INVALID', { lang }) }
+    if (this.blacklist.isRevoked(tokenDto.token)) {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_INVALID', { lang }) });
     }
-    const user = await this.userService.findUsernameEmail(tokenUsuario.email);
-    if(!user){
-        this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_NOT_REGISTER', { lang }) }
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(tokenDto.token, { secret: jwtConstants.secretUser });
+    } catch {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_INVALID', { lang }) });
     }
-    const payload = { id: user.id, email: user.email };
-    const token = await  this.jwtService.sign(payload);
-    return token;
+    if (!payload || !payload.email) {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_INVALID', { lang }) });
+    }
+    if (payload.type !== 'refresh') {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_INVALID', { lang }) });
+    }
+    const user = await this.userService.findUsernameEmail(payload.email);
+    if (!user) {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_NOT_REGISTER', { lang }) });
+    }
+    try {
+      const decoded: any = this.jwtService.decode(tokenDto.token);
+      const expMs = decoded?.exp ? decoded.exp * 1000 : Date.now() + 3600000;
+      this.blacklist.revoke(tokenDto.token, expMs);
+    } catch {}
+
+    const newPayload = { id: user.id, email: user.email };
+    return {
+      access_token: await this.jwtService.signAsync({ ...newPayload, type: 'access' }),
+      refresh_token: await this.jwtService.signAsync({ ...newPayload, type: 'refresh' }, { expiresIn: '7d' }),
+    };
+  }
+
+  async getProfile(lang: string, id: number): Promise<any> {
+    const user = await this.userService.findOne(id, lang);
+    if (!user) {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_NOT_REGISTER', { lang }) });
+    }
+    const { password, ...rest } = user as any;
+    return rest;
+  }
+
+  async resetPassword(lang: string, username: string): Promise<{ buffer: Buffer; filename: string }> {
+    const user = await this.userService.findUsernameEmail(username);
+    if (!user) {
+      throw new NotFoundException(this.i18n.t('auth.ERROR', { lang }), { cause: new Error(), description: this.i18n.t('auth.MSN_NOT_REGISTER', { lang }) });
+    }
+    const newPassword = this.generatePassword();
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await this.userService.updatePasswordHash(user.id, hashed);
+
+    const buffer = this.createProtectedZip(user.email, newPassword);
+    return { buffer, filename: `password_${user.id}.zip` };
+  }
+
+  private generatePassword(length: number = 12): string {
+    const crypto = require('crypto');
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
+    let p = '';
+    const bytes = crypto.randomBytes(length);
+    for (let i = 0; i < length; i++) p += chars[bytes[i] % chars.length];
+    return p;
+  }
+
+  private createProtectedZip(email: string, password: string): Buffer {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pwd-'));
+    const filePath = path.join(tmpDir, 'password.txt');
+    fs.writeFileSync(filePath, `email: ${email}\npassword: ${password}\n`);
+    const zipPath = path.join(tmpDir, 'password.zip');
+    execFileSync('zip', ['-P', email, '-j', zipPath, filePath], { cwd: tmpDir });
+    const buffer = fs.readFileSync(zipPath);
+    try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch {}
+    return buffer;
+  }
+
+  async logout(token: string) {
+    try {
+      const decoded: any = this.jwtService.decode(token);
+      const expMs = decoded?.exp ? decoded.exp * 1000 : Date.now() + 3600000;
+      this.blacklist.revoke(token, expMs);
+    } catch {}
+    return { message: 'Sesión cerrada' };
   }
 }

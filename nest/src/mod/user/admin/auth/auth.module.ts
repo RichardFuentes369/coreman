@@ -6,10 +6,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '@guard/secret_key';
 
 import { AdminUserModule } from '@module/user/admin/user/admin.module';
+import { GlobalModule } from '@global/global.module';
 
 @Module({
   imports: [
-    AdminUserModule, 
+    AdminUserModule,
+    GlobalModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secretAdmin,

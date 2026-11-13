@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 
 import { GlobalModule } from './global/global.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 import {
   AuthadminModule,
@@ -31,7 +32,7 @@ import {
       fallbackLanguage: process.env.FALLBACK_LANG,
       loaderOptions: {
         path: path.join(__dirname, 'assets/i18n/'),
-        watch: true,
+        watch: false,
       },
       resolvers: [
         new QueryResolver(['lang']),
@@ -39,6 +40,7 @@ import {
       typesOutputPath: path.join(__dirname, '../src/generated/i18n.generated.ts'),
     }),
 
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
     GlobalModule,
     AuthadminModule,
     AdminUserModule,

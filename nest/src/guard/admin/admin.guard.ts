@@ -6,12 +6,14 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '@guard/secret_key';
+import { TokenBlacklistService } from '@global/services/token-blacklist.service';
 import { Request } from 'express';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor(
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private blacklist: TokenBlacklistService
   ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -19,6 +21,10 @@ export class AdminGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
+      throw new UnauthorizedException();
+    }
+
+    if (this.blacklist.isRevoked(token)) {
       throw new UnauthorizedException();
     }
 
