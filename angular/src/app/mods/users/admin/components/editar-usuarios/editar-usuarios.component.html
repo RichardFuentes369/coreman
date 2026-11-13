@@ -38,27 +38,6 @@
             </div>
             <div class="col-sm-6 form-group">
               <label class="label-color" for="exampleInputEmail1">
-                <i class="fas fa-lock me-1"></i>{{ 'mod-users.LABEL_USER_PASSWORD' | translate}}
-              </label>
-              <div class="input-group">
-                <input
-                type="password"
-                class="form-control form-select-sm form-control-user"
-                [(ngModel)]="model.password"
-                (ngModelChange)="onInputChange()"
-                [class.is-invalid]="validators.password"
-                placeholder="{{ 'mod-users.PLACEHOLDER_USER_PASSWORD' | translate}}"
-                name="model.password"
-                >
-              </div>
-              @if(validators.password) {
-                <span class="text-danger small">{{ 'mod-users.ERROR_USER_PASSWORD' | translate }}</span>
-              }
-            </div>
-          </div>
-          <div class="col-sm-12 row p-0">
-            <div class="col-sm-6 form-group">
-              <label class="label-color" for="exampleInputEmail1">
                 <i class="fas fa-toggle-on me-1"></i>{{ 'mod-users.LABEL_USER_STATUS' | translate}}
               </label>
               <select [(ngModel)]="optionSelect" (ngModelChange)="onInputChange()" [class.is-invalid]="validators.selectHas" class="form-control form-select-sm custom-select">
