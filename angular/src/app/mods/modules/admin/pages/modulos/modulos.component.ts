@@ -48,7 +48,6 @@ export class ModulosComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const submodulo = await this.permisosService.permisoPage(0, 'modulos', userData.data.id)

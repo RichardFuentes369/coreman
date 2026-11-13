@@ -26,7 +26,6 @@ export class MeFinalPageProfileComponent {
       }
     }
 
-    await this.userService.refreshToken(STORAGE_KEY_FINAL_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_FINAL_AUTH)
     const response = await this.permisosService.permisos(userData.data.id, '')
   }

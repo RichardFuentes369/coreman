@@ -66,7 +66,7 @@ export class IndexComponent implements OnInit {
     this.currentTheme = await localStorage.getItem('theme') || 'light';
     const response1 = await this.varsService.obtenerJson('custom_system') as any;
     if (response1) {
-      const parsed = JSON.parse(response1.valor);
+      const parsed = typeof response1.valor === 'string' ? JSON.parse(response1.valor) : response1.valor;
       this.rawParsedJson = parsed;
 
       this.custom_json_input = {

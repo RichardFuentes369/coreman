@@ -53,7 +53,6 @@ export class SubmodulosComponent implements OnInit {
       this.router.navigate([MOD_MODULES_PAGE_MODULES]);
     }
 
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const submodulo = await this.permisosService.permisoPage(0, 'modulos', userData.data.id)

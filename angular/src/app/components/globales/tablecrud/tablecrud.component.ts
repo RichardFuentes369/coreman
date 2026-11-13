@@ -6,6 +6,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, Subscription } from 'rxjs';
 import { Config } from 'datatables.net';
 import { FormsModule } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http';
+import { STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
 
 declare var $: any;
 
@@ -234,9 +236,21 @@ export class TablecrudComponent implements OnInit, OnDestroy, AfterViewInit {
           this.filters = `${this.filters || ''}&field=${this.orderField}&order=${this.order}`;
         }
 
+        const token = localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN) || localStorage.getItem(STORAGE_KEY_TOKEN_FINAL);
+
+        // 1. Preparamos las opciones de la petición de forma condicional
+        const options: { headers?: HttpHeaders } = {};
+
+        if (token) {
+          options.headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          });
+        }
+
         const fullUrl = `${this.url}${this.endPoint}${separator}page=${page}&limit=${dataTablesParameters.length}${this.filters}${this.complementoEndPoint}&lang=${lang}`;
 
-        this.http.get<any>(fullUrl).subscribe({
+        this.http.get<any>(fullUrl, options).subscribe({
           next: (res: any) => {
             let recordsTotal = 0;
             let rawData = [];

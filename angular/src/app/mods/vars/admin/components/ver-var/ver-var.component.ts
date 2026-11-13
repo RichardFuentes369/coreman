@@ -40,7 +40,6 @@ export class VerVarComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
 
       const queryParams = this.route.snapshot.queryParams;
       const varId = queryParams['id_var_var'] || queryParams['id_var_json'];

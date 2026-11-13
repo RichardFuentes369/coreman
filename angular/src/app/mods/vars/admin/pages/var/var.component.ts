@@ -122,7 +122,6 @@ export class VarComponent implements OnInit, OnDestroy {
 
   // metodos Init, Destroy
   async ngOnInit() {
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const permiso_modulo = await this.permisosService.permisoPage(0, 'variables_sistema', userData.data.id)

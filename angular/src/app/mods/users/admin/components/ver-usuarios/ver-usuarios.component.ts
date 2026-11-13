@@ -42,7 +42,6 @@ export class VerUsuariosComponent implements OnInit{
   usuarioReal: any
 
   async ngOnInit() {
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
 
     switch (this.route.snapshot.queryParams?.['rol']) {
       case 'admin':

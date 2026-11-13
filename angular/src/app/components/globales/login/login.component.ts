@@ -70,10 +70,12 @@ export class LoginComponent implements OnInit {
       if(rol == 0){
         this.isPending = false;
         localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN,response.data.access_token)
+        if (response.data.refresh_token) localStorage.setItem('refresh_token_admin', response.data.refresh_token)
         this.router.navigate(['/admin/mod']);
       }else{
         this.isPending = false;
         localStorage.setItem(STORAGE_KEY_TOKEN_FINAL,response.data.access_token)
+        if (response.data.refresh_token) localStorage.setItem('refresh_token_final', response.data.refresh_token)
         this.router.navigate(['/final']);
       }
     }).catch(err =>{

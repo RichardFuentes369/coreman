@@ -171,7 +171,6 @@ export class FinalesComponent implements OnInit {
 
   // metodos Init, Destroy
   async ngOnInit() {
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const permiso_modulo = await this.permisosService.permisoPage(0, 'usuarios', userData.data.id)

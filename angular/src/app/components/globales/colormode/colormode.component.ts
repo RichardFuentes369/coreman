@@ -18,7 +18,15 @@ export class ColormodeComponent implements OnInit {
   isDarkMode: boolean = false;
 
   private localConfig = localStorage.getItem('custom_system');
-  private config: any = this.localConfig ? JSON.parse(this.localConfig) : themeData;
+  private config: any = (() => {
+    if (!this.localConfig) return themeData;
+    try {
+      return JSON.parse(this.localConfig);
+    } catch {
+      localStorage.removeItem('custom_system');
+      return themeData;
+    }
+  })();
 
   async ngOnInit() {
     const savedTheme = localStorage.getItem('theme') || 'light';

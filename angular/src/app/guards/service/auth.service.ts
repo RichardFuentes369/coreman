@@ -59,8 +59,10 @@ export class AuthService {
     
     const adminToken = localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN);
     const finalToken = localStorage.getItem(STORAGE_KEY_TOKEN_FINAL);
+    const adminRefresh = localStorage.getItem('refresh_token_admin');
+    const finalRefresh = localStorage.getItem('refresh_token_final');
     
-    const token = adminToken || finalToken || '';
+    const token = (adminRefresh || finalRefresh || adminToken || finalToken || '');
 
     const removeToken = () => {
         if (adminToken) {
@@ -88,13 +90,17 @@ export class AuthService {
 
     try {
       let data = (await axios.post(urlCopleta, {[STORAGE_KEY_TOKEN]: token})).data
+      const newAccess = (typeof data === 'string') ? data : (data.access_token || data.token || token);
+      const newRefresh = (typeof data === 'string') ? null : (data.refresh_token || null);
       if(localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN, data);
+        localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN, newAccess);
+        if (newRefresh) localStorage.setItem('refresh_token_admin', newRefresh);
       }
       if(localStorage.getItem(STORAGE_KEY_TOKEN_FINAL)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_FINAL, data);
+        localStorage.setItem(STORAGE_KEY_TOKEN_FINAL, newAccess);
+        if (newRefresh) localStorage.setItem('refresh_token_final', newRefresh);
       }
-      return data
+      return newAccess
     } catch(error) {
       removeToken()
       return false
@@ -102,28 +108,11 @@ export class AuthService {
   }
 
   async isAuth(rol: string){
-    if(this.getToken() == null){
+    if(!this.getToken()){
       return false;
     }
-    if(!this.getToken()){
-      return false
-    }
-    if(await this.validarToken(rol)){
-      return true;
-    }
-
-    let refreshTokenResponse = await this.refreshToken(rol)
-
-    if(refreshTokenResponse){
-      if(localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN, refreshTokenResponse);
-      }
-      if(localStorage.getItem(STORAGE_KEY_TOKEN_FINAL)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_FINAL, refreshTokenResponse);
-      }
-      return true
-    }
-    return false
+    // El interceptor de axios se encarga de refrescar el token ante un 401
+    return await this.validarToken(rol);
   }
 
 }

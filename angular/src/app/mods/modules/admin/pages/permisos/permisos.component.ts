@@ -69,7 +69,6 @@ export class PermisosComponent implements OnInit {
 
     this.endPoint = `modulos/obtener-permisos-por-modulo/${this.moduloReal}`;
 
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH);
 
     const modulo = await this.permisosService.permisos(userData.data.id, 'modulos')

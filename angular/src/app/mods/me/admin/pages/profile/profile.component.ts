@@ -28,7 +28,6 @@ export class MeAdminPageProfileComponent {
       }
     }
 
-    await this.userService.refreshToken(STORAGE_KEY_ADMIN_AUTH);
     const userData = await this.userService.getUser(STORAGE_KEY_ADMIN_AUTH)
     const response = await this.permisosService.permisos(userData.data.id, '')
   }
