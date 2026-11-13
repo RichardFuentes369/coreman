@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 // Paquete para peticiones http
-import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/http.interceptor';
 
 // Paquete para traducción
 import {
@@ -86,7 +87,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
   ],
   providers: [
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideCharts(withDefaultRegisterables()),
     provideClientHydration() // Si lo estás usando
   ],

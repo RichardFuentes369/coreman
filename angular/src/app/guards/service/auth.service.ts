@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router'
-import { _PAGE_BACK_HOME, STORAGE_KEY_TOKEN, STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL, WORD_KEY_AUTHORIZATION_GLOBAL, WORD_KEY_BEARER_GLOBAL } from '@const/app.const';
+import { _PAGE_BACK_HOME, STORAGE_KEY_TOKEN, STORAGE_KEY_ADMIN_AUTH, STORAGE_KEY_FINAL_AUTH, WORD_KEY_AUTHORIZATION_GLOBAL, WORD_KEY_BEARER_GLOBAL } from '@const/app.const';
 import { environment } from '@environment/environment';
 import { LAYOUT_PAGE_LOGOUT } from '@layout/const/layouts.const';
 import { TranslateService } from '@ngx-translate/core';
+import { TokenStore, AuthRole } from '@core/token.store';
 import axios from 'axios';
 
 @Injectable({
@@ -13,14 +14,12 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private tokenStore: TokenStore
   ) {}
 
   getToken(){
-    const adminToken = localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN);
-    const finalToken = localStorage.getItem(STORAGE_KEY_TOKEN_FINAL);
-    const token = adminToken || finalToken || '';
-    return token
+    return this.tokenStore.get() || '';
   }
 
   async validarToken(rol: string){
@@ -57,25 +56,11 @@ export class AuthService {
   async refreshToken(rol:string){
     const lang = this.translate.currentLang || this.translate.getDefaultLang() || 'es';
     
-    const adminToken = localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN);
-    const finalToken = localStorage.getItem(STORAGE_KEY_TOKEN_FINAL);
-    const adminRefresh = localStorage.getItem('refresh_token_admin');
-    const finalRefresh = localStorage.getItem('refresh_token_final');
-    
-    const token = (adminRefresh || finalRefresh || adminToken || finalToken || '');
+    const token = this.tokenStore.get() || '';
 
     const removeToken = () => {
-        if (adminToken) {
-          localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
-          this.router.navigate([LAYOUT_PAGE_LOGOUT]);
-        } else if (finalToken) {
-          localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
-          this.router.navigate([LAYOUT_PAGE_LOGOUT]);
-        } else {
-          localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
-          localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
-          this.router.navigate([_PAGE_BACK_HOME]); 
-        }
+      this.tokenStore.clear();
+      this.router.navigate([_PAGE_BACK_HOME]);
     };
 
     if (!token) {
@@ -89,16 +74,11 @@ export class AuthService {
     let urlCopleta = environment.apiUrl+complemento
 
     try {
-      let data = (await axios.post(urlCopleta, {[STORAGE_KEY_TOKEN]: token})).data
+      let data = (await axios.post(urlCopleta, {}, { withCredentials: true })).data
       const newAccess = (typeof data === 'string') ? data : (data.access_token || data.token || token);
-      const newRefresh = (typeof data === 'string') ? null : (data.refresh_token || null);
-      if(localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN, newAccess);
-        if (newRefresh) localStorage.setItem('refresh_token_admin', newRefresh);
-      }
-      if(localStorage.getItem(STORAGE_KEY_TOKEN_FINAL)){
-        localStorage.setItem(STORAGE_KEY_TOKEN_FINAL, newAccess);
-        if (newRefresh) localStorage.setItem('refresh_token_final', newRefresh);
+      const role = this.tokenStore.getRole();
+      if (role && newAccess) {
+        this.tokenStore.set(newAccess, role);
       }
       return newAccess
     } catch(error) {
@@ -108,11 +88,27 @@ export class AuthService {
   }
 
   async isAuth(rol: string){
-    if(!this.getToken()){
+    if(!this.tokenStore.has()){
+      const role: AuthRole = rol === STORAGE_KEY_ADMIN_AUTH ? 'admin' : 'final';
+      const ok = await this.tryRefresh(role);
+      if(!ok) return false;
+    }
+    return await this.validarToken(rol);
+  }
+
+  async tryRefresh(role: AuthRole): Promise<boolean> {
+    const endpoint = role === 'admin' ? 'authadmin/refresh' : 'authuser/refresh';
+    try {
+      const res = await axios.post(environment.apiUrl + endpoint, {}, { withCredentials: true });
+      const data = res.data;
+      const newAccess = typeof data === 'string' ? data : (data?.access_token || data?.token);
+      if (!newAccess) return false;
+      this.tokenStore.set(newAccess, role);
+      return true;
+    } catch {
+      this.tokenStore.clear();
       return false;
     }
-    // El interceptor de axios se encarga de refrescar el token ante un 401
-    return await this.validarToken(rol);
   }
 
 }

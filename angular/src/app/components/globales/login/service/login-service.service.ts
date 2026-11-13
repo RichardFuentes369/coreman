@@ -23,7 +23,8 @@ export class LoginServiceService {
       data: {
         "username": data.email,
         "pass": data.pass
-      }
+      },
+      withCredentials: true
     })
   }
 

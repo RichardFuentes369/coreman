@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
+import { TokenStore } from '@core/token.store';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private loginService :LoginServiceService
+    private loginService :LoginServiceService,
+    private tokenStore: TokenStore
   ) { }
 
   isPending = false;
@@ -69,13 +71,11 @@ export class LoginComponent implements OnInit {
     .then(response=>{
       if(rol == 0){
         this.isPending = false;
-        localStorage.setItem(STORAGE_KEY_TOKEN_ADMIN,response.data.access_token)
-        if (response.data.refresh_token) localStorage.setItem('refresh_token_admin', response.data.refresh_token)
+        this.tokenStore.set(response.data.access_token, 'admin');
         this.router.navigate(['/admin/mod']);
       }else{
         this.isPending = false;
-        localStorage.setItem(STORAGE_KEY_TOKEN_FINAL,response.data.access_token)
-        if (response.data.refresh_token) localStorage.setItem('refresh_token_final', response.data.refresh_token)
+        this.tokenStore.set(response.data.access_token, 'final');
         this.router.navigate(['/final']);
       }
     }).catch(err =>{

@@ -1,14 +1,10 @@
 import axios from 'axios';
 import { environment } from '@environment/environment';
 import {
-  STORAGE_KEY_TOKEN_ADMIN,
-  STORAGE_KEY_TOKEN_FINAL,
   WORD_KEY_AUTHORIZATION_GLOBAL,
   WORD_KEY_BEARER_GLOBAL,
 } from '@const/app.const';
-
-const REFRESH_ADMIN = 'refresh_token_admin';
-const REFRESH_FINAL = 'refresh_token_final';
+import { getAccessToken, getAuthRole, setAccessToken, clearAccessToken } from './token.store';
 
 let refreshPromise: Promise<string> | null = null;
 
@@ -17,36 +13,26 @@ function isAdminUrl(url: string): boolean {
 }
 
 function getTokenPair(): { isAdmin: boolean; access: string | null; refresh: string | null } {
-  const adminAccess = localStorage.getItem(STORAGE_KEY_TOKEN_ADMIN);
-  const finalAccess = localStorage.getItem(STORAGE_KEY_TOKEN_FINAL);
-  const isAdmin = !!adminAccess && !finalAccess ? true : (adminAccess ? true : false);
-  // Si ambos existen, preferir admin (la mayoría de endpoints lo son)
-  const access = adminAccess || finalAccess;
-  const refresh = adminAccess
-    ? localStorage.getItem(REFRESH_ADMIN)
-    : localStorage.getItem(REFRESH_FINAL);
-  return { isAdmin: !!adminAccess, access, refresh };
+  const role = getAuthRole();
+  const isAdmin = role === 'admin' || (role === null && true);
+  const access = getAccessToken();
+  const refresh = null; // refresh vive en cookie httpOnly
+  return { isAdmin, access, refresh };
 }
 
-async function doRefresh(isAdmin: boolean): Promise<string> {
+export async function refreshAccessToken(isAdmin: boolean): Promise<string> {
   if (refreshPromise) return refreshPromise;
   refreshPromise = (async () => {
-    const refreshKey = isAdmin ? REFRESH_ADMIN : REFRESH_FINAL;
-    const accessKey = isAdmin ? STORAGE_KEY_TOKEN_ADMIN : STORAGE_KEY_TOKEN_FINAL;
+    const role = isAdmin ? 'admin' : 'final';
     const endpoint = isAdmin ? 'authadmin/refresh' : 'authuser/refresh';
-    const refresh = localStorage.getItem(refreshKey) || localStorage.getItem(accessKey) || '';
     try {
-      const res = await axios.post(environment.apiUrl + endpoint, { token: refresh });
+      const res = await axios.post(environment.apiUrl + endpoint, {}, { withCredentials: true });
       const data = res.data;
       const newAccess = typeof data === 'string' ? data : (data?.access_token || data?.token || '');
-      const newRefresh = typeof data === 'string' ? null : (data?.refresh_token || null);
-      if (newAccess) localStorage.setItem(accessKey, newAccess);
-      if (newRefresh) localStorage.setItem(refreshKey, newRefresh);
+      if (newAccess) setAccessToken(newAccess, role);
       return newAccess;
     } catch (e) {
-      // Logout forzado
-      localStorage.removeItem(accessKey);
-      localStorage.removeItem(refreshKey);
+      clearAccessToken();
       window.location.href = '/';
       throw e;
     } finally {
@@ -63,7 +49,9 @@ export function setupAxiosInterceptors(): void {
     if (/auth(admin|user)\/(login|refresh|logout)/i.test(url)) {
       return config;
     }
-    const { isAdmin, access } = getTokenPair();
+    const access = getAccessToken();
+    const role = getAuthRole();
+    const isAdmin = role ? role === 'admin' : isAdminUrl(url);
     if (access) {
       config.headers = config.headers || {};
       (config.headers as any)[WORD_KEY_AUTHORIZATION_GLOBAL] =
@@ -85,7 +73,7 @@ export function setupAxiosInterceptors(): void {
       original._retry = true;
       const isAdmin = isAdminUrl(original.url || '');
       try {
-        const newToken = await doRefresh(isAdmin);
+        const newToken = await refreshAccessToken(isAdmin);
         original.headers = original.headers || {};
         (original.headers as any)[WORD_KEY_AUTHORIZATION_GLOBAL] =
           `${WORD_KEY_BEARER_GLOBAL} ${newToken}`;

@@ -11,6 +11,9 @@ import { ColormodeComponent } from '@component/globales/colormode/colormode.comp
 import { FullscreenComponent } from '@component/globales/fullscreem/fullscreen.component';
 
 import { STORAGE_KEY_ADMIN_AUTH, STORAGE_KEY_TOKEN_ADMIN, STORAGE_KEY_TOKEN_FINAL } from '@const/app.const';
+import { TokenStore } from '@core/token.store';
+import axios from 'axios';
+import { environment } from '@environment/environment';
 import { NAME_PAGE, LAYOUT_PAGE_PROFILE, LAYOUT_PAGE_SETTINGS, LAYOUT_PAGE_DASHBOARD, LAYOUT_ADMIN_PAGE_MOD, LAYOUT_PAGE_LOGOUT } from '@layout/const/layouts.const';
 
 import {
@@ -101,7 +104,8 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     private permisosService: PermisosService,
     private varService: VarService,
     private varsService: VarsService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private tokenStore: TokenStore
   ) { }
 
   ngAfterViewInit() {
@@ -232,9 +236,13 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     this.translate.use(valor);
   }
 
-  cerrarSession() {
-    localStorage.removeItem(STORAGE_KEY_TOKEN_ADMIN);
-    localStorage.removeItem(STORAGE_KEY_TOKEN_FINAL);
+  async cerrarSession() {
+    try {
+      await axios.post(`${environment.apiUrl}authadmin/logout`, {}, { withCredentials: true, headers: { Authorization: `Bearer ${this.tokenStore.get() || ''}` } });
+    } catch (e) {
+      // continuar con limpieza local aunque falle el backend
+    }
+    this.tokenStore.clear();
     this.router.navigate([LAYOUT_PAGE_LOGOUT]);
   }
 

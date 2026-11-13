@@ -7,10 +7,11 @@ import {
   Post,
   Query,
   Request,
+  Req,
   Res,
   UseGuards
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request as ExpressRequest } from 'express';
 import { AdminGuard } from '@guard/admin/admin.guard';
 import { ThrottlerGuard, Throttle } from '@nestjs/throttler';
 import { AuthadminService } from './auth.service';
@@ -24,38 +25,56 @@ import { ApiTags } from '@nestjs/swagger';
 export class AuthadminController {
   constructor(private readonly authadminService: AuthadminService) {}
 
-  @HttpCode(HttpStatus.OK)
-  // @Throttle({ default: { limit: 5, ttl: 60000 } })
-  @Post('login')
-  create(
-    @Query('lang') lang: string, 
-    @Body() createAuthDto: CreateAuthadminDto
-  ) {
-    return this.authadminService.signIn(
-      lang,
-      createAuthDto
-    );
+  private cookieOptions() {
+    const secure = process.env.NODE_ENV === 'production';
+    return {
+      httpOnly: true,
+      secure,
+      sameSite: (secure ? 'none' : 'lax') as 'none' | 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
   }
-  
-  @Post('refresh')
-  refreshToken(
+
+  @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @Post('login')
+  async create(
     @Query('lang') lang: string,
-    @Body() token: TokenDto
+    @Body() createAuthDto: CreateAuthadminDto,
+    @Res() res: Response
   ) {
-    return this.authadminService.refreshToken(
-      lang,
-      token
-    );
+    const result = await this.authadminService.signIn(lang, createAuthDto);
+    res.cookie('refresh_token', result.refresh_token, this.cookieOptions());
+    return res.json({ access_token: result.access_token });
+  }
+
+  @Post('refresh')
+  async refreshToken(
+    @Query('lang') lang: string,
+    @Body() token: TokenDto,
+    @Req() req: ExpressRequest,
+    @Res() res: Response
+  ) {
+    const tok = (req as any).cookies?.refresh_token || token?.token;
+    const result = await this.authadminService.refreshToken(lang, { token: tok } as TokenDto);
+    res.cookie('refresh_token', result.refresh_token, this.cookieOptions());
+    return res.json({ access_token: result.access_token });
   }
 
   @UseGuards(AdminGuard)
   @Post('logout')
-  logout(
-    @Request() req
+  async logout(
+    @Req() req: ExpressRequest,
+    @Res() res: Response
   ) {
     const auth = req.headers.authorization || '';
-    const token = auth.startsWith('Bearer ') ? auth.slice(7) : (req.body && req.body.token);
-    return this.authadminService.logout(token);
+    const accessToken = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+    const cookieToken = (req as any).cookies?.refresh_token;
+    if (accessToken) await this.authadminService.logout(accessToken);
+    if (cookieToken) await this.authadminService.logout(cookieToken);
+    res.clearCookie('refresh_token', { path: '/' });
+    return res.json({ message: 'Sesión cerrada' });
   }
 
   @UseGuards(AdminGuard)
@@ -70,7 +89,7 @@ export class AuthadminController {
     res.setHeader('Content-Disposition', `attachment; filename=${result.filename}`);
     res.send(result.buffer);
   }
-  
+
   @UseGuards(AdminGuard)
   @Get('profile')
   getProfile(
@@ -80,5 +99,3 @@ export class AuthadminController {
     return this.authadminService.getProfile(lang, req.user.id);
   }
 }
-
-
