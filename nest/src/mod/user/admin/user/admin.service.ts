@@ -25,7 +25,7 @@ export class AdminService {
     private adminRepository: Repository<Admin>,
     private readonly asignacionService: AsignacionService,
     private i18n: I18nService
-  ) {}
+  ) { }
 
   listarPropiedadesTabla(T) {
     const metadata = T.metadata;
@@ -38,26 +38,26 @@ export class AdminService {
   ) {
 
     const { limit, page, field = 'id', order = 'Asc' } = filterUserDto
-    
-    if(!filterUserDto.page && !filterUserDto.limit) throw new NotFoundException(
+
+    if (!filterUserDto.page && !filterUserDto.limit) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_LISTA_NO_ENVIADO', { lang, args: { field: field } })
     )
 
-    if(field == '') throw new NotFoundException(
+    if (field == '') throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_FILTRO_NO_ENVIADO', { lang, args: { field: field } })
     )
-    if(!filterUserDto.page) throw new NotFoundException(
+    if (!filterUserDto.page) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_PAGE_NO_ENVIADO', { lang, args: { field: field } })
     )
-    if(!filterUserDto.limit) throw new NotFoundException(
+    if (!filterUserDto.limit) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_LIMIT_NO_ENVIADO', { lang, args: { field: field } })
     )
 
-    if(field != ''){
+    if (field != '') {
       const propiedades = this.listarPropiedadesTabla(this.adminRepository)
       const arratResult = propiedades.filter(obj => obj === field).length
-  
-      if(arratResult == 0) throw new NotFoundException(
+
+      if (arratResult == 0) throw new NotFoundException(
         this.i18n.t('user.MSJ_ERROR_PARAMETRO_NO_EXISTE', { lang, args: { field: field } })
       )
     }
@@ -84,14 +84,14 @@ export class AdminService {
       take: limit,
       where: where,
       order: { [field]: order },
-      relations: { asignaciones: true } 
+      relations: { asignaciones: true }
     });
 
     const result = registros.map(admin => {
       return {
         ...admin,
         totalPermisos: admin.asignaciones ? admin.asignaciones.length : 0,
-        asignaciones: undefined 
+        asignaciones: undefined
       };
     });
 
@@ -116,16 +116,16 @@ export class AdminService {
     id: number
   ) {
     return this.adminRepository.findOne({
-      where: [ {id : id}],
+      where: [{ id: id }],
       order: { id: 'DESC' }
     });
   }
 
   async findUsernameEmail(
     username: string
-  ): Promise<Admin>{
+  ): Promise<Admin> {
     return this.adminRepository.findOne({
-      where: [ {email : username}]
+      where: [{ email: username }]
     });
   }
 
@@ -186,7 +186,7 @@ export class AdminService {
 
       const encontrarCorreo = await this.findUsernameEmail(createAdminDto.email)
 
-      if(encontrarCorreo) throw new NotFoundException(
+      if (encontrarCorreo) throw new NotFoundException(
         this.i18n.t('user.MSJ_ERROR_USER_EXIST', { lang, args: { correo: createAdminDto.email } })
       )
 
@@ -211,8 +211,8 @@ export class AdminService {
   }
 
   async update(
-    lang: string, 
-    id: number, 
+    lang: string,
+    id: number,
     updateAdminDto: UpdateAdminDto,
     userId: number
   ) {
@@ -220,58 +220,65 @@ export class AdminService {
       where: { id }
     });
 
-    if(updateAdminDto.email){
-      if(updateAdminDto.email != property.email){
-  
+    if (!property) {
+      throw new NotFoundException('Administrador no encontrado'); // Buena práctica por si no existe el ID
+    }
+
+    if (updateAdminDto.email) {
+      if (updateAdminDto.email != property.email) {
+
         let concidencia = await this.adminRepository.findOne({
-          where: [ {email : updateAdminDto.email}]
+          where: [{ email: updateAdminDto.email }]
         });
-        
-        if(concidencia) throw new NotFoundException(
+
+        if (concidencia) throw new NotFoundException(
           this.i18n.t('user.MSJ_ERROR_USER_EXIST', { lang, args: { correo: updateAdminDto.email } })
         )
-        
+
       }
     }
 
-    if (updateAdminDto.password) {
+    if (updateAdminDto.password && updateAdminDto.password.trim() !== '') {
       (updateAdminDto as any).password = await bcrypt.hash(updateAdminDto.password, 10);
+    } else {
+      delete (updateAdminDto as Record<string, any>).password;
     }
+
     return this.adminRepository.save({
-      ...property, // existing fields
-      ...updateAdminDto // updated fields
+      ...property, 
+      ...updateAdminDto 
     });
   }
 
   updateStatus(
-    lang: string, 
-    id: number[], 
+    lang: string,
+    id: number[],
     isActiveo: boolean,
     userId: number
   ) {
     return this.adminRepository.update(
-        { id: In(id) },
-        { isActive: isActiveo } 
+      { id: In(id) },
+      { isActive: isActiveo }
     );
-  }  
-  
+  }
+
   async remove(
     lang: string,
     id: number[],
     userId: number
   ) {
     await this.asignacionService.eliminarAsignadosPorUsuario(id)
-    return this.adminRepository.delete({id: In(id)})
+    return this.adminRepository.delete({ id: In(id) })
   }
 
   async contadoresUsuarios(
     lang: string
-  ){
-    const cont1 =  await this.adminRepository.count()
+  ) {
+    const cont1 = await this.adminRepository.count()
     const cont2 = await this.adminRepository.count({ where: { isActive: true } })
     const cont3 = await this.adminRepository.count({ where: { isActive: false } })
     const cont4 = await this.asignacionService.contadoresPermisosAsignados()
-    
+
     const data = {
       "count_total_users": cont1,
       "count_actived_users": cont2,
@@ -331,7 +338,7 @@ export class AdminService {
     return await workbook.xlsx.writeBuffer();
   }
 
-  async generarCsv( allParams: any, lang: string){
+  async generarCsv(allParams: any, lang: string) {
     const where: any = {};
 
     const getSearchValue = (param: any) => {
@@ -373,13 +380,13 @@ export class AdminService {
       const val = allParams[col.key];
       return Array.isArray(val) ? val.includes('true') : val === 'true';
     });
-    
+
     worksheet.columns = dynamicColumns;
     worksheet.addRows(data);
 
     return await workbook.csv.writeBuffer({
       formatterOptions: {
-        delimiter: ',',      
+        delimiter: ',',
         quote: '"'
       }
     });

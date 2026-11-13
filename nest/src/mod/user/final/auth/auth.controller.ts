@@ -25,7 +25,7 @@ export class AuthuserController {
   constructor(private readonly authauserService: AuthuserService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  // @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
   create(
     @Query('lang') lang:string,

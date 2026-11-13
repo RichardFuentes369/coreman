@@ -21,7 +21,7 @@ export class UserService {
     @Inject('USER_REPOSITORY')
     private userRepository: Repository<User>,
     private i18n: I18nService
-  ) {}
+  ) { }
 
   listarPropiedadesTabla(T) {
     const metadata = T.metadata;
@@ -33,31 +33,31 @@ export class UserService {
     lang: string
   ) {
 
-    const { limit, page, field = 'id' , order = 'Asc' } = filterUserDto
-    
-    if(!filterUserDto.page && !filterUserDto.limit) throw new NotFoundException(
+    const { limit, page, field = 'id', order = 'Asc' } = filterUserDto
+
+    if (!filterUserDto.page && !filterUserDto.limit) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_LISTA_NO_ENVIADO', { lang, args: { field: field } })
     )
 
-    if(field == '') throw new NotFoundException(
+    if (field == '') throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_FILTRO_NO_ENVIADO', { lang, args: { field: field } })
     )
-    if(!filterUserDto.page) throw new NotFoundException(
+    if (!filterUserDto.page) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_PAGE_NO_ENVIADO', { lang, args: { field: field } })
     )
-    if(!filterUserDto.limit) throw new NotFoundException(
+    if (!filterUserDto.limit) throw new NotFoundException(
       this.i18n.t('user.MSJ_ERROR_PARAMETRO_CAMPO_LIMIT_NO_ENVIADO', { lang, args: { field: field } })
     )
-    
-    if(field != ''){
+
+    if (field != '') {
       const propiedades = this.listarPropiedadesTabla(this.userRepository)
       const arratResult = propiedades.filter(obj => obj === field).length
-  
-      if(arratResult == 0) throw new NotFoundException(
+
+      if (arratResult == 0) throw new NotFoundException(
         this.i18n.t('user.MSJ_ERROR_PARAMETRO_NO_EXISTE', { lang, args: { field: field } })
       )
     }
-   
+
     const skipeReal = (page == 1) ? 0 : (page - 1) * limit
 
     const where: any = {};
@@ -74,7 +74,7 @@ export class UserService {
     if (filterUserDto.isActive !== undefined && filterUserDto.isActive === 0 || filterUserDto.isActive === 1) {
       where.isActive = filterUserDto.isActive;
     }
-    
+
     const peticion = async (page) => {
       return await this.userRepository.find({
         skip: page,
@@ -97,11 +97,11 @@ export class UserService {
       'pagination': {
         'page': page,
         'perPage': limit,
-        'previou': (page == 1) ? null : page-1,
-        'next': (await peticion(page*limit)).length == 0 ? null : page+1 ,
+        'previou': (page == 1) ? null : page - 1,
+        'next': (await peticion(page * limit)).length == 0 ? null : page + 1,
         'totalRecord': await totalRecords()
       },
-      'order':{
+      'order': {
         'order': order,
         'field': field
       }
@@ -113,14 +113,14 @@ export class UserService {
     lang: string,
   ) {
     return this.userRepository.findOne({
-      where: [ {id : id}],
+      where: [{ id: id }],
       order: { id: 'DESC' }
     });
   }
 
-  async findUsernameEmail(username: string): Promise<User>{
+  async findUsernameEmail(username: string): Promise<User> {
     return this.userRepository.findOne({
-      where: [ {email : username}]
+      where: [{ email: username }]
     });
   }
 
@@ -131,14 +131,14 @@ export class UserService {
 
   // requieren permisos de usuario
   async create(
-  createUserDto: CreateUserDto,
-  lang: string,
-  userId: number
-) {
-    try{
+    createUserDto: CreateUserDto,
+    lang: string,
+    userId: number
+  ) {
+    try {
       const encontrarCorreo = await this.findUsernameEmail(createUserDto.email)
-  
-      if(encontrarCorreo) throw new NotFoundException(`
+
+      if (encontrarCorreo) throw new NotFoundException(`
         Este correo ${createUserDto.email}, ya esta registrado en nuestra base de datos
       `)
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
@@ -158,33 +158,39 @@ export class UserService {
       }
     }
   }
-  
+
   async update(
-    id: number, 
-    updateUserDto: UpdateUserDto,
     lang: string,
+    id: number,
+    updateUserDto: UpdateUserDto,
     userId: number
   ) {
     const property = await this.userRepository.findOne({
       where: { id }
     });
 
-    if(updateUserDto.email){
-      if(updateUserDto.email != property.email){
-  
+    if (!property) {
+      throw new NotFoundException('Final no encontrado'); // Buena práctica por si no existe el ID
+    }
+
+    if (updateUserDto.email) {
+      if (updateUserDto.email != property.email) {
+
         let concidencia = await this.userRepository.findOne({
-          where: [ {email : updateUserDto.email}]
+          where: [{ email: updateUserDto.email }]
         });
-        
-        if(concidencia) throw new NotFoundException(
+
+        if (concidencia) throw new NotFoundException(
           this.i18n.t('user.MSJ_ERROR_USER_EXIST', { lang, args: { correo: updateUserDto.email } })
         )
-        
+
       }
     }
-    
-    if (updateUserDto.password) {
+
+    if (updateUserDto.password && updateUserDto.password.trim() !== '') {
       (updateUserDto as any).password = await bcrypt.hash(updateUserDto.password, 10);
+    } else {
+      delete (updateUserDto as Record<string, any>).password;
     }
     return this.userRepository.save({
       ...property, // existing fields
@@ -193,32 +199,32 @@ export class UserService {
   }
 
   updateStatus(
-    id: number[], 
+    id: number[],
     isActiveo: boolean,
     lang: string,
     userId: number
   ) {
     return this.userRepository.update(
-        { id: In(id) },
-        { isActive: isActiveo } 
+      { id: In(id) },
+      { isActive: isActiveo }
     );
-  }  
+  }
 
   remove(
     id: number[],
     lang: string,
     userId: number
   ) {
-    return this.userRepository.delete({id: In(id)})
+    return this.userRepository.delete({ id: In(id) })
   }
 
   async contadoresUsuarios(
     lang: string
-  ){
-    const cont1 =  await this.userRepository.count()
+  ) {
+    const cont1 = await this.userRepository.count()
     const cont2 = await this.userRepository.count({ where: { isActive: true } })
     const cont3 = await this.userRepository.count({ where: { isActive: false } })
-    
+
     const data = {
       "count_total_users": cont1,
       "count_actived_users": cont2,
@@ -277,7 +283,7 @@ export class UserService {
     return await workbook.xlsx.writeBuffer();
   }
 
-  async generarCsv( allParams: any, lang: string){
+  async generarCsv(allParams: any, lang: string) {
     const where: any = {};
 
     const getSearchValue = (param: any) => {
@@ -319,13 +325,13 @@ export class UserService {
       const val = allParams[col.key];
       return Array.isArray(val) ? val.includes('true') : val === 'true';
     });
-    
+
     worksheet.columns = dynamicColumns;
     worksheet.addRows(data);
 
     return await workbook.csv.writeBuffer({
       formatterOptions: {
-        delimiter: ',',      
+        delimiter: ',',
         quote: '"'
       }
     });

@@ -83,12 +83,11 @@ export class EditarUsuarioComponent implements OnInit{
     this.validators.firstName = (this.model.firstName.length === 0)
     this.validators.lastName = (this.model.lastName.length === 0)
     this.validators.email = (this.model.email.length === 0 || !regexEmail.test(this.model.email))
-    this.validators.password = (this.model.password.length === 0)
 
     const boton = document.querySelector('.btnAction') as HTMLButtonElement
-    (!this.validators.firstName && !this.validators.lastName && !this.validators.email && !this.validators.password) ? boton.classList.remove('disabled') : boton.classList.add('disabled')
+    (!this.validators.firstName && !this.validators.lastName && !this.validators.email ) ? boton.classList.remove('disabled') : boton.classList.add('disabled')
     
-    return !this.validators.firstName && !this.validators.lastName && !this.validators.email && !this.validators.password
+    return !this.validators.firstName && !this.validators.lastName && !this.validators.email 
   }
 
   async ngOnInit() {
@@ -103,7 +102,6 @@ export class EditarUsuarioComponent implements OnInit{
     this.model.firstName = response.data.firstName
     this.model.lastName = response.data.lastName
     this.model.email = response.data.email
-    this.model.password = response.data.password
     this.model.isActive = (response.data.isActive) ? 1 : 2
     this.optionSelect = (response.data.isActive) ? 1 : 2
   }

@@ -64,9 +64,9 @@ export class UserController {
     @GetUser('id') userId: number
   ) {
     return this.userService.update(
+      lang,
       +_id, 
       updateUserDto,
-      lang,
       userId
     );
   }
