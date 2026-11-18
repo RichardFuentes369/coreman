@@ -1,5 +1,7 @@
 <div id="wrapper">
-  <div id="content-wrapper" class="d-flex flex-column u-final">
+  <div id="content-wrapper" class="d-flex flex-column min-vh-100 u-final">
+    
+    <!-- Header fijo -->
     <div class="fixed-top header-transition bg-gradient-header-custom" [class.header-compact]="isScrolled">
       <nav
         class="container navbar navbar-expand navbar-light bg-gradient-header-custom my-md-n2 topbar static-top pl-2 pr-2">
@@ -69,12 +71,14 @@
       </nav>
     </div>
 
-    <div id="content" class="flex-grow-1" style="margin-top: 7rem !important;">
+    <!-- Contenedor dinámico principal -->
+    <div id="content" class="flex-grow-1 d-flex flex-column justify-content-center page-content-container">
       <router-outlet></router-outlet>
     </div>
 
+    <!-- Footer Moderno con Tarjeta Flotante -->
     <footer class="footer-moderno mt-auto">
-      <div class="container-fluid px-0">
+      <div class="container-fluid px-0 mt-1">
 
         <!-- Tarjeta Flotante Superior (Panel de Desarrolladores) -->
         <div class="container">
