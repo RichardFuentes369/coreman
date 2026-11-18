@@ -1,4 +1,8 @@
 :host {
+  .border-custom-color {
+    border-bottom: 0.25rem solid var(--layout-admin-header_color_line) !important;
+  }
+
   .bg-separator-customer {
     background-color: var(--layout-index-side-separator) !important;
   }
