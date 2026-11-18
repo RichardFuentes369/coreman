@@ -26,43 +26,43 @@ import { AppComponent } from './app.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export function createTranslateLoader(http: HttpClient) {
-  const baseTranslateUrl = './assets/i18n';
+  const baseTranslateUrl = '/assets/app';
   const options: IModuleTranslationOptions = {
     modules: [
       // inicio globales
-      { baseTranslateUrl, moduleName: 'components/globales/breadcrumb', namespace: 'global-breadcrumb' },
-      { baseTranslateUrl, moduleName: 'components/globales/idioma', namespace: 'global-idioma' },
-      { baseTranslateUrl, moduleName: 'components/globales/notification', namespace: 'global-notify' },
-      { baseTranslateUrl, moduleName: 'components/globales/loading', namespace: 'global-loading' },
-      { baseTranslateUrl, moduleName: 'components/globales/login', namespace: 'global-login' },
-      { baseTranslateUrl, moduleName: 'components/globales/card', namespace: 'global-card' },
-      { baseTranslateUrl, moduleName: 'components/globales/search', namespace: 'global-search' },
-      { baseTranslateUrl, moduleName: 'components/globales/report', namespace: 'global-report' },
-      { baseTranslateUrl, moduleName: 'components/globales/modal', namespace: 'global-modal' },
-      { baseTranslateUrl, moduleName: 'components/globales/notfound', namespace: 'global-notfound' },
-      { baseTranslateUrl, moduleName: 'components/globales/tablecrud', namespace: 'global-tablecrud' },
-      { baseTranslateUrl, moduleName: 'components/globales/dropzone', namespace: 'global-dropzone' },
-      { baseTranslateUrl, moduleName: 'components/globales/permission', namespace: 'global-permission' },
-      { baseTranslateUrl, moduleName: 'components/globales/breadcrumb', namespace: 'global-breadcrumb' },
-      { baseTranslateUrl, moduleName: 'components/globales/gridcrud', namespace: 'global-gridcrud' },
-      { baseTranslateUrl, moduleName: 'components/globales/scanner', namespace: 'global-scanner' },
+      { baseTranslateUrl, moduleName: 'components/globales/breadcrumb/i18n', namespace: 'global-breadcrumb' },
+      { baseTranslateUrl, moduleName: 'components/globales/idioma/i18n', namespace: 'global-idioma' },
+      { baseTranslateUrl, moduleName: 'components/globales/notification/i18n', namespace: 'global-notify' },
+      { baseTranslateUrl, moduleName: 'components/globales/loading/i18n', namespace: 'global-loading' },
+      { baseTranslateUrl, moduleName: 'components/globales/login/i18n', namespace: 'global-login' },
+      { baseTranslateUrl, moduleName: 'components/globales/card/i18n', namespace: 'global-card' },
+      { baseTranslateUrl, moduleName: 'components/globales/search/i18n', namespace: 'global-search' },
+      { baseTranslateUrl, moduleName: 'components/globales/report/i18n', namespace: 'global-report' },
+      { baseTranslateUrl, moduleName: 'components/globales/modal/i18n', namespace: 'global-modal' },
+      { baseTranslateUrl, moduleName: 'components/globales/notfound/i18n', namespace: 'global-notfound' },
+      { baseTranslateUrl, moduleName: 'components/globales/tablecrud/i18n', namespace: 'global-tablecrud' },
+      { baseTranslateUrl, moduleName: 'components/globales/dropzone/i18n', namespace: 'global-dropzone' },
+      { baseTranslateUrl, moduleName: 'components/globales/permission/i18n', namespace: 'global-permission' },
+      { baseTranslateUrl, moduleName: 'components/globales/breadcrumb/i18n', namespace: 'global-breadcrumb' },
+      { baseTranslateUrl, moduleName: 'components/globales/gridcrud/i18n', namespace: 'global-gridcrud' },
+      { baseTranslateUrl, moduleName: 'components/globales/scanner/i18n', namespace: 'global-scanner' },
       // fin globales
 
       // inicio layout
-      { baseTranslateUrl, moduleName: 'layout/home', namespace: 'layout-home' },
-      { baseTranslateUrl, moduleName: 'layout/admin', namespace: 'layout-admin' },
-      { baseTranslateUrl, moduleName: 'layout/final', namespace: 'layout-final' },
+      { baseTranslateUrl, moduleName: 'layouts/home/i18n', namespace: 'layout-home' },
+      { baseTranslateUrl, moduleName: 'layouts/admin/i18n', namespace: 'layout-admin' },
+      { baseTranslateUrl, moduleName: 'layouts/final/i18n', namespace: 'layout-final' },
       // fin layout
 
       // inicio modulos
-      { baseTranslateUrl, moduleName: 'mods/dashboard', namespace: 'mod-dashboard'},
-      { baseTranslateUrl, moduleName: 'mods/home', namespace: 'mod-home'},
-      { baseTranslateUrl, moduleName: 'mods/main', namespace: 'mod-main'},
-      { baseTranslateUrl, moduleName: 'mods/me', namespace: 'mod-me'},
-      { baseTranslateUrl, moduleName: 'mods/users', namespace: 'mod-users'},
-      { baseTranslateUrl, moduleName: 'mods/modules', namespace: 'mod-modules'},
-      { baseTranslateUrl, moduleName: 'mods/vars', namespace: 'mod-vars'},
-      { baseTranslateUrl, moduleName: 'mods/custom', namespace: 'mod-custom'},
+      { baseTranslateUrl, moduleName: 'mods/dashboard/i18n', namespace: 'mod-dashboard'},
+      { baseTranslateUrl, moduleName: 'mods/home/i18n', namespace: 'mod-home'},
+      { baseTranslateUrl, moduleName: 'mods/main/i18n', namespace: 'mod-main'},
+      { baseTranslateUrl, moduleName: 'mods/me/i18n', namespace: 'mod-me'},
+      { baseTranslateUrl, moduleName: 'mods/users/i18n', namespace: 'mod-users'},
+      { baseTranslateUrl, moduleName: 'mods/modules/i18n', namespace: 'mod-modules'},
+      { baseTranslateUrl, moduleName: 'mods/vars/i18n', namespace: 'mod-vars'},
+      { baseTranslateUrl, moduleName: 'mods/custom/i18n', namespace: 'mod-custom'},
       // fin modulos
     ]
   };
