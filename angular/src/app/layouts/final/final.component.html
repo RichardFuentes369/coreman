@@ -85,7 +85,7 @@
           <li class="nav-item dropdown no-arrow my-auto text-center">
             <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-              <img class="img-profile rounded-circle" src="../../../assets/images/undraw_profile.svg">
+              <img class="img-profile rounded-circle" src="../../../assets/images/undraw_profile.svg" alt="Foto de perfil">
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
               <a class="dropdown-item" [routerLink]="LAYOUT_PAGE_PROFILE" routerLinkActive="active">
@@ -97,7 +97,7 @@
                 'layout-final.DRADROPDOW_MENU_SETTING' | translate}}
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="cerrarSession()" style="cursor: pointer;">
+              <a class="dropdown-item" (click)="cerrarSession()" style="cursor: pointer;" aria-label="Cerrar sesión">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> {{
                 'layout-final.DRADROPDOW_MENU_LOGOUT' | translate}}
               </a>
